@@ -1,0 +1,11 @@
+{
+  "name": "gibs-personal-mastery-campaign",
+  "version": "1.0.0",
+  "description": "GIBS Personal Mastery: Lead from Within — Campaign Experience",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^8.0.0"
+  }
+}

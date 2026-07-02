@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="My Story  --  a personal reflection experience, part of the GIBS Personal Mastery: Leading from Within programme." />
+  <title>My Story | GIBS Personal Mastery</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS  --  strict GIBS brand alignment
+       Stone / grey / white surfaces. Gold warmth. Purple accent.
+       Navy as text and accent only  --  never as a background wall.
+       ============================================================ */
+    :root {
+      /* GIBS Brand primaries */
+      --navy:         #002C77;
+      --navy-dark:    #001e55;
+      --purple:       #5C2F6F;
+      --teal:         #007378;
+      --gold:         #E4A024;
+      --gold-mid:     #c98d1a;
+      --gold-light:   #f0bc55;
+      --gold-pale:    #fef6e4;
+      --gold-border:  rgba(228,160,36,0.28);
+
+      /* Surfaces  --  warm stone/grey system, never blue */
+      --stone-100:    #F7F6F4;   /* Warmest light  --  page bg */
+      --stone-200:    #EFEDE9;   /* Cards on page bg */
+      --stone-300:    #E2DDD8;   /* Borders, dividers */
+      --white:        #FFFFFF;
+      --ink:          #1C1C1E;   /* Near-black  --  readable, no blue cast */
+      --ink-mid:      #3D3D40;
+      --muted:        #6E6E73;   /* iOS-style muted  --  warm not grey-blue */
+
+      /* Entry hero  --  deep navy but textured, not flat */
+      --hero:         #001440;
+
+      /* Shadows  --  warm not cool */
+      --shadow-sm:    0 1px 3px rgba(0,0,0,0.07), 0 2px 8px rgba(0,0,0,0.05);
+      --shadow-md:    0 4px 16px rgba(0,0,0,0.09), 0 8px 32px rgba(0,0,0,0.06);
+      --shadow-lg:    0 12px 40px rgba(0,0,0,0.12), 0 24px 64px rgba(0,0,0,0.08);
+
+      --radius:       14px;
+      --radius-sm:    8px;
+      --radius-full:  9999px;
+
+      /* Inter for all UI  --  excellent mobile legibility */
+      --font-ui:      'Inter', system-ui, -apple-system, Arial, sans-serif;
+      /* Playfair only for large hero quote where serifs earn their place */
+      --font-serif:   'Playfair Display', Georgia, serif;
+
+      --transition:   0.18s ease;
+    }
+
+    /* ============================================================
+       RESET
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behaviour: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: var(--font-ui);
+      background: var(--stone-100);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ============================================================
+       ACCESSIBILITY
+       ============================================================ */
+    .skip-link {
+      position: absolute; top: -100%; left: 1rem; z-index: 9999;
+      background: var(--gold); color: var(--ink);
+      padding: 0.75rem 1.5rem; border-radius: var(--radius-sm);
+      font-weight: 600; font-size: 0.88rem; text-decoration: none;
+      transition: top var(--transition);
+    }
+    .skip-link:focus { top: 1rem; }
+    #aria-live { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
+
+    /* ============================================================
+       SCREEN SYSTEM
+       ============================================================ */
+    .screen { display: none; flex: 1; flex-direction: column; animation: fadeUp 320ms ease forwards; }
+    .screen.active { display: flex; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .screen { animation: none; }
+      *, *::before, *::after { transition-duration: 0ms !important; }
+    }
+
+    /* ============================================================
+       SITE HEADER
+       ============================================================ */
+    .site-header {
+      background: var(--navy);
+      height: 58px; padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-shrink: 0;
+    }
+    .header-left { display: flex; align-items: center; gap: 1rem; }
+    .gibs-logo { height: 26px; width: auto; display: block; flex-shrink: 0; }
+    .header-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.14); flex-shrink: 0; }
+    .header-prog {
+      font-size: 0.65rem; font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.09em; text-transform: uppercase; white-space: nowrap;
+    }
+    .header-badge {
+      background: rgba(228,160,36,0.13); border: 1px solid rgba(228,160,36,0.3);
+      border-radius: var(--radius-full); padding: 0.26rem 0.85rem;
+      font-size: 0.65rem; font-weight: 600; color: var(--gold-light);
+      letter-spacing: 0.06em; white-space: nowrap; flex-shrink: 0;
+    }
+    @media (max-width: 500px) {
+      .site-header { padding: 0 1rem; }
+      .header-prog, .header-divider { display: none; }
+    }
+
+    /* ============================================================
+       BUTTONS
+       ============================================================ */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 0.45rem; font-family: var(--font-ui); font-size: 0.9rem;
+      font-weight: 600; padding: 0.85rem 2rem; border-radius: var(--radius-sm);
+      border: none; cursor: pointer; min-height: 48px;
+      transition: all var(--transition); letter-spacing: 0.01em;
+    }
+    .btn:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+    .btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none !important; pointer-events: none; }
+
+    .btn-gold { background: var(--gold); color: var(--ink); }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(228,160,36,0.35); }
+    .btn-gold:active { transform: translateY(0); }
+
+    .btn-navy { background: var(--navy); color: white; }
+    .btn-navy:hover { background: var(--navy-dark); transform: translateY(-1px); }
+
+    .btn-ghost-light {
+      background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .btn-ghost-light:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.32); color: white; }
+
+    /* ============================================================
+       SCREEN 0  --  ENTRY
+       Navy hero with the scribble/lightbulb SVG illustration behind text
+       ============================================================ */
+    #screen-entry {
+      background: url('/assets/pm-background.png') center/cover no-repeat;
+      align-items: center; justify-content: flex-start;
+      padding: 3rem 1.5rem 8rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+      flex: 1;
+      min-height: calc(100vh - 58px);
+    }
+
+
+
+    .entry-inner {
+      max-width: 580px; width: 100%;
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 2rem;
+    }
+
+    .entry-eyebrow {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 2rem;
+    }
+
+    /* Playfair only here  --  large enough to read beautifully on mobile */
+    .entry-quote {
+      font-family: var(--font-serif);
+      font-size: clamp(1.3rem, 4.5vw, 1.9rem);
+      font-weight: 400; font-style: italic;
+      line-height: 1.5; color: white; margin-bottom: 0;
+    }
+    .entry-rule { width: 36px; height: 3px; background: var(--gold); border: none; margin: 1.5rem auto; }
+    .entry-attribution { font-size: 0.72rem; color: rgba(255,255,255,0.38); letter-spacing: 0.07em; margin-bottom: 0.5rem; }
+    .entry-programme-tag {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35);
+      margin-bottom: 2rem;
+    }
+
+    .entry-tagline {
+      font-size: 0.94rem; font-weight: 400; color: rgba(255,255,255,0.6);
+      line-height: 1.8; margin-bottom: 2.5rem;
+      max-width: 400px;
+    }
+
+    /* ============================================================
+       SCREEN 1  --  PHOTO UPLOAD  --  stone surface, card on it
+       ============================================================ */
+    #screen-photo {
+      background: var(--stone-100);
+      align-items: center; justify-content: center;
+      padding: 2.5rem 1.25rem 3.5rem; flex: 1;
+    }
+
+    .photo-card {
+      background: var(--white);
+      border-radius: var(--radius); padding: 2.25rem 2rem;
+      max-width: 400px; width: 100%; text-align: center;
+      box-shadow: var(--shadow-md);
+      position: relative; overflow: hidden;
+    }
+    .photo-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--gold-mid), var(--gold-light));
+    }
+    .photo-card h1 {
+      font-family: var(--font-ui); font-size: 1.2rem; font-weight: 700;
+      color: var(--navy); line-height: 1.3; margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+    .photo-card > p { font-size: 0.84rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.75rem; }
+
+    .photo-frame-wrap { width: 136px; height: 136px; margin: 0 auto 0.9rem; }
+    .photo-frame {
+      width: 136px; height: 136px; border-radius: 50%;
+      border: 2px dashed var(--stone-300);
+      overflow: hidden; display: flex; align-items: center; justify-content: center;
+      background: var(--stone-100);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .photo-frame.loaded {
+      border: 2.5px solid var(--purple);
+      box-shadow: 0 0 0 5px rgba(92,47,111,0.1);
+    }
+    #photo-preview { width: 100%; height: 100%; object-fit: cover; display: none; }
+    #photo-preview.visible { display: block; }
+
+    .photo-caption { font-size: 0.68rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.55; }
+
+    #photo-input { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
+    .photo-upload-label {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      background: var(--stone-100); border: 1.5px solid var(--stone-300);
+      color: var(--ink-mid); font-family: var(--font-ui);
+      font-size: 0.84rem; font-weight: 500;
+      padding: 0.72rem 1.6rem; border-radius: var(--radius-sm);
+      cursor: pointer; min-height: 46px;
+      transition: all var(--transition); margin-bottom: 0.55rem;
+    }
+    .photo-upload-label:hover { background: var(--gold-pale); border-color: var(--gold); color: var(--ink); }
+    .photo-upload-label:focus-within { outline: 3px solid var(--teal); outline-offset: 3px; }
+
+    .photo-skip {
+      background: none; border: none; color: var(--muted);
+      font-family: var(--font-ui); font-size: 0.76rem;
+      cursor: pointer; padding: 0.5rem 1rem; min-height: 44px;
+      display: block; margin: 0 auto;
+      text-decoration: underline; text-underline-offset: 3px;
+      transition: color var(--transition);
+    }
+    .photo-skip:hover { color: var(--ink); }
+    .photo-skip:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+
+    /* ============================================================
+       SCREEN 2  --  PROMPTS
+       ============================================================ */
+    #screen-prompts { background: var(--stone-100); }
+
+    .prompts-topbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--stone-300);
+      padding: 0.75rem 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+      flex-shrink: 0; box-shadow: var(--shadow-sm);
+      min-height: 84px;
+    }
+    .p-thumb {
+      width: 68px; height: 68px; border-radius: 50%;
+      overflow: hidden; border: 3px solid var(--purple); flex-shrink: 0;
+      background: var(--stone-200); display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 0 4px rgba(92,47,111,0.13);
+    }
+    .p-thumb img { width: 100%; height: 100%; object-fit: cover; display: none; }
+    .p-thumb-svg { width: 26px; height: 26px; color: var(--muted); }
+
+    .p-topbar-text { flex: 1; min-width: 0; }
+    .p-topbar-text small {
+      display: block; font-size: 0.6rem; font-weight: 500; color: var(--muted);
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.1rem;
+    }
+    .p-topbar-text strong {
+      font-size: 0.88rem; font-weight: 600; color: var(--navy); display: block;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    /* Progress */
+    .prog-wrap { padding: 1.1rem 1.5rem 0; max-width: 640px; width: 100%; margin: 0 auto; }
+    .prog-track { height: 3px; background: var(--stone-300); border-radius: 2px; overflow: hidden; margin-bottom: 0.4rem; }
+    .prog-fill { height: 100%; background: linear-gradient(90deg, var(--navy), var(--purple)); border-radius: 2px; transition: width 0.38s ease; }
+    .prog-label { font-size: 0.62rem; font-weight: 600; color: var(--muted); letter-spacing: 0.09em; text-transform: uppercase; }
+
+    /* Prompt card */
+    .prompt-card { display: none; flex: 1; flex-direction: column; padding: 1.5rem; max-width: 640px; width: 100%; margin: 0 auto; }
+    .prompt-card.active { display: flex; }
+
+    .prompt-cat {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold-mid); margin-bottom: 0.45rem;
+    }
+    .prompt-card label {
+      font-family: var(--font-ui); font-size: clamp(1rem, 2.8vw, 1.15rem);
+      font-weight: 600; color: var(--navy); line-height: 1.5;
+      display: block; margin-bottom: 1.1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .mic-row { display: flex; align-items: center; gap: 0.45rem; margin-bottom: 0.6rem; min-height: 32px; }
+    .mic-btn {
+      display: inline-flex; align-items: center; gap: 0.32rem;
+      background: rgba(92,47,111,0.06); border: 1px solid rgba(92,47,111,0.15);
+      border-radius: var(--radius-full); padding: 0.34rem 0.85rem;
+      font-family: var(--font-ui); font-size: 0.72rem; font-weight: 500; color: var(--purple);
+      cursor: pointer; min-height: 32px; transition: all var(--transition);
+    }
+    .mic-btn:hover { background: rgba(92,47,111,0.11); border-color: var(--purple); }
+    .mic-btn.recording { background: rgba(220,38,38,0.06); border-color: #dc2626; color: #dc2626; }
+    .mic-btn svg { width: 12px; height: 12px; flex-shrink: 0; }
+    .mic-pulse { width: 6px; height: 6px; border-radius: 50%; background: #dc2626; display: none; animation: blink 1s infinite; }
+    .mic-btn.recording .mic-pulse { display: inline-block; }
+    @keyframes blink { 0%,100%{opacity:1}50%{opacity:0.2} }
+    .mic-note { font-size: 0.68rem; color: var(--muted); font-style: italic; }
+
+    .prompt-textarea {
+      width: 100%; min-height: 140px; padding: 0.95rem 1rem;
+      font-family: var(--font-ui); font-size: 0.9rem; font-weight: 400;
+      line-height: 1.7; color: var(--ink);
+      background: var(--white); border: 1.5px solid var(--stone-300);
+      border-radius: var(--radius); resize: vertical;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      margin-bottom: 1.1rem; box-shadow: var(--shadow-sm);
+    }
+    .prompt-textarea:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,115,120,0.1), var(--shadow-sm); }
+    .prompt-textarea::placeholder { color: var(--muted); }
+
+    /* Lao Tzu pause */
+    .laotzu-panel {
+      display: none; flex: 1;
+      background: var(--navy);
+      padding: 3.5rem 2rem;
+      align-items: center; justify-content: center; flex-direction: column;
+      text-align: center; cursor: pointer; position: relative; overflow: hidden;
+    }
+    .laotzu-panel::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 500px 350px at 50% 50%, rgba(92,47,111,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .laotzu-panel.active { display: flex; }
+    .laotzu-rule { width: 2px; height: 2rem; background: var(--gold); margin-bottom: 1.25rem; position: relative; }
+    .laotzu-quote {
+      font-family: var(--font-serif); font-size: clamp(1rem, 2.5vw, 1.15rem);
+      font-style: italic; color: white; line-height: 1.65;
+      max-width: 380px; position: relative;
+    }
+    .laotzu-attr { font-size: 0.68rem; color: rgba(255,255,255,0.35); margin-top: 0.7rem; letter-spacing: 0.07em; position: relative; }
+    .laotzu-tap { margin-top: 2.5rem; font-size: 0.64rem; color: rgba(255,255,255,0.2); letter-spacing: 0.07em; position: relative; }
+
+    /* ============================================================
+       SCREEN 3  --  LOADING
+       ============================================================ */
+    #screen-loading {
+      background: var(--hero); flex: 1;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 4rem 1.5rem; gap: 1.5rem;
+    }
+    .loading-ring {
+      width: 96px; height: 96px; border-radius: 50%;
+      overflow: hidden; border: 3px solid var(--purple);
+      background: rgba(255,255,255,0.05);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; flex-shrink: 0;
+    }
+    .loading-ring::after {
+      content: ''; position: absolute; inset: -7px; border-radius: 50%;
+      border: 3px solid transparent; border-top-color: var(--gold);
+      animation: spin 1.1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .loading-ring::after { animation: none; border-top-color: var(--gold); opacity: 0.6; } }
+    .loading-ring img { width: 100%; height: 100%; object-fit: cover; display: none; }
+    .loading-text { font-family: var(--font-serif); font-size: 1rem; font-style: italic; color: rgba(255,255,255,0.6); }
+
+    /* ============================================================
+       SCREEN 4  --  RESPONSE
+       ============================================================ */
+    #screen-response { background: var(--stone-100); }
+
+    .resp-topbar {
+      background: var(--white); border-bottom: 1px solid var(--stone-300);
+      padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 1rem;
+      flex-shrink: 0; box-shadow: var(--shadow-sm); min-height: 84px;
+    }
+    .resp-topbar small { display: block; font-size: 0.6rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.1rem; }
+    .resp-topbar h2 { font-size: 0.88rem; font-weight: 600; color: var(--navy); }
+
+    .resp-body { max-width: 640px; width: 100%; margin: 0 auto; padding: 1.5rem; flex: 1; display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .resp-sender { display: flex; align-items: center; gap: 0.9rem; }
+    .resp-photo {
+      width: 80px; height: 80px; border-radius: 50%;
+      overflow: hidden; border: 3px solid var(--purple); flex-shrink: 0;
+      background: var(--stone-200); display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 0 5px rgba(92,47,111,0.12);
+    }
+    .resp-photo img { width: 100%; height: 100%; object-fit: cover; display: none; }
+    .resp-sender-info small { display: block; font-size: 0.62rem; color: var(--muted); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 0.15rem; }
+    .resp-sender-info strong { font-size: 0.88rem; font-weight: 600; color: var(--navy); }
+
+    /* Response  --  gold left accent now, not purple. Gold = warmth, this is the reward moment */
+    .response-card {
+      background: var(--white);
+      border: 1px solid var(--stone-300);
+      border-left: 4px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.4rem 1.6rem;
+      font-family: var(--font-serif);
+      font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+      font-style: italic; line-height: 1.85; color: var(--ink);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .response-error {
+      background: #fef2f2; border: 1px solid #fecaca;
+      border-left: 4px solid #dc2626;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.1rem 1.4rem; font-size: 0.875rem; color: #7f1d1d; line-height: 1.6;
+    }
+
+    /* Bridge  --  gold-pale, feels warm and open not institutional */
+    .resp-bridge {
+      background: var(--gold-pale);
+      border: 1px solid var(--gold-border);
+      border-top: 4px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem; text-align: center;
+    }
+    .resp-bridge p { font-size: 0.88rem; color: var(--ink-mid); line-height: 1.75; margin-bottom: 1.1rem; }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .site-footer {
+      background: var(--navy-dark); padding: 0.75rem 1.5rem;
+      text-align: center; flex-shrink: 0;
+    }
+    .site-footer > p { font-size: 0.62rem; color: rgba(255,255,255,0.22); letter-spacing: 0.04em; padding-bottom: 0; }
+
+    .prototype-note {
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: left;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .proto-label {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .proto-body {
+      font-size: 0.75rem; color: rgba(255,255,255,0.42);
+      line-height: 1.7; margin-bottom: 0.6rem;
+    }
+    .proto-body:last-child { margin-bottom: 0.75rem; }
+
+    /* Prompt quote block */
+    .prompt-quote {
+      background: rgba(0,44,119,0.05);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.1rem;
+    }
+    .prompt-quote p {
+      font-family: var(--font-serif);
+      font-size: clamp(0.82rem, 2vw, 0.92rem);
+      font-style: italic;
+      color: var(--navy);
+      line-height: 1.6;
+      margin-bottom: 0.25rem;
+    }
+    .prompt-quote footer {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* Response screen — summary card */
+    .reflection-summary {
+      background: var(--white);
+      border: 1px solid var(--stone-300);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      margin-bottom: 0;
+    }
+    .summary-header {
+      background: var(--navy);
+      padding: 1rem 1.4rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .summary-photo-sm {
+      width: 42px; height: 42px; border-radius: 50%;
+      overflow: hidden; border: 2px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.1); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .summary-photo-sm img { width: 100%; height: 100%; object-fit: cover; display: none; }
+    .summary-photo-sm svg { color: rgba(255,255,255,0.4); }
+    .summary-header-text small {
+      display: block; font-size: 0.6rem; color: rgba(255,255,255,0.45);
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.1rem;
+    }
+    .summary-header-text strong { font-size: 0.84rem; color: #fff; font-weight: 600; }
+
+    .summary-body { padding: 1.25rem 1.4rem; display: flex; flex-direction: column; gap: 1rem; }
+
+    .summary-answer {
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--stone-200);
+    }
+    .summary-answer:last-child { border-bottom: none; padding-bottom: 0; }
+    .summary-answer .s-cat {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold-mid); margin-bottom: 0.35rem;
+    }
+    .summary-answer .s-q {
+      font-size: 0.72rem; font-weight: 600; color: var(--navy);
+      margin-bottom: 0.4rem; line-height: 1.4;
+    }
+    .summary-answer .s-a {
+      font-family: var(--font-serif); font-style: italic;
+      font-size: 0.88rem; color: var(--ink); line-height: 1.7;
+    }
+
+    /* AI response card — now sits below summary */
+    .ai-response-card {
+      background: var(--white);
+      border: 1px solid var(--stone-300);
+      border-left: 4px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.4rem 1.6rem;
+      font-family: var(--font-serif);
+      font-size: clamp(0.9rem, 2.2vw, 1rem);
+      font-style: italic; line-height: 1.85; color: var(--ink);
+      box-shadow: var(--shadow-sm);
+    }
+    .ai-label-row {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold-mid);
+      margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem;
+    }
+
+    /* Download card button */
+    .btn-download {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      background: var(--stone-100); border: 1.5px solid var(--stone-300);
+      color: var(--ink-mid); font-family: var(--font-ui);
+      font-size: 0.82rem; font-weight: 500;
+      padding: 0.72rem 1.2rem; border-radius: var(--radius-sm);
+      cursor: pointer; min-height: 44px;
+      transition: all var(--transition);
+    }
+    .btn-download:hover { background: var(--gold-pale); border-color: var(--gold); }
+
+    /* Course taster bridge */
+    .course-bridge {
+      background: linear-gradient(135deg, var(--navy) 0%, #003da0 100%);
+      border-radius: var(--radius);
+      padding: 1.75rem 1.5rem;
+      color: #fff;
+      position: relative; overflow: hidden;
+    }
+    .course-bridge::before {
+      content: '';
+      position: absolute; top: -30px; right: -30px;
+      width: 120px; height: 120px;
+      background: rgba(228,160,36,0.12); border-radius: 50%;
+    }
+    .course-bridge .cb-eyebrow {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold-light); margin-bottom: 0.6rem;
+    }
+    .course-bridge h3 {
+      font-size: clamp(1rem, 2.5vw, 1.15rem); font-weight: 700;
+      line-height: 1.35; margin-bottom: 0.75rem;
+    }
+    .course-bridge p {
+      font-size: 0.84rem; line-height: 1.7;
+      color: rgba(255,255,255,0.82); margin-bottom: 1.25rem;
+    }
+    .course-bridge .btn-gold {
+      font-size: 0.9rem; padding: 0.85rem 1.75rem; width: auto;
+    }
+
+    /* Canvas (hidden — for downloadable image generation) */
+    #reflection-canvas { display: none; }
+       ============================================================ */
+    .entry-fields { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.25rem; }
+    .field-group { display: flex; flex-direction: column; gap: 0.3rem; text-align: left; }
+    .field-label { font-size: 0.82rem; font-weight: 600; color: var(--ink); letter-spacing: 0.01em; }
+    .field-input {
+      width: 100%; padding: 0.78rem 0.95rem;
+      font-family: var(--font-ui); font-size: 0.9rem; color: var(--ink);
+      background: var(--stone-100); border: 1.5px solid var(--stone-300);
+      border-radius: var(--radius-sm); transition: border-color var(--transition), box-shadow var(--transition);
+      -webkit-appearance: none;
+    }
+    .field-input:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,115,120,0.1); }
+    .field-input[aria-invalid="true"] { border-color: #c0392b; }
+    .field-hint { font-size: 0.72rem; color: var(--muted); margin-top: 0.1rem; }
+    .field-err { font-size: 0.72rem; color: #c0392b; min-height: 1rem; }
+
+    .popia-block {
+      background: var(--stone-100); border: 1px solid var(--stone-300);
+      border-left: 3px solid var(--navy);
+      border-radius: var(--radius-sm); padding: 0.9rem 1rem;
+      margin-bottom: 0.9rem; text-align: left;
+    }
+    .popia-lbl { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); margin-bottom: 0.4rem; }
+    .popia-text { font-size: 0.77rem; color: var(--muted); line-height: 1.6; }
+
+    .check-row-entry {
+      display: flex; align-items: flex-start; gap: 0.65rem;
+      margin-bottom: 0.65rem; text-align: left;
+    }
+    .check-row-entry input[type="checkbox"] {
+      width: 18px; height: 18px; min-width: 18px; margin-top: 0.15rem;
+      accent-color: var(--teal); cursor: pointer; border-radius: 3px;
+    }
+    .check-row-entry label { font-size: 0.8rem; color: var(--ink); line-height: 1.55; cursor: pointer; }
+
+    /* ============================================================
+       SCREEN 5  --  APPLICATION FORM
+       ============================================================ */
+    #screen-apply { background: var(--stone-100); }
+
+    .apply-topbar {
+      background: var(--white); border-bottom: 1px solid var(--stone-300);
+      padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 1rem;
+      flex-shrink: 0; box-shadow: var(--shadow-sm); min-height: 64px;
+    }
+    .apply-topbar h2 { font-size: 1rem; font-weight: 700; color: var(--navy); }
+    .apply-topbar p { font-size: 0.75rem; color: var(--muted); }
+
+    .apply-body {
+      max-width: 640px; width: 100%; margin: 0 auto;
+      padding: 1.5rem; display: flex; flex-direction: column; gap: 1.1rem;
+    }
+
+    .apply-card {
+      background: var(--white); border-radius: var(--radius);
+      box-shadow: var(--shadow-sm); border: 1px solid var(--stone-300);
+      padding: 1.4rem 1.5rem;
+    }
+    .apply-card h3 {
+      font-size: 0.88rem; font-weight: 700; color: var(--navy);
+      margin-bottom: 0.9rem; letter-spacing: -0.01em;
+    }
+    .apply-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+    @media (max-width: 440px) { .apply-grid { grid-template-columns: 1fr; } }
+
+    .commit-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .commit-item {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.9rem 1rem; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--stone-300); background: var(--stone-100);
+      cursor: pointer; transition: border-color var(--transition), background var(--transition);
+    }
+    .commit-item:has(input:checked) {
+      border-color: var(--teal); background: rgba(0,115,120,0.04);
+    }
+    .commit-item input[type="checkbox"] {
+      width: 20px; height: 20px; min-width: 20px; margin-top: 0.1rem;
+      accent-color: var(--teal); cursor: pointer;
+    }
+    .commit-item label {
+      font-size: 0.84rem; color: var(--ink-mid); line-height: 1.55; cursor: pointer; flex: 1;
+    }
+    .commit-item label strong { color: var(--navy); }
+
+    /* Screen 6 — Confirmation */
+    #screen-confirm { background: var(--stone-100); }
+    .confirm-body {
+      max-width: 560px; width: 100%; margin: 0 auto;
+      padding: 2rem 1.5rem; display: flex; flex-direction: column;
+      align-items: center; text-align: center; gap: 1.25rem;
+    }
+    .confirm-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--navy));
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(0,115,120,0.25);
+    }
+    .confirm-icon svg { color: #fff; }
+    .confirm-heading { font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 800; color: var(--navy); line-height: 1.3; }
+    .confirm-sub { font-size: 0.9rem; color: var(--muted); line-height: 1.7; max-width: 40ch; }
+    .timeline-card {
+      background: var(--white); border-radius: var(--radius);
+      box-shadow: var(--shadow-sm); border: 1px solid var(--stone-300);
+      padding: 1.25rem 1.5rem; width: 100%; text-align: left;
+    }
+    .timeline-card h3 { font-size: 0.8rem; font-weight: 700; color: var(--navy); margin-bottom: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .timeline-item { display: flex; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--stone-200); font-size: 0.82rem; color: var(--ink-mid); }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-item .t-date { font-weight: 700; color: var(--navy); min-width: 90px; flex-shrink: 0; }
+    .share-card {
+      background: var(--gold-pale); border: 1px solid var(--gold-border);
+      border-top: 3px solid var(--gold); border-radius: var(--radius);
+      padding: 1.25rem 1.5rem; width: 100%; text-align: left;
+    }
+    .share-card p { font-size: 0.84rem; color: var(--ink-mid); line-height: 1.65; margin-bottom: 0.75rem; }
+    .share-btns { display: flex; gap: 0.65rem; flex-wrap: wrap; }
+    .btn-share {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.65rem 1.1rem; border-radius: var(--radius-sm);
+      font-family: var(--font-ui); font-size: 0.8rem; font-weight: 600;
+      border: none; cursor: pointer; min-height: 42px; transition: all var(--transition);
+    }
+    .btn-wa { background: #25D366; color: #fff; }
+    .btn-wa:hover { background: #1ebe5d; }
+    .btn-copy { background: var(--stone-200); color: var(--ink); }
+    .btn-copy:hover { background: var(--stone-300); }
+
+    /* Loading apply screen */
+    #screen-loading-apply {
+      background: var(--hero); flex: 1;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 4rem 1.5rem; gap: 1.5rem;
+    }
+      .prompt-card, .resp-body { padding: 1.1rem 0.9rem; }
+      .prog-wrap { padding: 0.9rem 0.9rem 0; }
+      .prompts-topbar, .resp-topbar { padding: 0.7rem 0.9rem; }
+      .photo-card { padding: 1.75rem 1.1rem; }
+      #screen-entry { padding: 1.5rem 1.25rem 6rem; }
+      .entry-inner { padding-top: 0.5rem; }
+    }
+
+    /* Back button */
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: none; border: none; color: var(--muted);
+      font-family: var(--font-ui); font-size: 0.8rem; font-weight: 500;
+      cursor: pointer; padding: 0.5rem 0; min-height: 44px;
+      transition: color var(--transition);
+    }
+    .btn-back:hover { color: var(--navy); }
+    .btn-back:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
+    .btn-back svg { flex-shrink: 0; }
+
+    /* Back row sits above the photo card and prompt cards */
+    .back-row {
+      width: 100%; max-width: 640px; margin: 0 auto;
+      padding: 0.75rem 1.5rem 0;
+    }
+    .back-row-centered {
+      width: 100%; display: flex; justify-content: flex-start;
+      padding: 0.75rem 1.5rem 0;
+    }
+
+    /* Desktop: constrain layout to comfortable reading width */
+    @media (min-width: 900px) {
+      #screen-prompts, #screen-response {
+        background: var(--stone-100);
+      }
+
+      /* Centred content column on desktop */
+      .desktop-col {
+        max-width: 780px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      /* Topbars get a centred inner wrapper on desktop */
+      .prompts-topbar, .resp-topbar {
+        padding: 0.75rem calc((100% - 780px) / 2);
+      }
+
+      .prog-wrap {
+        max-width: 780px;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .prompt-card {
+        max-width: 780px;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .resp-body {
+        max-width: 780px;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      /* Entry screen: text stays nicely centred, max width tighter */
+      .entry-inner {
+        max-width: 600px;
+      }
+
+      /* Response topbar padding matches */
+      .resp-topbar {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .prompts-topbar, .resp-topbar {
+        padding: 0.75rem calc((100% - 860px) / 2);
+      }
+      .prog-wrap, .prompt-card, .resp-body {
+        max-width: 860px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="aria-live" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- SITE HEADER -->
+  <header class="site-header" role="banner">
+    <div class="header-left">
+      <svg class="gibs-logo" viewBox="0 0 700 252" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gordon Institute of Business Science, University of Pretoria">
+<g >
+<path fill-rule="evenodd" clip-rule="evenodd" d="M73.248 66.3617C71.0061 71.6833 65.8903 74.2036 58.6029 74.2036C45.0087 74.2036 37.4411 65.5214 37.4411 50.0474C37.4411 34.9935 45.6397 25.7506 58.9536 25.7506C65.8205 25.7506 70.0245 28.2016 72.1267 32.6825L74.2994 26.7309H82.2171V44.5159H70.8654C69.8849 38.354 67.222 35.133 61.9665 35.133C56.0104 35.133 52.8567 39.3343 52.8567 48.7167V51.0271C52.8567 61.3904 55.3091 65.3111 61.5461 65.3111C65.9606 65.3111 68.6235 62.7205 68.6235 58.3094V56.7689H60.7052V49.6272H82.2171V73.2233H76.7517L73.248 66.3617Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M109.758 56.699V55.4386C109.758 47.8064 108.146 45.3559 104.222 45.3559C100.368 45.3559 98.6864 47.8064 98.6864 55.4386V56.699C98.6864 64.3311 100.298 66.7118 104.222 66.7118C108.146 66.7118 109.758 64.2608 109.758 56.699ZM84.9521 56.069C84.9521 45.2159 92.7303 37.9336 104.432 37.9336C115.854 37.9336 123.492 45.1456 123.492 56.069C123.492 66.9216 115.784 74.2039 104.082 74.2039C92.5203 74.2039 84.9521 66.9919 84.9521 56.069Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M140.451 45.1458C141.852 40.1047 144.936 37.9338 149.42 37.9338C154.956 37.9338 158.32 42.0648 158.32 48.4371C158.32 53.968 155.236 57.3291 150.541 57.3291C147.318 57.3291 144.655 55.0889 144.655 52.0079C144.655 49.837 145.636 48.0867 147.388 46.896C146.897 46.6165 146.267 46.4759 145.636 46.4759C142.062 46.4759 140.661 49.6272 140.451 55.7886V63.9111C140.451 65.8014 140.941 66.0815 141.852 66.0815H143.954V73.2232H123.563V66.0815H125.385C126.296 66.0815 126.786 65.8014 126.786 63.9111V48.5766C126.786 46.6165 126.507 46.0558 125.385 46.0558H123.283V38.9141H131.762C135.476 38.9141 138.629 38.494 140.451 38.0738V45.1458Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M184.808 56.699V55.4386C184.808 48.7868 182.706 46.1265 179.343 46.1265C175.909 46.1265 173.877 48.7868 173.877 55.4386V56.699C173.877 63.3508 175.909 66.0116 179.343 66.0116C182.706 66.0116 184.808 63.4205 184.808 56.699ZM159.582 56.069C159.582 45.1456 165.678 37.9336 174.507 37.9336C179.903 37.9336 183.057 39.8245 184.808 43.3953V36.3937C184.808 34.4331 184.458 33.8729 183.407 33.8729H181.305V26.7306H189.783C193.568 26.7306 196.721 26.3105 198.473 25.8904V63.911C198.473 65.8013 198.963 66.0814 199.874 66.0814H201.416V73.2236H186.28C186.28 72.9435 186 70.1426 185.719 67.5521C184.108 71.6831 180.674 74.2039 174.578 74.2039C165.468 74.2039 159.582 66.9919 159.582 56.069Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M226.363 56.699V55.4386C226.363 47.8064 224.752 45.3559 220.827 45.3559C216.973 45.3559 215.292 47.8064 215.292 55.4386V56.699C215.292 64.3311 216.903 66.7118 220.827 66.7118C224.752 66.7118 226.363 64.2608 226.363 56.699ZM201.557 56.069C201.557 45.2159 209.335 37.9336 221.037 37.9336C232.459 37.9336 240.097 45.1456 240.097 56.069C240.097 66.9216 232.39 74.2039 220.687 74.2039C209.125 74.2039 201.557 66.9919 201.557 56.069Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M256.636 43.9556C258.738 39.8943 262.592 37.9337 267.917 37.9337C275.345 37.9337 279.199 42.2751 279.199 51.6575V63.9111C279.199 65.8014 279.689 66.0815 280.6 66.0815H282.422V73.2232H262.662V66.0815H264.133C265.044 66.0815 265.535 65.8014 265.535 63.9111V51.8678C265.535 47.8763 264.414 46.4061 261.611 46.4061C258.458 46.4061 256.846 48.5765 256.846 53.9685V63.9111C256.846 65.8014 257.336 66.0815 258.248 66.0815H259.719V73.2232H239.958V66.0815H241.78C242.691 66.0815 243.182 65.8014 243.182 63.9111V48.5765C243.182 46.6165 242.831 46.0557 241.78 46.0557H239.958V38.914H248.017C251.73 38.914 254.884 38.4939 256.636 38.0743V43.9556Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M298.12 66.0815H300.572C301.834 66.0815 302.184 65.5916 302.184 63.5607V36.3235C302.184 34.3629 301.834 33.873 300.572 33.873H298.12V26.7307H321.104V33.873H318.651C317.39 33.873 316.969 34.3629 316.969 36.3235V63.5607C316.969 65.5916 317.39 66.0815 318.651 66.0815H321.104V73.2232H298.12V66.0815Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M339.534 43.9556C341.636 39.8943 345.49 37.9337 350.816 37.9337C358.243 37.9337 362.098 42.2751 362.098 51.6575V63.9111C362.098 65.8014 362.588 66.0815 363.498 66.0815H365.32V73.2232H345.56V66.0815H347.031C347.943 66.0815 348.433 65.8014 348.433 63.9111V51.8678C348.433 47.8763 347.312 46.4061 344.509 46.4061C341.356 46.4061 339.744 48.5765 339.744 53.9685V63.9111C339.744 65.8014 340.234 66.0815 341.146 66.0815H342.617V73.2232H322.857V66.0815H324.679C325.589 66.0815 326.08 65.8014 326.08 63.9111V48.5765C326.08 46.6165 325.73 46.0557 324.679 46.0557H322.857V38.914H330.915C334.629 38.914 337.782 38.4939 339.534 38.0743V43.9556Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M366.582 62.6505H375.482V67.3417C376.814 67.692 378.355 67.8321 380.177 67.8321C382.979 67.8321 384.731 66.8518 384.731 64.7511C384.731 62.3704 382.138 61.8102 377.795 60.9002C372.398 59.6398 366.092 57.6094 366.092 50.047C366.092 42.5555 371.768 37.9341 381.999 37.9341C387.885 37.9341 392.86 39.4042 395.522 40.6646V49.2068H387.044V44.9357C386.063 44.5859 384.311 44.3052 382.839 44.3052C380.107 44.3052 378.495 45.4261 378.495 47.2462C378.495 49.6972 381.227 49.9773 385.222 50.8873C390.547 52.1477 397.134 54.1786 397.134 61.9502C397.134 69.6527 391.528 74.2038 381.088 74.2038C374.781 74.2038 369.666 72.5936 366.582 71.4727V62.6505Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M400.709 61.9505V46.0563H396.785V39.6845C396.785 39.6845 398.466 39.4742 398.396 39.4742C401.55 38.774 403.582 37.5136 404.212 34.2228L405.053 28.7617H414.233V38.914H419.979V46.0563H414.022V62.0202C414.022 65.311 415.284 66.2918 417.736 66.2918C418.927 66.2918 419.768 66.0117 420.469 65.8014V73.2232C418.717 73.7136 415.985 74.2035 413.182 74.2035C404.142 74.2035 400.709 70.7727 400.709 61.9505Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M424.814 30.442C424.814 26.6608 427.688 24 432.032 24C436.376 24 439.249 26.6608 439.249 30.442C439.249 34.2227 436.376 36.8835 432.032 36.8835C427.688 36.8835 424.814 34.2227 424.814 30.442ZM422.011 66.0813H423.904C424.885 66.0813 425.235 65.5914 425.235 63.9109V48.857C425.235 46.7563 424.885 46.0561 423.693 46.0561H422.011V38.9139H430.21C433.994 38.9139 437.147 38.4937 438.969 38.0742V63.9109C438.969 65.5914 439.32 66.0813 440.3 66.0813H442.052V73.2236H422.011V66.0813Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M444.365 61.9505V46.0563H440.441V39.6845C440.441 39.6845 442.122 39.4742 442.053 39.4742C445.206 38.774 447.238 37.5136 447.869 34.2228L448.71 28.7617H457.889V38.914H463.635V46.0563H457.679V62.0202C457.679 65.311 458.94 66.2918 461.393 66.2918C462.584 66.2918 463.424 66.0117 464.125 65.8014V73.2232C462.374 73.7136 459.641 74.2035 456.838 74.2035C447.798 74.2035 444.365 70.7727 444.365 61.9505Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M490.894 74.0637V68.6025C488.651 72.3832 484.938 74.2038 479.892 74.2038C472.325 74.2038 468.611 70.0024 468.611 60.62V48.2264C468.611 46.3361 468.12 46.056 467.209 46.056H465.387V38.9143H482.275V60.4097C482.275 64.471 483.536 65.7314 486.269 65.7314C489.423 65.7314 490.894 63.561 490.894 58.5897V48.2264C490.894 46.3361 490.404 46.056 489.492 46.056H486.9V38.9143H504.558V63.561C504.558 65.5216 504.908 66.0818 505.959 66.0818H508.061V73.2235H499.583C495.869 73.2235 492.716 73.6436 490.894 74.0637Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M509.535 61.9505V46.0563H505.611V39.6845C505.611 39.6845 507.292 39.4742 507.223 39.4742C510.376 38.774 512.408 37.5136 513.039 34.2228L513.88 28.7617H523.059V38.914H528.805V46.0563H522.849V62.0202C522.849 65.311 524.11 66.2918 526.563 66.2918C527.754 66.2918 528.594 66.0117 529.295 65.8014V73.2232C527.544 73.7136 524.811 74.2035 522.008 74.2035C512.968 74.2035 509.535 70.7727 509.535 61.9505Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M542.75 52.7078H552.35C552.21 47.0363 550.878 45.0059 547.865 45.0059C544.572 45.0059 543.03 47.1764 542.75 52.7078ZM542.96 58.5891C543.17 63.701 546.113 66.0812 550.878 66.0812C555.152 66.0812 557.395 63.841 558.656 61.1802L565.033 65.7314C562.51 70.5626 557.535 74.2038 548.145 74.2038C535.672 74.2038 528.946 66.782 528.946 55.9991C528.946 45.146 536.303 37.934 547.795 37.934C559.708 37.934 565.313 44.8659 565.313 57.1892V58.5891H542.96Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M62.314 116.151V114.891C62.314 107.259 60.7026 104.808 56.7783 104.808C52.9244 104.808 51.2426 107.259 51.2426 114.891V116.151C51.2426 123.783 52.8541 126.164 56.7783 126.164C60.7026 126.164 62.314 123.713 62.314 116.151ZM37.5083 115.521C37.5083 104.668 45.2864 97.3858 56.9883 97.3858C68.4104 97.3858 76.0484 104.598 76.0484 115.521C76.0484 126.374 68.3406 133.656 56.6382 133.656C45.0765 133.656 37.5083 126.444 37.5083 115.521Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M75.3486 98.366H79.5531V97.7361C79.5531 88.0033 83.2669 84.7823 92.3064 84.7823C95.3898 84.7823 98.1224 85.6226 99.1733 86.1828V92.9049C98.893 92.7648 97.4915 92.7648 97.071 92.7648C93.5678 92.9746 92.4466 93.7451 92.5867 98.366H98.1224V105.508H93.0072V123.363C93.0072 125.253 93.4974 125.533 94.4785 125.533H96.9309V132.675H75.9092V125.533H78.1516C79.0629 125.533 79.5531 125.253 79.5531 123.363V105.508H75.3486V98.366Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M131.828 125.533H135.752C140.797 125.533 142.759 123.643 142.759 118.812C142.759 113.77 140.727 111.95 135.542 111.95H131.828V125.533ZM134.911 105.858C139.536 105.858 141.568 104.038 141.568 99.5567C141.568 95.145 139.816 93.325 135.472 93.325H131.828V105.858H134.911ZM136.243 132.675H113.259V125.533H115.711C116.973 125.533 117.393 124.833 117.393 123.013V95.7755C117.393 93.9549 116.973 93.325 115.711 93.325H113.259V86.1828H137.084C150.958 86.1828 156.003 89.4038 156.003 97.7361C156.003 103.408 152.64 106.838 146.053 108.169C153.551 109.359 157.475 113.14 157.475 119.582C157.475 128.684 151.659 132.675 136.243 132.675Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M183.123 133.516V128.054C180.881 131.835 177.167 133.656 172.122 133.656C164.554 133.656 160.84 129.455 160.84 120.072V107.678C160.84 105.788 160.35 105.508 159.439 105.508H157.617V98.3662H174.504V119.862C174.504 123.923 175.765 125.183 178.499 125.183C181.652 125.183 183.123 123.013 183.123 118.042V107.678C183.123 105.788 182.633 105.508 181.722 105.508H179.129V98.3662H196.788V123.013C196.788 124.974 197.138 125.534 198.189 125.534H200.291V132.675H191.812C188.099 132.675 184.945 133.096 183.123 133.516Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M75.0601 152.841H62.0698V156.064H66.8516C66.886 156.064 66.9111 156.065 66.9289 156.067C66.9483 156.125 66.9811 156.272 66.9811 156.592V178.162C66.9811 185.772 63.8852 189.019 56.6297 189.019C48.5913 189.019 45.8785 186.179 45.8785 177.762V156.592C45.8785 156.272 45.9113 156.125 45.9307 156.067C45.9485 156.065 45.9735 156.064 46.008 156.064H50.6185V152.841H37.2852V156.064H41.6677C41.7016 156.064 41.7267 156.065 41.745 156.067C41.7645 156.125 41.7967 156.272 41.7967 156.592V177.82C41.7967 188.226 46.028 192.47 56.4012 192.47C65.8824 192.47 70.4918 187.828 70.4918 178.276V156.592C70.4918 156.203 70.5469 156.1 70.5469 156.1C70.558 156.094 70.5952 156.08 70.7142 156.064H75.0601V152.841Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M101.202 188.618C101.183 188.55 101.158 188.398 101.158 188.091V172.342C101.158 165.967 97.9832 162.599 91.9782 162.599C87.8692 162.599 84.5475 164.678 82.4263 168.515V162.676L81.7836 162.777C80.7488 162.94 78.2139 163.17 75.8169 163.17H73.719V166.392H78.2728C78.3012 166.392 78.3223 166.392 78.3329 166.393C78.3568 166.452 78.4018 166.625 78.4018 167.092V188.091C78.4018 188.398 78.3757 188.55 78.3574 188.618C78.3368 188.619 78.3095 188.62 78.2728 188.62H73.719V191.843H87.1091V188.62H82.5553C82.5231 188.62 82.4997 188.619 82.4825 188.617C82.4619 188.56 82.4263 188.412 82.4263 188.091V179.475C82.4263 171.285 85.9737 165.993 91.4644 165.993C95.4378 165.993 97.1331 167.943 97.1331 172.513V188.091C97.1331 188.398 97.1069 188.55 97.0886 188.618C97.0675 188.619 97.0402 188.62 97.0035 188.62H92.7355V191.843H105.84V188.62H101.287C101.25 188.62 101.223 188.619 101.202 188.618Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M113.336 158.575C114.992 158.575 116.29 157.278 116.29 155.623C116.29 154.026 114.965 152.728 113.336 152.728C111.684 152.728 110.438 153.972 110.438 155.623C110.438 157.306 111.684 158.575 113.336 158.575Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M115.542 188.62C115.522 188.554 115.491 188.403 115.491 188.091V162.676L114.848 162.777C113.813 162.94 111.26 163.169 108.824 163.169H106.726V166.392H110.709C111.146 166.392 111.409 166.392 111.409 168.119V188.091C111.409 188.403 111.379 188.554 111.359 188.62C111.352 188.62 111.345 188.62 111.337 188.62H106.726V191.843H120.117V188.62H115.563C115.555 188.62 115.542 188.62 115.542 188.62Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M151.468 163.17H139.106V166.392H143.431C143.618 166.392 143.744 166.451 143.77 166.491C143.78 166.506 143.793 166.588 143.714 166.772L135.772 186.614C135.303 185.478 134.686 183.984 134.001 182.325C131.523 176.326 127.779 167.258 127.633 166.826L127.615 166.772C127.531 166.563 127.538 166.468 127.531 166.462C127.551 166.448 127.658 166.392 127.955 166.392H131.937V163.17H119.176V166.392H123.044C123.213 166.392 123.347 166.392 123.672 167.133L134.036 192.185H136.953L147.15 167.116C147.421 166.392 147.638 166.392 147.828 166.392H151.468V163.17Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M164.446 165.764C169.799 165.764 173.218 169.411 173.47 175.324H154.496C155.199 169.41 158.968 165.764 164.446 165.764ZM164.503 162.599C156.174 162.599 150.356 168.741 150.356 177.535C150.356 186.328 156.197 192.47 164.561 192.47C171.29 192.47 176.084 188.829 177.383 182.729L177.49 182.223L174.264 181.29L174.128 181.855C172.954 186.723 169.755 189.19 164.617 189.19C158.697 189.19 154.665 184.892 154.447 178.433H177.509V176.507C177.509 168.188 172.282 162.599 164.503 162.599Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M194.027 162.599C190.903 162.599 188.411 164.183 186.816 167.12V162.676L186.174 162.777C185.139 162.94 182.603 163.169 180.207 163.169H178.224V166.392H182.834C182.862 166.392 182.883 166.392 182.894 166.392C182.918 166.452 182.963 166.625 182.963 167.092V188.091C182.963 188.412 182.928 188.56 182.906 188.617C182.89 188.619 182.866 188.62 182.834 188.62H178.28V191.843H191.956V188.62H187.117C187.08 188.62 187.053 188.619 187.032 188.618C187.014 188.55 186.988 188.399 186.988 188.091V178.048C186.988 174.389 187.64 165.879 193.684 165.879C195.069 165.879 195.806 166.486 196.134 167.032C195.064 167.396 194.385 168.319 194.385 169.488C194.385 170.864 195.556 171.985 196.997 171.985C198.93 171.985 200.179 170.467 200.179 168.119C200.179 165.371 198.277 162.599 194.027 162.599Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M213.66 175.505L213.437 175.463C208.934 174.613 206.175 173.922 206.175 170.573C206.175 167.517 208.615 165.764 212.872 165.764C215.367 165.764 217.359 166.25 219.111 167.289V173.012H222.565V165.362L222.31 165.198C219.587 163.449 216.481 162.599 212.815 162.599C206.538 162.599 202.322 165.941 202.322 170.915C202.322 177.03 208.26 178.245 212.185 179.048C216.644 179.999 219.568 180.876 219.568 184.268C219.568 188.384 215.803 189.248 212.643 189.248C209.998 189.248 207.518 188.692 205.775 187.716V181.829H202.322V189.597L202.582 189.76C205.287 191.457 209.048 192.47 212.643 192.47C219.256 192.47 223.364 189.174 223.364 183.869C223.364 178.242 218.703 176.524 213.66 175.505Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M234.721 188.62C234.701 188.554 234.671 188.403 234.671 188.091V162.676L234.028 162.777C232.993 162.94 230.44 163.169 228.004 163.169H225.906V166.392H229.888C230.326 166.392 230.589 166.392 230.589 168.119V188.091C230.589 188.403 230.559 188.554 230.538 188.62C230.532 188.62 230.525 188.62 230.517 188.62H225.906V191.843H239.296V188.62H234.743C234.735 188.62 234.721 188.62 234.721 188.62Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M232.516 158.575C234.172 158.575 235.47 157.278 235.47 155.623C235.47 154.026 234.145 152.728 232.516 152.728C230.864 152.728 229.618 153.972 229.618 155.623C229.618 157.306 230.864 158.575 232.516 158.575Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M254.01 188.655C253.295 188.862 252.555 189.077 251.36 189.077C248.685 189.077 247.691 187.959 247.691 184.953V166.392H254.601V163.17H247.805V156.779H244.508L244.067 162.271C244.024 163.124 243.906 163.185 243.108 163.227L243.119 163.631L243.072 163.234C242.9 163.255 240.932 163.381 239.733 163.456L239.212 163.489V166.392H243.723V184.953C243.723 190.073 245.938 192.356 250.904 192.356C252.62 192.356 253.944 191.982 254.791 191.7L255.172 191.573V188.338L254.472 188.525C254.319 188.565 254.167 188.609 254.01 188.655Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M277.073 166.392H280.77C281.02 166.392 281.138 166.448 281.138 166.448C281.138 166.448 281.157 166.534 281.059 166.758L273.092 185.262L264.269 166.772C264.185 166.564 264.191 166.468 264.185 166.461C264.205 166.449 264.311 166.392 264.609 166.392H268.077V163.17H256.286V166.392H259.755C259.864 166.392 259.896 166.403 259.896 166.403C259.931 166.422 260.043 166.535 260.338 167.159L271.077 189.758V189.808C267.936 197.48 266.116 198.834 263.467 198.834C262.616 198.834 261.941 198.651 261.472 198.308C262.72 197.575 263.129 196.335 262.955 195.382C262.736 194.186 261.727 193.413 260.383 193.413C258.605 193.413 257.314 194.895 257.314 196.936C257.314 199.87 259.902 202 263.467 202C269.064 202 271.105 197.904 273.971 191.222L284.435 167.106C284.687 166.392 284.82 166.392 285.111 166.392H288.522V163.17H277.073V166.392Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M316.404 189.19C310.195 189.19 306.338 184.768 306.338 177.649V177.363C306.338 170.244 310.239 165.821 316.518 165.821C322.727 165.821 326.584 170.244 326.584 177.363V177.649C326.584 184.768 322.683 189.19 316.404 189.19ZM316.575 162.599C308.178 162.599 302.314 168.717 302.314 177.477C302.314 186.305 308.108 192.47 316.404 192.47C324.734 192.47 330.551 186.305 330.551 177.477C330.551 168.717 324.804 162.599 316.575 162.599Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M341.816 151.871C337.062 151.871 334.75 154.405 334.75 159.617V163.17H330.524V166.392H334.75V188.091C334.75 188.399 334.724 188.55 334.705 188.618C334.685 188.619 334.657 188.62 334.621 188.62H330.581V191.842H343.686V188.62H338.847C338.81 188.62 338.783 188.619 338.762 188.618C338.743 188.55 338.718 188.399 338.718 188.091V166.392H344.77V163.17H338.718V159.837C338.689 157.862 338.992 156.622 339.672 155.933C340.198 155.399 341.006 155.15 342.216 155.15C343.448 155.15 344.464 155.415 345.414 155.984L346.256 156.489V152.951L345.963 152.794C345.324 152.45 343.934 151.871 341.816 151.871Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M374.366 172.357H368.126V156.064H374.423C381.147 156.064 384.146 158.532 384.146 164.068C384.146 169.8 381.13 172.357 374.366 172.357ZM374.423 152.841H359.362V156.064H363.973C364.007 156.064 364.032 156.065 364.049 156.067C364.069 156.125 364.102 156.272 364.102 156.592V188.034C364.102 188.464 364.044 188.603 364.052 188.614C364.042 188.616 364.017 188.62 363.973 188.62H359.362V191.842H372.98V188.62H368.312C368.252 188.62 368.222 188.613 368.215 188.613C368.203 188.596 368.126 188.473 368.126 188.034V175.579H374.308C383.714 175.579 388.285 171.814 388.285 164.068C388.285 156.723 383.491 152.841 374.423 152.841Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M407.773 162.599C404.65 162.599 402.158 164.183 400.563 167.12V162.676L399.921 162.777C398.886 162.94 396.351 163.169 393.954 163.169H391.97V166.392H396.58C396.61 166.391 396.63 166.392 396.641 166.392C396.665 166.452 396.71 166.625 396.71 167.092V188.091C396.71 188.412 396.674 188.56 396.654 188.617C396.637 188.619 396.613 188.62 396.58 188.62H392.027V191.843H405.702V188.62H400.863C400.827 188.62 400.799 188.619 400.779 188.618C400.76 188.55 400.734 188.399 400.734 188.091V178.048C400.734 174.389 401.387 165.879 407.431 165.879C408.815 165.879 409.552 166.486 409.881 167.032C408.81 167.396 408.132 168.318 408.132 169.488C408.132 170.864 409.303 171.985 410.743 171.985C412.676 171.985 413.926 170.467 413.926 168.119C413.926 165.371 412.024 162.599 407.773 162.599Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M430.502 165.764C435.855 165.764 439.273 169.411 439.526 175.324H420.552C421.254 169.41 425.023 165.764 430.502 165.764ZM430.559 162.599C422.229 162.599 416.412 168.741 416.412 177.535C416.412 186.328 422.253 192.47 430.616 192.47C437.346 192.47 442.139 188.829 443.439 182.729L443.546 182.223L440.319 181.29L440.183 181.855C439.027 186.654 435.738 189.19 430.673 189.19C424.752 189.19 420.721 184.892 420.503 178.433H443.564V176.507C443.564 168.188 438.338 162.599 430.559 162.599Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M459.991 188.655C459.276 188.862 458.537 189.077 457.342 189.077C454.667 189.077 453.672 187.959 453.672 184.953V166.392H460.582V163.17H453.787V156.779H450.49L450.048 162.271C450.006 163.124 449.888 163.185 449.089 163.227L449.1 163.631L449.053 163.234C448.881 163.255 446.914 163.381 445.714 163.456L445.193 163.489V166.392H449.705V184.953C449.705 190.073 451.919 192.356 456.885 192.356C458.601 192.356 459.926 191.982 460.772 191.7L461.153 191.573V188.338L460.454 188.525C460.301 188.565 460.147 188.609 459.991 188.655Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M476.587 189.19C470.378 189.19 466.521 184.768 466.521 177.649V177.363C466.521 170.244 470.422 165.821 476.701 165.821C482.91 165.821 486.768 170.244 486.768 177.363V177.649C486.768 184.768 482.867 189.19 476.587 189.19ZM476.759 162.599C468.362 162.599 462.497 168.717 462.497 177.477C462.497 186.305 468.291 192.47 476.587 192.47C484.917 192.47 490.734 186.305 490.734 177.477C490.734 168.717 484.987 162.599 476.759 162.599Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M507.939 162.599C504.816 162.599 502.324 164.183 500.729 167.12V162.676L500.087 162.777C499.052 162.94 496.517 163.169 494.12 163.169H492.136V166.392H496.746C496.775 166.391 496.797 166.392 496.807 166.392C496.831 166.452 496.876 166.625 496.876 167.092V188.091C496.876 188.412 496.84 188.56 496.82 188.617C496.803 188.619 496.779 188.62 496.746 188.62H492.193V191.843H505.868V188.62H501.029C500.993 188.62 500.965 188.619 500.945 188.618C500.926 188.55 500.9 188.399 500.9 188.091V178.048C500.9 174.389 501.553 165.879 507.597 165.879C508.981 165.879 509.718 166.486 510.047 167.032C508.976 167.396 508.298 168.318 508.298 169.488C508.298 170.864 509.469 171.985 510.909 171.985C512.842 171.985 514.092 170.467 514.092 168.119C514.092 165.371 512.19 162.599 507.939 162.599Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M523.929 158.575C525.586 158.575 526.884 157.278 526.884 155.623C526.884 154.026 525.559 152.728 523.929 152.728C522.277 152.728 521.032 153.972 521.032 155.623C521.032 157.306 522.277 158.575 523.929 158.575Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M526.135 188.62C526.115 188.554 526.084 188.403 526.084 188.091V162.676L525.442 162.777C524.407 162.94 521.854 163.169 519.418 163.169H517.32V166.392H521.303C521.739 166.392 522.002 166.392 522.002 168.119V188.091C522.002 188.403 521.972 188.554 521.952 188.62C521.952 188.62 521.939 188.62 521.931 188.62H517.32V191.843H530.71V188.62H526.156C526.149 188.62 526.135 188.62 526.135 188.62Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M553.07 176.891V178.79C553.07 185.011 549.277 189.19 543.632 189.19C540.139 189.19 537.791 187.235 537.791 184.325C537.791 180.034 541.946 177.999 553.07 176.891ZM557.224 188.62C557.189 188.62 557.17 188.618 557.16 188.618C557.143 188.584 557.094 188.455 557.094 188.091V172.798C557.094 165.935 553.494 162.599 546.087 162.599C539.531 162.599 534.396 165.901 534.396 170.116C534.396 172.059 535.662 173.468 537.407 173.468C539.079 173.468 540.247 172.371 540.247 170.801C540.247 169.688 539.672 168.799 538.701 168.342C540.094 166.674 542.601 165.764 545.859 165.764C550.981 165.764 553.07 167.818 553.07 172.855V173.891C539.41 175.231 533.825 178.351 533.825 184.611C533.825 189.238 537.599 192.47 543.003 192.47C547.385 192.47 551.214 190.426 553.291 187.119C553.398 188.807 553.546 190.122 553.763 191.381L553.842 191.842H561.72V188.62H557.224Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M201.414 122.103H210.313V126.794C211.644 127.144 213.186 127.284 215.008 127.284C217.811 127.284 219.563 126.304 219.563 124.203C219.563 121.823 216.97 121.262 212.625 120.352C207.23 119.092 200.924 117.061 200.924 109.499C200.924 102.007 206.599 97.3858 216.83 97.3858C222.716 97.3858 227.691 98.8565 230.354 100.116V108.659H221.875V104.388C220.894 104.038 219.142 103.758 217.671 103.758C214.938 103.758 213.326 104.878 213.326 106.698C213.326 109.149 216.059 109.429 220.053 110.34C225.379 111.6 231.965 113.63 231.965 121.403C231.965 129.105 226.36 133.656 215.919 133.656C209.612 133.656 204.497 132.045 201.414 130.925V122.103Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M236.171 89.894C236.171 86.1128 239.044 83.4519 243.388 83.4519C247.733 83.4519 250.606 86.1128 250.606 89.894C250.606 93.6746 247.733 96.3354 243.388 96.3354C239.044 96.3354 236.171 93.6746 236.171 89.894ZM233.368 125.533H235.26C236.241 125.533 236.591 125.043 236.591 123.363V108.309C236.591 106.208 236.241 105.508 235.05 105.508H233.368V98.3658H241.566C245.35 98.3658 248.504 97.9457 250.326 97.5261V123.363C250.326 125.043 250.676 125.533 251.657 125.533H253.409V132.676H233.368V125.533Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M271.698 103.408C273.8 99.3463 277.654 97.3857 282.979 97.3857C290.407 97.3857 294.261 101.727 294.261 111.109V123.363C294.261 125.253 294.751 125.533 295.663 125.533H297.485V132.675H277.724V125.533H279.196C280.106 125.533 280.597 125.253 280.597 123.363V111.32C280.597 107.328 279.476 105.858 276.673 105.858C273.52 105.858 271.908 108.029 271.908 113.42V123.363C271.908 125.253 272.399 125.533 273.31 125.533H274.781V132.675H255.02V125.533H256.842C257.754 125.533 258.244 125.253 258.244 123.363V108.029C258.244 106.068 257.894 105.508 256.842 105.508H255.02V98.366H263.079C266.793 98.366 269.946 97.9459 271.698 97.5263V103.408Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M310.589 112.16H320.19C320.049 106.489 318.718 104.458 315.705 104.458C312.411 104.458 310.87 106.629 310.589 112.16ZM310.8 118.041C311.01 123.153 313.953 125.533 318.718 125.533C322.992 125.533 325.234 123.293 326.496 120.632L332.872 125.183C330.35 130.015 325.375 133.655 315.985 133.655C303.511 133.655 296.785 126.234 296.785 115.451C296.785 104.598 304.143 97.3857 315.634 97.3857C327.547 97.3857 333.153 104.318 333.153 116.642V118.041H310.8Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M334.976 122.103H343.876V126.794C345.207 127.144 346.748 127.284 348.57 127.284C351.373 127.284 353.125 126.304 353.125 124.203C353.125 121.823 350.532 121.262 346.188 120.352C340.792 119.092 334.486 117.061 334.486 109.499C334.486 102.007 340.162 97.3858 350.392 97.3858C356.279 97.3858 361.254 98.8565 363.916 100.116V108.659H355.438V104.388C354.457 104.038 352.705 103.758 351.233 103.758C348.501 103.758 346.889 104.878 346.889 106.698C346.889 109.149 349.621 109.429 353.616 110.34C358.941 111.6 365.528 113.63 365.528 121.403C365.528 129.105 359.922 133.656 349.482 133.656C343.175 133.656 338.06 132.045 334.976 130.925V122.103Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M366.86 122.103H375.76V126.794C377.091 127.144 378.633 127.284 380.455 127.284C383.257 127.284 385.009 126.304 385.009 124.203C385.009 121.823 382.416 121.262 378.073 120.352C372.676 119.092 366.37 117.061 366.37 109.499C366.37 102.007 372.046 97.3858 382.276 97.3858C388.163 97.3858 393.138 98.8565 395.8 100.116V108.659H387.322V104.388C386.341 104.038 384.589 103.758 383.117 103.758C380.385 103.758 378.773 104.878 378.773 106.698C378.773 109.149 381.505 109.429 385.5 110.34C390.825 111.6 397.412 113.63 397.412 121.403C397.412 129.105 391.806 133.656 381.366 133.656C375.059 133.656 369.944 132.045 366.86 130.925V122.103Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M412.688 130.155V118.462H423.62V124.903C425.302 125.534 427.824 125.954 430.347 125.954C434.131 125.954 436.653 124.273 436.653 121.402C436.653 117.411 433.43 116.921 426.493 115.241C418.224 113.14 412.338 109.779 412.338 100.957C412.338 91.2943 419.416 85.2027 432.379 85.2027C439.597 85.2027 444.992 86.6729 449.057 88.4231V99.6964H438.195V94.0249C436.793 93.535 434.692 93.1846 432.519 93.1846C428.385 93.1846 426.073 94.7949 426.073 97.666C426.073 101.167 429.226 101.657 435.812 103.338C443.591 105.298 450.669 108.309 450.669 117.762C450.669 127.424 444.572 133.656 430.558 133.656C422.709 133.656 416.823 131.975 412.688 130.155Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M478.839 105.718C477.788 104.808 476.176 104.388 474.004 104.388C469.169 104.388 466.436 107.328 466.436 114.191V115.801C466.436 122.453 469.099 125.324 473.724 125.324C477.437 125.324 479.68 123.503 481.081 120.142L488.088 124.133C485.846 129.665 481.221 133.656 471.971 133.656C459.779 133.656 452.561 127.004 452.561 115.381C452.561 104.178 459.849 97.3858 471.901 97.3858C482.413 97.3858 488.159 101.657 488.159 109.219C488.159 114.051 485.426 117.481 480.731 117.481C476.527 117.481 474.074 114.821 474.074 111.599C474.074 108.589 475.756 106.418 478.839 105.718Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M492.294 89.894C492.294 86.1128 495.167 83.4519 499.511 83.4519C503.856 83.4519 506.729 86.1128 506.729 89.894C506.729 93.6746 503.856 96.3354 499.511 96.3354C495.167 96.3354 492.294 93.6746 492.294 89.894ZM489.491 125.533H491.383C492.364 125.533 492.714 125.043 492.714 123.363V108.309C492.714 106.208 492.364 105.508 491.173 105.508H489.491V98.3658H497.69C501.474 98.3658 504.627 97.9457 506.449 97.5261V123.363C506.449 125.043 506.799 125.533 507.78 125.533H509.531V132.676H489.491V125.533Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M523.897 112.16H533.497C533.357 106.489 532.025 104.458 529.012 104.458C525.719 104.458 524.177 106.629 523.897 112.16ZM524.107 118.041C524.317 123.153 527.261 125.533 532.025 125.533C536.299 125.533 538.542 123.293 539.803 120.632L546.18 125.183C543.657 130.015 538.682 133.655 529.292 133.655C516.819 133.655 510.093 126.234 510.093 115.451C510.093 104.598 517.45 97.3857 528.942 97.3857C540.855 97.3857 546.46 104.318 546.46 116.642V118.041H524.107Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M564.821 103.408C566.923 99.3463 570.777 97.3857 576.103 97.3857C583.531 97.3857 587.385 101.727 587.385 111.109V123.363C587.385 125.253 587.875 125.533 588.786 125.533H590.607V132.675H570.847V125.533H572.318C573.23 125.533 573.72 125.253 573.72 123.363V111.32C573.72 107.328 572.599 105.858 569.796 105.858C566.643 105.858 565.031 108.029 565.031 113.42V123.363C565.031 125.253 565.521 125.533 566.433 125.533H567.904V132.675H548.144V125.533H549.966C550.876 125.533 551.367 125.253 551.367 123.363V108.029C551.367 106.068 551.017 105.508 549.966 105.508H548.144V98.366H556.202C559.916 98.366 563.069 97.9459 564.821 97.5263V103.408Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M615.484 105.718C614.433 104.808 612.821 104.388 610.649 104.388C605.814 104.388 603.081 107.328 603.081 114.191V115.801C603.081 122.453 605.744 125.324 610.369 125.324C614.083 125.324 616.325 123.503 617.726 120.142L624.734 124.133C622.492 129.665 617.866 133.656 608.617 133.656C596.424 133.656 589.207 127.004 589.207 115.381C589.207 104.178 596.495 97.3858 608.547 97.3858C619.058 97.3858 624.804 101.657 624.804 109.219C624.804 114.051 622.071 117.481 617.376 117.481C613.172 117.481 610.719 114.821 610.719 111.599C610.719 108.589 612.401 106.418 615.484 105.718Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M639.941 112.16H649.541C649.401 106.489 648.069 104.458 645.056 104.458C641.763 104.458 640.221 106.629 639.941 112.16ZM640.151 118.041C640.361 123.153 643.305 125.533 648.069 125.533C652.344 125.533 654.586 123.293 655.847 120.632L662.224 125.183C659.701 130.015 654.726 133.655 645.337 133.655C632.863 133.655 626.137 126.234 626.137 115.451C626.137 104.598 633.495 97.3857 644.986 97.3857C656.899 97.3857 662.504 104.318 662.504 116.642V118.041H640.151Z" fill="white"/>
+</g>
+
+</svg>
+      <div class="header-divider" aria-hidden="true"></div>
+      <span class="header-prog">Personal Mastery: Leading from Within</span>
+    </div>
+    <span class="header-badge">My Story</span>
+  </header>
+
+  <!-- SCREEN 0  --  ENTRY -->
+  <main class="screen active" id="screen-entry" aria-labelledby="entry-quote">
+
+    <div class="entry-inner" id="main-content">
+      <p class="entry-eyebrow">GIBS Digital Education &nbsp;&middot;&nbsp; World Mental Health Day 2026</p>
+      <blockquote>
+        <p class="entry-quote" id="entry-quote">
+          &#8220;We aren't here to make the world evolve.<br />We are here to evolve as individuals<br />and then to spread that influence.&#8221;
+        </p>
+      </blockquote>
+      <hr class="entry-rule" aria-hidden="true" />
+      <p class="entry-attribution">Deepak Chopra</p>
+      <p class="entry-programme-tag">Personal Mastery: Leading from Within</p>
+      <p class="entry-tagline">
+        In a world of constant change and growing demands,<br />
+        the ability to lead yourself has never mattered more.<br />
+        This is where that journey begins.
+      </p>
+      <button class="btn btn-gold" id="btn-begin" type="button">
+        Begin My Story
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </main>
+
+  <!-- SCREEN 1  --  PHOTO + NAME + CONSENT -->
+  <section class="screen" id="screen-photo" aria-labelledby="photo-heading">
+    <div class="back-row-centered">
+      <button class="btn-back" id="btn-back-photo" type="button" aria-label="Back to start">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        Back
+      </button>
+    </div>
+    <div class="photo-card" style="max-width:480px;">
+      <h1 id="photo-heading">Before we begin</h1>
+      <p>Add a photo of yourself — not a professional headshot, just you. Then tell us your name so we can make this experience personal.</p>
+
+      <!-- Photo upload -->
+      <div class="photo-frame-wrap" role="img" aria-label="Photo upload area. Photo stays on your device." style="margin-bottom:0.5rem;">
+        <div class="photo-frame" id="photo-frame">
+          <svg id="photo-placeholder-svg" width="44" height="44" viewBox="0 0 48 48" fill="none" aria-hidden="true" style="color:var(--stone-300);">
+            <circle cx="24" cy="16" r="9" fill="currentColor"/>
+            <path d="M4 44c0-11 9-18 20-18s20 7 20 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <img id="photo-preview" src="" alt="Your uploaded photo" />
+        </div>
+      </div>
+      <p class="photo-caption" id="photo-caption">Your photo stays on your device only. Never uploaded to any server.</p>
+      <input type="file" id="photo-input" accept="image/*" aria-label="Choose a photo from your device or camera" />
+      <label for="photo-input" class="photo-upload-label" id="photo-upload-label" tabindex="0" style="margin-bottom:1.5rem;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Choose photo
+      </label>
+
+      <!-- Divider -->
+      <hr style="border:none;border-top:1px solid var(--stone-300);margin:0 0 1.5rem;" aria-hidden="true" />
+
+      <!-- Name + email fields -->
+      <div class="entry-fields">
+        <div class="field-group">
+          <label class="field-label" for="entry-firstname">First name <span style="color:#c0392b;" aria-hidden="true">*</span></label>
+          <input class="field-input" type="text" id="entry-firstname" name="firstname" autocomplete="given-name" placeholder="e.g. Amara" required aria-required="true" aria-describedby="err-firstname" />
+          <span class="field-err" id="err-firstname" role="alert"></span>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="entry-surname">Surname <span style="color:#c0392b;" aria-hidden="true">*</span></label>
+          <input class="field-input" type="text" id="entry-surname" name="surname" autocomplete="family-name" placeholder="e.g. Dlamini" required aria-required="true" aria-describedby="err-surname" />
+          <span class="field-err" id="err-surname" role="alert"></span>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="entry-email">Email address <span style="color:#c0392b;" aria-hidden="true">*</span></label>
+          <input class="field-input" type="email" id="entry-email" name="email" autocomplete="email" placeholder="you@example.com" required aria-required="true" aria-describedby="err-email entry-email-hint" />
+          <span class="field-hint" id="entry-email-hint">Used only if your application is successful.</span>
+          <span class="field-err" id="err-email" role="alert"></span>
+        </div>
+      </div>
+
+      <!-- POPIA consent -->
+      <div class="popia-block" role="region" aria-labelledby="popia-lbl-entry">
+        <p class="popia-lbl" id="popia-lbl-entry">Privacy Notice (POPIA)</p>
+        <p class="popia-text">Your personal information will be collected and used by GIBS Digital Education solely to administer this campaign experience and, if your application is successful, to contact you about course access. Your information will not be sold or shared with third parties outside this process.</p>
+      </div>
+
+      <div class="check-row-entry">
+        <input type="checkbox" id="consent-popia-entry" aria-required="true" aria-describedby="err-popia-entry" />
+        <label for="consent-popia-entry">I consent to the collection and use of my personal information as described above, in accordance with the <strong>Protection of Personal Information Act (POPIA)</strong>. <span style="color:#c0392b;" aria-hidden="true">*</span></label>
+      </div>
+      <span class="field-err" id="err-popia-entry" role="alert" style="margin-left:2rem;display:block;margin-bottom:0.75rem;"></span>
+
+      <div class="check-row-entry" style="margin-bottom:1.5rem;">
+        <input type="checkbox" id="consent-marketing-entry" />
+        <label for="consent-marketing-entry"><strong>Optional:</strong> I'd like to hear from GIBS about upcoming programmes and opportunities. This will not affect your participation.</label>
+      </div>
+
+      <button class="btn btn-gold" id="btn-start-story" type="button" style="width:100%;">
+        Start my story
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- SCREEN 2  --  PROMPTS -->
+  <section class="screen" id="screen-prompts" aria-labelledby="prompts-label">
+    <div class="prompts-topbar">
+      <button class="btn-back" id="btn-back-prompts" type="button" aria-label="Back to photo upload" style="margin-right:0.25rem;flex-shrink:0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="p-thumb" aria-hidden="true">
+        <img id="p-thumb-img" src="" alt="" />
+        <svg class="p-thumb-svg" id="p-thumb-svg" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <circle cx="24" cy="16" r="9" fill="currentColor"/>
+          <path d="M4 44c0-11 9-18 20-18s20 7 20 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="p-topbar-text">
+        <small>Writing to</small>
+        <strong id="prompts-label">You: the version who already knows</strong>
+      </div>
+    </div>
+
+    <div class="prog-wrap" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1" aria-label="Prompt 1 of 3">
+      <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:33%;"></div></div>
+      <p class="prog-label" id="prog-label">Prompt 1 of 3</p>
+    </div>
+
+    <div class="prompt-card active" id="prompt-card-1" role="group" aria-labelledby="p-label-1">
+      <blockquote class="prompt-quote">
+        <p>&#8220;No man is free who is not master of himself.&#8221;</p>
+        <footer>— Epictetus</footer>
+      </blockquote>
+      <p class="prompt-cat">Your Story</p>
+      <label for="textarea-1" id="p-label-1">Look at you in that photo. What has it taken for you to get here? What are two or three moments — the hard ones, the quiet ones — that have shaped you into who you are right now?</label>
+      <div class="mic-row" id="mic-row-1"></div>
+      <textarea class="prompt-textarea" id="textarea-1" rows="6" placeholder="Write the first thing that comes to mind. There is no wrong answer." aria-required="true"></textarea>
+      <button class="btn btn-navy" id="btn-next-1" type="button" disabled>Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div>
+
+    <div class="laotzu-panel" id="laotzu-panel" role="region" aria-label="Reflection moment. Tap to continue.">
+      <div class="laotzu-rule" aria-hidden="true"></div>
+      <blockquote>
+        <p class="laotzu-quote">&#8220;You have power over your mind — not outside events.<br />Realise this, and you will find strength.&#8221;</p>
+        <footer class="laotzu-attr">Marcus Aurelius</footer>
+      </blockquote>
+      <p class="laotzu-tap" aria-hidden="true">Tap anywhere to continue</p>
+    </div>
+
+    <div class="prompt-card" id="prompt-card-2" role="group" aria-labelledby="p-label-2">
+      <blockquote class="prompt-quote">
+        <p>&#8220;It is not how you compare to others that is important, but rather how you compare to who you were yesterday.&#8221;</p>
+        <footer>— Daisaku Ikeda</footer>
+      </blockquote>
+      <p class="prompt-cat">Your Vision</p>
+      <label for="textarea-2" id="p-label-2">If you gave yourself full permission — if you approached your own life like a work of art — what would you create? What is your future dream for you?</label>
+      <div class="mic-row" id="mic-row-2"></div>
+      <textarea class="prompt-textarea" id="textarea-2" rows="6" placeholder="Trust your first response. Speak from what you feel, not what sounds right." aria-required="true"></textarea>
+      <button class="btn btn-navy" id="btn-next-2" type="button" disabled>Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div>
+
+    <div class="prompt-card" id="prompt-card-3" role="group" aria-labelledby="p-label-3">
+      <p class="prompt-cat">Your Next Step</p>
+      <label for="textarea-3" id="p-label-3">What is the gap between where you are now and where you want to be? Be honest — share two or three things that could kickstart your path to becoming future you, starting today.</label>
+      <div class="mic-row" id="mic-row-3"></div>
+      <textarea class="prompt-textarea" id="textarea-3" rows="6" placeholder="Take your time. This is the most important question." aria-required="true"></textarea>
+      <button class="btn btn-gold" id="btn-submit" type="button" disabled>See my reflection <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+    </div>
+  </section>
+
+  <!-- SCREEN 3  --  LOADING -->
+  <section class="screen" id="screen-loading" aria-live="polite" aria-label="Processing your reflection">
+    <div class="loading-ring" id="loading-ring" aria-hidden="true">
+      <img id="loading-photo" src="" alt="" />
+      <svg id="loading-svg" width="36" height="36" viewBox="0 0 48 48" fill="none" aria-hidden="true" style="color:rgba(255,255,255,0.2);">
+        <circle cx="24" cy="16" r="9" fill="currentColor"/>
+        <path d="M4 44c0-11 9-18 20-18s20 7 20 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <p class="loading-text">The other you is listening&#8230;</p>
+  </section>
+
+  <!-- SCREEN 4  --  RESPONSE -->
+  <!-- SCREEN 4  --  RESPONSE -->
+  <section class="screen" id="screen-response" aria-labelledby="resp-heading">
+    <div class="resp-topbar">
+      <button class="btn-back" id="btn-back-response" type="button" aria-label="Back to prompts" style="margin-right:0.25rem;flex-shrink:0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="p-thumb" aria-hidden="true">
+        <img id="resp-thumb-img" src="" alt="" />
+        <svg id="resp-thumb-svg" class="p-thumb-svg" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <circle cx="24" cy="16" r="9" fill="currentColor"/>
+          <path d="M4 44c0-11 9-18 20-18s20 7 20 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <small>Your reflection</small>
+        <h2 id="resp-heading">For <span id="resp-name-heading">you</span></h2>
+      </div>
+    </div>
+
+    <div class="resp-body">
+
+      <!-- Your answers summary -->
+      <div class="reflection-summary" id="reflection-summary" aria-label="Your reflection summary">
+        <div class="summary-header">
+          <div class="summary-photo-sm" aria-hidden="true">
+            <img id="summary-photo-img" src="" alt="" />
+            <svg id="summary-photo-svg" width="18" height="18" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <circle cx="24" cy="16" r="9" fill="currentColor"/>
+              <path d="M4 44c0-11 9-18 20-18s20 7 20 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="summary-header-text">
+            <small>Written by</small>
+            <strong id="summary-name-header">You</strong>
+          </div>
+        </div>
+        <div class="summary-body">
+          <div class="summary-answer">
+            <p class="s-cat">Your Story</p>
+            <p class="s-q">What has shaped you into who you are right now?</p>
+            <p class="s-a" id="summary-a1"></p>
+          </div>
+          <div class="summary-answer">
+            <p class="s-cat">Your Vision</p>
+            <p class="s-q">What would you create if you gave yourself full permission?</p>
+            <p class="s-a" id="summary-a2"></p>
+          </div>
+          <div class="summary-answer">
+            <p class="s-cat">Your Next Step</p>
+            <p class="s-q">What could kickstart your path to becoming future you?</p>
+            <p class="s-a" id="summary-a3"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Download button -->
+      <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
+        <button class="btn-download" id="btn-download-card" type="button" aria-label="Save your reflection as an image">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Save reflection to my device
+        </button>
+      </div>
+
+      <!-- AI response -->
+      <div id="response-slot">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Error state (shown when API fails) -->
+      <div id="resp-error-slot"></div>
+
+      <!-- Course taster CTA -->
+      <div class="course-bridge" role="complementary" aria-labelledby="bridge-heading">
+        <p class="cb-eyebrow">What comes next</p>
+        <h3 id="bridge-heading">Would you like to become the best version of yourself?</h3>
+        <p>Discover a short taster of the acclaimed GIBS Professional Development Course, <em>Personal Mastery: Lead from Within</em>, created by Dr Frank Magwegwe. The skills and insights from this course will help shift your outlook — in both your personal and professional life.</p>
+        <button class="btn btn-gold" id="btn-continue" type="button">
+          Explore the course taster
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Hidden canvas for downloadable image -->
+    <canvas id="reflection-canvas" width="1080" height="1350" aria-hidden="true"></canvas>
+
+    <footer class="site-footer">
+      <p>GIBS Personal Mastery: Leading from Within &nbsp;&middot;&nbsp; Gordon Institute of Business Science, University of Pretoria</p>
+    </footer>
+  </section>
+
+  <!-- SCREEN 5  --  APPLICATION FORM -->
+  <section class="screen" id="screen-apply" aria-labelledby="apply-heading">
+    <div class="apply-topbar">
+      <div>
+        <h2 id="apply-heading">One more step, <span class="apply-name-slot">there</span></h2>
+        <p>Complete your application for a sponsored seat. Takes about 2 minutes.</p>
+      </div>
+    </div>
+
+    <div class="apply-body">
+
+      <!-- Personal details -->
+      <div class="apply-card">
+        <h3>Your details</h3>
+        <div class="apply-grid">
+          <div class="field-group">
+            <label class="field-label" for="apply-firstname">First name <span style="color:#c0392b;" aria-hidden="true">*</span></label>
+            <input class="field-input" type="text" id="apply-firstname" autocomplete="given-name" aria-required="true" aria-describedby="err-apply-firstname" />
+            <span class="field-err" id="err-apply-firstname" role="alert"></span>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="apply-surname">Surname <span style="color:#c0392b;" aria-hidden="true">*</span></label>
+            <input class="field-input" type="text" id="apply-surname" autocomplete="family-name" aria-required="true" aria-describedby="err-apply-surname" />
+            <span class="field-err" id="err-apply-surname" role="alert"></span>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="apply-email">Email address <span style="color:#c0392b;" aria-hidden="true">*</span></label>
+            <input class="field-input" type="email" id="apply-email" autocomplete="email" aria-required="true" aria-describedby="err-apply-email" />
+            <span class="field-err" id="err-apply-email" role="alert"></span>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="apply-phone">Contact number <span style="color:#c0392b;" aria-hidden="true">*</span></label>
+            <input class="field-input" type="tel" id="apply-phone" autocomplete="tel" placeholder="e.g. +27 82 000 0000" aria-required="true" aria-describedby="err-apply-phone" />
+            <span class="field-err" id="err-apply-phone" role="alert"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Commitment checkboxes -->
+      <div class="apply-card">
+        <h3>Your commitments</h3>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Please confirm the following so we can place you in the right cohort. All three are required.</p>
+        <div class="commit-list">
+
+          <div class="commit-item" onclick="this.querySelector('input').click()">
+            <input type="checkbox" id="commit-dates" aria-required="true" aria-describedby="err-commits" onclick="event.stopPropagation()" />
+            <label for="commit-dates" onclick="event.preventDefault()">
+              I commit to completing the course between <strong>1 October and 31 October 2026</strong>. I understand that access closes on 31 October and incomplete courses will not be certified.
+            </label>
+          </div>
+
+          <div class="commit-item" onclick="this.querySelector('input').click()">
+            <input type="checkbox" id="commit-hours" aria-required="true" onclick="event.stopPropagation()" />
+            <label for="commit-hours" onclick="event.preventDefault()">
+              I commit to spending at least <strong>8 hours</strong> during that month to complete the course content and assessments.
+            </label>
+          </div>
+
+          <div class="commit-item" onclick="this.querySelector('input').click()">
+            <input type="checkbox" id="commit-device" aria-required="true" onclick="event.stopPropagation()" />
+            <label for="commit-device" onclick="event.preventDefault()">
+              I confirm I have access to a <strong>reliable internet connection</strong> and a suitable device (laptop or tablet) to access the online learning platform.
+            </label>
+          </div>
+
+        </div>
+        <span class="field-err" id="err-commits" role="alert" style="display:block;margin-top:0.6rem;"></span>
+      </div>
+
+      <!-- POPIA reminder -->
+      <div class="popia-block">
+        <p class="popia-lbl">Data use reminder</p>
+        <p class="popia-text">The information you provide will be used by GIBS Digital Education to process your application, contact you about the outcome, and administer course access if you are selected. We will not share your information with third parties outside this process. You consented to this when you began your story.</p>
+      </div>
+
+      <!-- Submit -->
+      <button class="btn btn-gold" id="btn-apply-submit" type="button" style="width:100%;font-size:1rem;padding:1rem 2rem;">
+        Submit my application
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+
+      <button class="btn-back" id="btn-back-apply" type="button" style="display:flex;margin:0.5rem auto 0;padding:0.75rem 1rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to my reflection
+      </button>
+
+    </div>
+  </section>
+
+  <!-- SCREEN 5b  --  APPLYING LOADING -->
+  <section class="screen" id="screen-loading-apply" aria-live="polite" aria-label="Submitting your application">
+    <div class="loading-ring" aria-hidden="true">
+      <img id="loading-apply-photo" src="" alt="" />
+      <svg id="loading-apply-svg" width="36" height="36" viewBox="0 0 48 48" fill="none" aria-hidden="true" style="color:rgba(255,255,255,0.2);">
+        <circle cx="24" cy="16" r="9" fill="currentColor"/>
+        <path d="M4 44c0-11 9-18 20-18s20 7 20 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <p class="loading-text">Submitting your application&#8230;</p>
+  </section>
+
+  <!-- SCREEN 6  --  CONFIRMATION -->
+  <section class="screen" id="screen-confirm" aria-labelledby="confirm-heading">
+    <div class="confirm-body">
+
+      <div class="confirm-icon" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+
+      <h2 class="confirm-heading" id="confirm-heading">You&#8217;re in, <span id="confirm-name">there</span>.</h2>
+      <p class="confirm-sub">Your application has been received. The GIBS Digital Education team will be in touch directly if you are selected for a sponsored seat.</p>
+
+      <div class="timeline-card" aria-label="What happens next">
+        <h3>What happens next</h3>
+        <div class="timeline-item"><span class="t-date">Now</span><span>Your application is with the GIBS team.</span></div>
+        <div class="timeline-item"><span class="t-date">16 Sept</span><span>Applications close. Eligible applicants are selected at random.</span></div>
+        <div class="timeline-item"><span class="t-date">Late Sept</span><span>Successful applicants contacted by email with course access instructions.</span></div>
+        <div class="timeline-item"><span class="t-date">1 Oct</span><span>Course access opens. You have the full month of October to complete it.</span></div>
+        <div class="timeline-item"><span class="t-date">On completion</span><span>Receive your GIBS Certificate of Completion and Digital Credential via Credly.</span></div>
+      </div>
+
+      <div class="share-card" role="region" aria-label="Share this experience">
+        <p><strong>Know someone who should be here?</strong><br />Share this experience with someone in your network who would benefit from it. The more people who discover Personal Mastery, the wider the ripple.</p>
+        <div class="share-btns">
+          <button class="btn-share btn-wa" id="btn-share-wa" type="button" aria-label="Share via WhatsApp">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.552 4.103 1.508 5.83L0 24l6.335-1.652C8.03 23.345 9.979 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.833 0-3.558-.487-5.053-1.336l-.362-.215-3.76.981.999-3.656-.235-.376A9.919 9.919 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Share via WhatsApp
+          </button>
+          <button class="btn-share btn-copy" id="btn-copy-link" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy link
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="site-footer">
+      <p>GIBS Personal Mastery: Leading from Within &nbsp;&middot;&nbsp; Gordon Institute of Business Science, University of Pretoria</p>
+    </footer>
+  </section>
+
+  <script>
+  'use strict';
+
+  // ── State ────────────────────────────────────────────────────────────
+  const state = {
+    photoDataUrl: null,
+    recognition: null,
+    isRecording: false,
+    firstName: '',
+    surname: '',
+    email: '',
+    phone: ''
+  };
+
+  // ── Utilities ────────────────────────────────────────────────────────
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const f = el.querySelector('button,[href],input,textarea,[tabindex]:not([tabindex="-1"])');
+    if (f) setTimeout(() => f.focus(), 80);
+  }
+  function announce(t) {
+    const r = document.getElementById('aria-live');
+    r.textContent = '';
+    setTimeout(() => { r.textContent = t; }, 60);
+  }
+  function esc(s) {
+    const d = document.createElement('div');
+    d.appendChild(document.createTextNode(s));
+    return d.innerHTML;
+  }
+  function setErr(id, msg) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = msg;
+  }
+  function clearErrs(...ids) {
+    ids.forEach(id => { const el = document.getElementById(id); if (el) el.textContent = ''; });
+  }
+  function setInvalid(id, invalid) {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('aria-invalid', invalid ? 'true' : 'false');
+  }
+
+  // ── Photo ────────────────────────────────────────────────────────────
+  function applyPhoto(url) {
+    state.photoDataUrl = url;
+    const pairs = [
+      ['photo-preview','photo-placeholder-svg'],
+      ['p-thumb-img','p-thumb-svg'],
+      ['loading-photo','loading-svg'],
+      ['loading-apply-photo','loading-apply-svg'],
+      ['resp-thumb-img','resp-thumb-svg'],
+      ['summary-photo-img','summary-photo-svg']
+    ];
+    pairs.forEach(([iId, sId]) => {
+      const img = document.getElementById(iId);
+      const svg = document.getElementById(sId);
+      if (img) { img.src = url; img.style.display = 'block'; if (iId === 'photo-preview') img.classList.add('visible'); }
+      if (svg) svg.style.display = 'none';
+    });
+    document.getElementById('photo-frame').classList.add('loaded');
+    document.getElementById('photo-caption').textContent = 'This is who will answer you.';
+  }
+
+  // ── Personalisation helpers ──────────────────────────────────────────
+  function populateNameSlots() {
+    // Prompts topbar
+    const pl = document.getElementById('prompts-label');
+    if (pl) pl.textContent = state.firstName + ': the version who already knows';
+    // Response screen heading
+    const rnh = document.getElementById('resp-name-heading');
+    if (rnh) rnh.textContent = state.firstName;
+    // Apply screen
+    document.querySelectorAll('.apply-name-slot').forEach(el => { el.textContent = state.firstName; });
+    // Confirm screen
+    const cn = document.getElementById('confirm-name');
+    if (cn) cn.textContent = state.firstName;
+    // Pre-fill apply form
+    const af = document.getElementById('apply-firstname');
+    const as = document.getElementById('apply-surname');
+    const ae = document.getElementById('apply-email');
+    if (af) af.value = state.firstName;
+    if (as) as.value = state.surname;
+    if (ae) ae.value = state.email;
+  }
+
+  // ── Screen 0 → Screen 1 ──────────────────────────────────────────────
+  document.getElementById('btn-begin').addEventListener('click', () => showScreen('screen-photo'));
+
+  // ── Photo upload (no longer auto-advances) ───────────────────────────
+  const photoInput = document.getElementById('photo-input');
+  const photoLabel = document.getElementById('photo-upload-label');
+  photoLabel.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); photoInput.click(); }
+  });
+  photoInput.addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (!file || !file.type.startsWith('image/')) { announce('Please choose an image file.'); return; }
+    const reader = new FileReader();
+    reader.onload = ev => { applyPhoto(ev.target.result); announce('Photo added. Now complete your details below.'); };
+    reader.readAsDataURL(file);
+  });
+
+  // ── Screen 1 validation + advance ────────────────────────────────────
+  document.getElementById('btn-start-story').addEventListener('click', () => {
+    const fn = document.getElementById('entry-firstname');
+    const sn = document.getElementById('entry-surname');
+    const em = document.getElementById('entry-email');
+    const cp = document.getElementById('consent-popia-entry');
+    clearErrs('err-firstname','err-surname','err-email','err-popia-entry');
+    [fn, sn, em].forEach(el => setInvalid(el.id, false));
+
+    let valid = true;
+    if (!fn.value.trim()) { setErr('err-firstname','Please enter your first name.'); setInvalid('entry-firstname',true); valid = false; }
+    if (!sn.value.trim()) { setErr('err-surname','Please enter your surname.'); setInvalid('entry-surname',true); valid = false; }
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim());
+    if (!emailOk) { setErr('err-email','Please enter a valid email address.'); setInvalid('entry-email',true); valid = false; }
+    if (!cp.checked) { setErr('err-popia-entry','You must consent to continue.'); valid = false; }
+
+    if (!valid) {
+      // Focus first error
+      if (!fn.value.trim()) fn.focus();
+      else if (!sn.value.trim()) sn.focus();
+      else if (!emailOk) em.focus();
+      else cp.focus();
+      return;
+    }
+
+    // Store to state
+    state.firstName = fn.value.trim().split(' ')[0];
+    state.surname = sn.value.trim();
+    state.email = em.value.trim();
+
+    // Populate all name slots across screens
+    populateNameSlots();
+
+    // Go to prompts
+    goToPrompts();
+  });
+
+  // ── Prompts ──────────────────────────────────────────────────────────
+  function goToPrompts() { showScreen('screen-prompts'); setupVoice(); }
+
+  function watchTA(ta, btn) {
+    const t = document.getElementById(ta);
+    const b = document.getElementById(btn);
+    if (t && b) t.addEventListener('input', () => { b.disabled = !t.value.trim(); });
+  }
+  watchTA('textarea-1','btn-next-1');
+  watchTA('textarea-2','btn-next-2');
+  watchTA('textarea-3','btn-submit');
+
+  function hideCards() {
+    document.querySelectorAll('.prompt-card,.laotzu-panel').forEach(el => el.classList.remove('active'));
+  }
+  function setProgress(n) {
+    document.getElementById('prog-fill').style.width = Math.round(n / 3 * 100) + '%';
+    document.getElementById('prog-label').textContent = 'Prompt ' + n + ' of 3';
+    const pw = document.querySelector('.prog-wrap');
+    if (pw) pw.setAttribute('aria-valuenow', n);
+  }
+
+  document.getElementById('btn-next-1').addEventListener('click', () => { hideCards(); showLaoTzu(); });
+  document.getElementById('btn-next-2').addEventListener('click', () => {
+    hideCards(); setProgress(3);
+    document.getElementById('prompt-card-3').classList.add('active');
+    announce('Prompt 3 of 3.');
+  });
+  document.getElementById('btn-submit').addEventListener('click', submitReflection);
+
+  function showLaoTzu() {
+    const p = document.getElementById('laotzu-panel');
+    p.classList.add('active');
+    announce('"You have power over your mind — not outside events. Realise this, and you will find strength." — Marcus Aurelius. Tap to continue.');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let t = setTimeout(advanceToP2, reduced ? 0 : 4500);
+    function once() { clearTimeout(t); p.removeEventListener('click', once); advanceToP2(); }
+    p.addEventListener('click', once);
+  }
+  function advanceToP2() {
+    hideCards(); setProgress(2);
+    document.getElementById('prompt-card-2').classList.add('active');
+    announce('Prompt 2 of 3.');
+  }
+
+  // ── Voice input ──────────────────────────────────────────────────────
+  function setupVoice() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const isLocal = ['localhost','127.0.0.1'].includes(location.hostname);
+    if (!SR || isLocal) {
+      if (isLocal) [1,2,3].forEach(n => {
+        const r = document.getElementById('mic-row-' + n);
+        if (r) r.innerHTML = '<span class="mic-note">Voice input available on the live site.</span>';
+      });
+      return;
+    }
+    [1,2,3].forEach(n => {
+      const row = document.getElementById('mic-row-' + n);
+      if (!row) return;
+      const btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'mic-btn';
+      btn.setAttribute('aria-pressed','false');
+      btn.setAttribute('aria-label','Start voice input for prompt ' + n);
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg><span class="mic-pulse" aria-hidden="true"></span><span class="mic-lbl">Prefer to speak?</span>';
+      btn.addEventListener('click', () => toggleVoice(n, btn));
+      row.appendChild(btn);
+    });
+  }
+  function toggleVoice(n, btn) {
+    if (state.isRecording) { if (state.recognition) state.recognition.stop(); return; }
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = 'en-ZA';
+    const ta = document.getElementById('textarea-' + n);
+    const existing = ta.value;
+    rec.onstart = () => {
+      state.isRecording = true; state.recognition = rec;
+      btn.classList.add('recording'); btn.setAttribute('aria-pressed','true');
+      btn.setAttribute('aria-label','Stop voice input');
+      btn.querySelector('.mic-lbl').textContent = 'Recording — tap to stop';
+      announce('Voice input started. Speak now.');
+    };
+    rec.onresult = ev => {
+      let fin = '', int = '';
+      for (let i = ev.resultIndex; i < ev.results.length; i++) {
+        const t = ev.results[i][0].transcript;
+        ev.results[i].isFinal ? (fin += t + ' ') : (int += t);
+      }
+      ta.value = (existing + fin).trimStart() + int;
+      const nb = document.getElementById(n === 3 ? 'btn-submit' : 'btn-next-' + n);
+      if (nb) nb.disabled = !ta.value.trim();
+    };
+    rec.onerror = rec.onend = () => { resetMic(btn); state.isRecording = false; };
+    try { rec.start(); } catch(e) { announce('Could not start voice input. Please type your response.'); resetMic(btn); }
+  }
+  function resetMic(btn) {
+    if (!btn) return;
+    btn.classList.remove('recording');
+    btn.setAttribute('aria-pressed','false');
+    btn.setAttribute('aria-label','Start voice input');
+    const l = btn.querySelector('.mic-lbl');
+    if (l) l.textContent = 'Prefer to speak?';
+  }
+
+  // ── Submit reflection → loading → response ───────────────────────────
+  async function submitReflection() {
+    if (state.isRecording && state.recognition) state.recognition.stop();
+    const p1 = document.getElementById('textarea-1').value.trim();
+    const p2 = document.getElementById('textarea-2').value.trim();
+    const p3 = document.getElementById('textarea-3').value.trim();
+    if (!p1 || !p2 || !p3) { announce('Please complete all three prompts before continuing.'); return; }
+    showScreen('screen-loading');
+    announce('Sending your letter. Please wait.');
+    try {
+      const res = await fetch('/.netlify/functions/reflect', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt1: p1, prompt2: p2, prompt3: p3 })
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) showResponse(null, data.error || 'Something went wrong. Please try again.');
+      else showResponse(data.response, null);
+    } catch(e) {
+      showResponse(null, 'Could not connect. Please check your connection and try again.');
+    }
+  }
+  function showResponse(text, error) {
+    // Populate the three summary answers from what the user wrote
+    const a1 = document.getElementById('summary-a1');
+    const a2 = document.getElementById('summary-a2');
+    const a3 = document.getElementById('summary-a3');
+    if (a1) a1.textContent = document.getElementById('textarea-1').value.trim();
+    if (a2) a2.textContent = document.getElementById('textarea-2').value.trim();
+    if (a3) a3.textContent = document.getElementById('textarea-3').value.trim();
+
+    // Summary header name
+    const snh = document.getElementById('summary-name-header');
+    if (snh) snh.textContent = state.firstName;
+
+    // AI response or error
+    const slot = document.getElementById('response-slot');
+    const errSlot = document.getElementById('resp-error-slot');
+    if (error) {
+      if (slot) slot.innerHTML = '';
+      if (errSlot) errSlot.innerHTML = '<div class="response-error" role="alert"><strong>Something went wrong.</strong><br />' + esc(error) + '</div>';
+      announce('Error: ' + error);
+    } else {
+      if (errSlot) errSlot.innerHTML = '';
+      if (slot) slot.innerHTML =
+        '<p class="ai-label-row"><span aria-hidden="true">✦</span> A note from the version of ' + esc(state.firstName) + ' who already knows</p>' +
+        '<div class="ai-response-card" aria-label="AI reflection response">' + esc(text) + '</div>';
+      announce('Your reflection is ready, ' + state.firstName + '.');
+    }
+    showScreen('screen-response');
+  }
+
+  // ── Download reflection as image ──────────────────────────────────────
+  document.getElementById('btn-download-card').addEventListener('click', () => {
+    const canvas = document.getElementById('reflection-canvas');
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+
+    // Background
+    ctx.fillStyle = '#001440';
+    ctx.fillRect(0, 0, W, H);
+
+    // Gold accent bar
+    ctx.fillStyle = '#E4A024';
+    ctx.fillRect(0, 0, 8, H);
+
+    // GIBS label
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.font = '600 28px system-ui, Arial, sans-serif';
+    ctx.fillText('GIBS DIGITAL EDUCATION', 60, 70);
+
+    // Title
+    ctx.fillStyle = '#E4A024';
+    ctx.font = '700 44px system-ui, Arial, sans-serif';
+    ctx.fillText('Personal Mastery:', 60, 140);
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText('Lead from Within', 60, 195);
+
+    // Divider
+    ctx.fillStyle = 'rgba(255,255,255,0.12)';
+    ctx.fillRect(60, 220, W - 120, 1);
+
+    // Name
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.font = '500 26px system-ui, Arial, sans-serif';
+    ctx.fillText('A reflection by ' + state.firstName + ' ' + state.surname, 60, 270);
+
+    // Helper: wrapped text
+    function wrapText(text, x, y, maxWidth, lineH) {
+      const words = text.split(' ');
+      let line = '';
+      let lineY = y;
+      for (const word of words) {
+        const test = line + word + ' ';
+        if (ctx.measureText(test).width > maxWidth && line) {
+          ctx.fillText(line.trim(), x, lineY);
+          line = word + ' ';
+          lineY += lineH;
+          if (lineY > H - 120) break;
+        } else { line = test; }
+      }
+      if (line.trim()) ctx.fillText(line.trim(), x, lineY);
+      return lineY;
+    }
+
+    const sections = [
+      { cat: 'YOUR STORY', q: 'What has shaped you?', a: document.getElementById('textarea-1').value.trim() },
+      { cat: 'YOUR VISION', q: 'What would you create?', a: document.getElementById('textarea-2').value.trim() },
+      { cat: 'YOUR NEXT STEP', q: 'What kickstarts future you?', a: document.getElementById('textarea-3').value.trim() }
+    ];
+
+    let yPos = 320;
+    for (const sec of sections) {
+      if (yPos > H - 200) break;
+      // Category
+      ctx.fillStyle = '#E4A024';
+      ctx.font = '700 22px system-ui, Arial, sans-serif';
+      ctx.fillText(sec.cat, 60, yPos);
+      yPos += 36;
+      // Answer (italic feel via slant approximation)
+      ctx.fillStyle = 'rgba(255,255,255,0.88)';
+      ctx.font = 'italic 28px Georgia, serif';
+      yPos = wrapText(sec.a.length > 180 ? sec.a.slice(0, 180) + '…' : sec.a, 60, yPos, W - 120, 38);
+      yPos += 48;
+      // Divider
+      ctx.fillStyle = 'rgba(255,255,255,0.08)';
+      ctx.fillRect(60, yPos - 24, W - 120, 1);
+    }
+
+    // Photo — if available, draw circle at bottom right
+    if (state.photoDataUrl) {
+      const img = new Image();
+      img.onload = () => {
+        const r = 90;
+        const px = W - 120, py = H - 140;
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(px, py, r, 0, Math.PI * 2);
+        ctx.clip();
+        ctx.drawImage(img, px - r, py - r, r * 2, r * 2);
+        ctx.restore();
+        // Purple ring
+        ctx.strokeStyle = '#5C2F6F';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.arc(px, py, r + 2, 0, Math.PI * 2);
+        ctx.stroke();
+        triggerDownload();
+      };
+      img.src = state.photoDataUrl;
+    } else {
+      triggerDownload();
+    }
+
+    // Footer
+    ctx.fillStyle = 'rgba(255,255,255,0.22)';
+    ctx.font = '500 22px system-ui, Arial, sans-serif';
+    ctx.fillText('gibs.co.za  ·  #GIBSPersonalMastery', 60, H - 60);
+
+    function triggerDownload() {
+      const link = document.createElement('a');
+      link.download = 'my-personal-mastery-reflection.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      announce('Reflection image saved to your device.');
+    }
+  });
+
+  // ── Response → Apply ─────────────────────────────────────────────────
+  document.getElementById('btn-continue').addEventListener('click', () => showScreen('screen-apply'));
+
+  // ── Application form validation + submit ─────────────────────────────
+  document.getElementById('btn-apply-submit').addEventListener('click', async () => {
+    const fn  = document.getElementById('apply-firstname');
+    const sn  = document.getElementById('apply-surname');
+    const em  = document.getElementById('apply-email');
+    const ph  = document.getElementById('apply-phone');
+    const c1  = document.getElementById('commit-dates');
+    const c2  = document.getElementById('commit-hours');
+    const c3  = document.getElementById('commit-device');
+
+    clearErrs('err-apply-firstname','err-apply-surname','err-apply-email','err-apply-phone','err-commits');
+    [fn,sn,em,ph].forEach(el => setInvalid(el.id, false));
+
+    let valid = true;
+    if (!fn.value.trim())  { setErr('err-apply-firstname','Required.'); setInvalid('apply-firstname',true); valid = false; }
+    if (!sn.value.trim())  { setErr('err-apply-surname','Required.'); setInvalid('apply-surname',true); valid = false; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) { setErr('err-apply-email','Please enter a valid email address.'); setInvalid('apply-email',true); valid = false; }
+    if (!ph.value.trim())  { setErr('err-apply-phone','Please enter a contact number.'); setInvalid('apply-phone',true); valid = false; }
+    if (!c1.checked || !c2.checked || !c3.checked) { setErr('err-commits','Please tick all three commitments to continue.'); valid = false; }
+
+    if (!valid) { announce('Please correct the errors in the form before submitting.'); return; }
+
+    // Update state with any edits made in the apply form
+    state.firstName = fn.value.trim().split(' ')[0];
+    state.surname   = sn.value.trim();
+    state.email     = em.value.trim();
+    state.phone     = ph.value.trim();
+
+    // Update confirm screen name
+    const cn = document.getElementById('confirm-name');
+    if (cn) cn.textContent = state.firstName;
+
+    showScreen('screen-loading-apply');
+    announce('Submitting your application. Please wait.');
+
+    try {
+      const res = await fetch('/.netlify/functions/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: state.firstName,
+          surname:   state.surname,
+          email:     state.email,
+          phone:     state.phone,
+          commitDates:  c1.checked,
+          commitHours:  c2.checked,
+          commitDevice: c3.checked,
+          marketingOptIn: document.getElementById('consent-marketing-entry')?.checked || false
+        })
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) {
+        showScreen('screen-apply');
+        setErr('err-commits', data.error || 'Submission failed. Please check your connection and try again.');
+        announce('Submission failed. Please try again.');
+      } else {
+        showScreen('screen-confirm');
+        announce('Application submitted successfully, ' + state.firstName + '. We\'ll be in touch.');
+      }
+    } catch(e) {
+      showScreen('screen-apply');
+      setErr('err-commits', 'Could not connect. Please check your connection and try again.');
+      announce('Could not connect. Please try again.');
+    }
+  });
+
+  // ── Share buttons ────────────────────────────────────────────────────
+  const CAMPAIGN_URL = 'https://gibs-personal-mastery.netlify.app';
+  const WA_MSG = encodeURIComponent('I just completed a reflection with GIBS Digital Education on Personal Mastery: Leading from Within. There are limited free sponsored seats available — worth exploring. ' + CAMPAIGN_URL + ' #GIBSPersonalMastery #LeadFromWithin');
+
+  document.getElementById('btn-share-wa').addEventListener('click', () => {
+    window.open('https://wa.me/?text=' + WA_MSG, '_blank', 'noopener,noreferrer');
+  });
+  document.getElementById('btn-copy-link').addEventListener('click', () => {
+    navigator.clipboard.writeText(CAMPAIGN_URL).then(() => {
+      const btn = document.getElementById('btn-copy-link');
+      const orig = btn.innerHTML;
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.innerHTML = orig; }, 2000);
+      announce('Link copied to clipboard.');
+    }).catch(() => {
+      announce('Could not copy. Please copy this link manually: ' + CAMPAIGN_URL);
+    });
+  });
+
+  // ── Back buttons ─────────────────────────────────────────────────────
+  document.getElementById('btn-back-photo').addEventListener('click', () => showScreen('screen-entry'));
+  document.getElementById('btn-back-prompts').addEventListener('click', () => showScreen('screen-photo'));
+  document.getElementById('btn-back-response').addEventListener('click', () => {
+    hideCards(); setProgress(3);
+    document.getElementById('prompt-card-3').classList.add('active');
+    showScreen('screen-prompts');
+  });
+  document.getElementById('btn-back-apply').addEventListener('click', () => showScreen('screen-response'));
+
+  </script>
+</body>
+</html>
