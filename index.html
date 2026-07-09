@@ -84,6 +84,7 @@
     }
     .skip-link:focus { top: 1rem; }
     #aria-live { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
     :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
 
     /* ============================================================
@@ -617,6 +618,88 @@
       font-size: 0.9rem; padding: 0.85rem 1.75rem; width: auto;
     }
 
+    /* ============================================================
+       SCREEN 4b  --  COURSE TASTER
+       6 short "nugget" cards, same active-toggle pattern as
+       .prompt-card. Reuses .prompts-topbar, .prog-wrap/.prog-track,
+       .prompt-cat, .check-row-entry and .laotzu-panel wherever the
+       visual job is identical  --  new rules only where it isn't.
+       ============================================================ */
+    #screen-taster { background: var(--stone-100); }
+
+    .taster-card { display: none; flex: 1; flex-direction: column; padding: 1.5rem; max-width: 640px; width: 100%; margin: 0 auto; overflow-y: auto; }
+    .taster-card.active { display: flex; }
+
+    /* Card 1  --  hook quote, photo behind, same idea as the entry hero but boxed */
+    .taster-quote-card {
+      background: linear-gradient(135deg, var(--navy) 0%, #003da0 100%);
+      background-size: cover; background-position: center;
+      border-radius: var(--radius);
+      padding: 2.5rem 1.75rem;
+      text-align: center; color: #fff;
+      position: relative; overflow: hidden;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.25rem;
+    }
+    .taster-quote-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(0,20,64,0.42); pointer-events: none;
+    }
+    .taster-quote-card > * { position: relative; z-index: 1; }
+    .taster-quote-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+    .taster-quote-card blockquote { margin: 0; }
+    .taster-quote-card .t-quote {
+      font-family: var(--font-serif); font-style: italic;
+      font-size: clamp(1.1rem, 4vw, 1.4rem); line-height: 1.5; color: #fff;
+    }
+    .taster-quote-card .t-cite { font-size: 0.68rem; color: rgba(255,255,255,0.55); margin-top: 1rem; }
+
+    /* Card 2  --  video */
+    .taster-video-frame {
+      position: relative; width: 100%; aspect-ratio: 16/9;
+      border-radius: var(--radius); overflow: hidden;
+      background: var(--hero); box-shadow: var(--shadow-md);
+      margin: 0.9rem 0 1.1rem;
+    }
+    .taster-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .taster-learn-more {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: var(--font-ui); font-size: 0.82rem; font-weight: 600;
+      color: var(--teal); text-decoration: none; min-height: 44px; align-self: flex-start;
+    }
+    .taster-learn-more:hover { text-decoration: underline; }
+    .taster-learn-more:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
+
+    /* Card 4  --  rate-yourself checklist, built on the existing consent-checkbox pattern */
+    .trait-list { display: flex; flex-direction: column; gap: 0.55rem; margin: 0.75rem 0 0.5rem; }
+    .trait-list .check-row-entry {
+      background: var(--white); border: 1.5px solid var(--stone-300);
+      border-radius: var(--radius-sm); padding: 0.85rem 1rem; margin-bottom: 0;
+      transition: border-color var(--transition), background var(--transition);
+    }
+    .trait-list .check-row-entry:has(input:checked) { border-color: var(--teal); background: rgba(0,115,120,0.05); }
+
+    /* Nav row inside each taster card */
+    .taster-nav { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: auto; padding-top: 1.25rem; }
+    .taster-back-link {
+      background: none; border: none; color: var(--muted);
+      font-family: var(--font-ui); font-size: 0.82rem; font-weight: 500;
+      cursor: pointer; padding: 0.6rem 0.4rem; min-height: 44px;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+    .taster-back-link:hover { color: var(--ink); }
+    .taster-back-link:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
+    .taster-nav:first-child { justify-content: flex-end; margin-top: 0.5rem; }
+
+    /* Card 5 reuses .laotzu-panel's immersive padding  --  .taster-card's own
+       padding rule has equal specificity and comes later in the cascade,
+       so it needs this one override to actually win. */
+    #taster-card-5.laotzu-panel { padding: 3.5rem 2rem; align-items: center; }
+
+    /* Card 6  --  conclusion */
+    .taster-conclude h2 { font-family: var(--font-ui); font-size: 1.2rem; color: var(--navy); margin-bottom: 0.75rem; }
+    .taster-conclude p { font-size: 0.92rem; color: var(--ink-mid); line-height: 1.75; margin-bottom: 1rem; }
+
     /* Canvas (hidden — for downloadable image generation) */
     #reflection-canvas { display: none; }
        ============================================================ */
@@ -784,7 +867,7 @@
 
     /* Desktop: constrain layout to comfortable reading width */
     @media (min-width: 900px) {
-      #screen-prompts, #screen-response {
+      #screen-prompts, #screen-response, #screen-taster {
         background: var(--stone-100);
       }
 
@@ -807,6 +890,12 @@
       }
 
       .prompt-card {
+        max-width: 780px;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .taster-card {
         max-width: 780px;
         padding-left: 0;
         padding-right: 0;
@@ -1179,6 +1268,145 @@
 
     <!-- Hidden canvas for downloadable image -->
     <canvas id="reflection-canvas" width="1080" height="1350" aria-hidden="true"></canvas>
+
+    <footer class="site-footer">
+      <p>GIBS Personal Mastery: Leading from Within &nbsp;&middot;&nbsp; Gordon Institute of Business Science, University of Pretoria</p>
+    </footer>
+  </section>
+
+  <!-- SCREEN 4b  --  COURSE TASTER (6 short nuggets, not a single scroll) -->
+  <section class="screen" id="screen-taster" aria-labelledby="taster-label">
+    <div class="prompts-topbar">
+      <button class="btn-back" id="btn-back-taster" type="button" aria-label="Back to your reflection" style="margin-right:0.25rem;flex-shrink:0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="p-thumb" aria-hidden="true">
+        <svg class="p-thumb-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+      <div class="p-topbar-text">
+        <small>Course taster</small>
+        <strong id="taster-label">Personal Mastery: Lead from Within</strong>
+      </div>
+    </div>
+
+    <div class="prog-wrap" role="progressbar" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1" aria-label="Taster step 1 of 6">
+      <div class="prog-track"><div class="prog-fill" id="prog-fill-taster" style="width:16.6%;"></div></div>
+      <p class="prog-label" id="prog-label-taster">Step 1 of 6</p>
+    </div>
+
+    <!-- 1: HOOK -->
+    <div class="taster-card active" id="taster-card-1" role="group" aria-labelledby="taster-h1">
+      <div class="taster-quote-card">
+        <img src="/assets/personal-mastery-hero.jpg" alt="" aria-hidden="true" />
+        <blockquote>
+          <p class="t-quote" id="taster-h1">&#8220;Personal mastery can be defined as the practice of being able to keep both a personal vision and a clear picture of reality before oneself.&#8221;</p>
+        </blockquote>
+        <p class="t-cite">Anderson et al., 2006; Cashman, 1998; Huber, 1998; Kouzes &amp; Posner, 2002, 2003a</p>
+      </div>
+      <p>It's a purposeful way of imagining, creating and achieving — one that lets you live by your own values while bringing your whole self to your work.</p>
+      <div class="taster-nav">
+        <span></span>
+        <button class="btn btn-navy" id="btn-taster-next-1" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+
+    <!-- 2: VIDEO -->
+    <div class="taster-card" id="taster-card-2" role="group" aria-labelledby="taster-h2">
+      <p class="prompt-cat">Meet your faculty</p>
+      <h2 id="taster-h2" style="font-family:var(--font-ui);font-size:1.1rem;color:var(--navy);margin-bottom:0.6rem;">Dr Frank Magwegwe</h2>
+      <p>Here's a short video introducing Dr Frank Magwegwe, GIBS faculty and the force behind Personal Mastery: Lead from Within.</p>
+      <div class="taster-video-frame">
+        <iframe src="https://player.vimeo.com/video/818408221?h=99b42a2d94&amp;title=0&amp;byline=0&amp;portrait=0"
+          title="Introducing Dr Frank Magwegwe, GIBS Personal Mastery: Lead from Within"
+          allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <a class="taster-learn-more" href="https://frankmagwegwe.com/" target="_blank" rel="noopener noreferrer">
+        Learn more about Dr Frank Magwegwe
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+      <div class="taster-nav">
+        <button class="taster-back-link" id="btn-taster-back-2" type="button">&larr; Back</button>
+        <button class="btn btn-navy" id="btn-taster-next-2" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+
+    <!-- 3: BENEFITS -->
+    <div class="taster-card" id="taster-card-3" role="group" aria-labelledby="taster-h3">
+      <p class="prompt-cat">What changes for you</p>
+      <h2 id="taster-h3" style="font-family:var(--font-ui);font-size:1.1rem;color:var(--navy);margin-bottom:0.6rem;">The benefits are long lasting</h2>
+      <p>You'll find more balance across your life, and more time for others, at work and beyond, because you'll feel more connected to the people around you.</p>
+      <p>You'll see reality more clearly, think outside the box, and take on challenges willingly.</p>
+      <div class="taster-nav">
+        <button class="taster-back-link" id="btn-taster-back-3" type="button">&larr; Back</button>
+        <button class="btn btn-navy" id="btn-taster-next-3" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+
+    <!-- 4: RATE YOURSELF -->
+    <div class="taster-card" id="taster-card-4" role="group" aria-labelledby="taster-h4">
+      <p class="prompt-cat">A moment for you</p>
+      <h2 id="taster-h4" style="font-family:var(--font-ui);font-size:1.1rem;color:var(--navy);margin-bottom:0.4rem;">Do you recognise yourself here?</h2>
+      <p>People skilled in personal mastery tend to share these traits. Tap the ones that sound like you — nothing here is recorded or scored.</p>
+      <fieldset style="border:0;margin:0;padding:0;">
+        <legend class="sr-only">Traits of people skilled in personal mastery</legend>
+        <div class="trait-list">
+          <div class="check-row-entry">
+            <input type="checkbox" id="trait-1" />
+            <label for="trait-1">A special sense of purpose, a calling</label>
+          </div>
+          <div class="check-row-entry">
+            <input type="checkbox" id="trait-2" />
+            <label for="trait-2">Skilled at using creative tension to drive progress</label>
+          </div>
+          <div class="check-row-entry">
+            <input type="checkbox" id="trait-3" />
+            <label for="trait-3">Accurately assess current reality, and quick to spot faulty assumptions</label>
+          </div>
+          <div class="check-row-entry">
+            <input type="checkbox" id="trait-4" />
+            <label for="trait-4">See change as an opportunity</label>
+          </div>
+          <div class="check-row-entry">
+            <input type="checkbox" id="trait-5" />
+            <label for="trait-5">Deeply inquisitive</label>
+          </div>
+          <div class="check-row-entry">
+            <input type="checkbox" id="trait-6" />
+            <label for="trait-6">Value personal connection without losing their individuality</label>
+          </div>
+          <div class="check-row-entry">
+            <input type="checkbox" id="trait-7" />
+            <label for="trait-7">Systemic thinkers, who see themselves as one part of a larger system</label>
+          </div>
+        </div>
+      </fieldset>
+      <div class="taster-nav">
+        <button class="taster-back-link" id="btn-taster-back-4" type="button">&larr; Back</button>
+        <button class="btn btn-navy" id="btn-taster-next-4" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+
+    <!-- 5: REFLECT  --  reuses the laotzu-panel treatment: same reflective-pause moment -->
+    <div class="taster-card laotzu-panel" id="taster-card-5" role="group" aria-labelledby="taster-h5" style="border-radius:var(--radius);">
+      <div class="laotzu-rule" aria-hidden="true"></div>
+      <p class="laotzu-quote" id="taster-h5">Start by becoming aware of yourself, your strengths and your weaknesses. Build on what makes you stronger, and let go of what holds you back.<br /><br />Focus on reality rather than wishful thinking. On the present and the future, rather than the past.</p>
+      <footer class="laotzu-attr">This is the beginning of your journey to personal mastery.</footer>
+      <div class="taster-nav" style="width:100%;max-width:380px;">
+        <button class="taster-back-link" id="btn-taster-back-5" type="button" style="color:rgba(255,255,255,0.55);">&larr; Back</button>
+        <button class="btn btn-gold" id="btn-taster-next-5" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+
+    <!-- 6: CONCLUSION -->
+    <div class="taster-card taster-conclude" id="taster-card-6" role="group" aria-labelledby="taster-h6">
+      <h2 id="taster-h6">It is simple.</h2>
+      <p>Personal mastery is about creating what you want, in life and in work. It rests on a few key practices: personal vision, personal purpose, holding the creative tension between vision and current reality, and taking action.</p>
+      <p>Commit yourself to your own personal mastery.</p>
+      <div class="taster-nav">
+        <button class="taster-back-link" id="btn-taster-back-6" type="button">&larr; Back</button>
+        <button class="btn btn-gold" id="btn-taster-apply" type="button">Continue to application <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
 
     <footer class="site-footer">
       <p>GIBS Personal Mastery: Leading from Within &nbsp;&middot;&nbsp; Gordon Institute of Business Science, University of Pretoria</p>
@@ -1742,7 +1970,48 @@
   });
 
   // ── Response → Apply ─────────────────────────────────────────────────
-  document.getElementById('btn-continue').addEventListener('click', () => showScreen('screen-apply'));
+  document.getElementById('btn-continue').addEventListener('click', goToTaster);
+
+  // ── Course taster stepper (6 nuggets) ────────────────────────────────
+  const tasterTitles = [
+    'Personal mastery',
+    'Meet Dr Frank Magwegwe',
+    'What changes for you',
+    'Do you recognise yourself here?',
+    'Think for a moment',
+    'It is simple.'
+  ];
+
+  function goToTaster() {
+    hideTasterCards();
+    document.getElementById('taster-card-1').classList.add('active');
+    setTasterProgress(1);
+    showScreen('screen-taster');
+  }
+  function hideTasterCards() {
+    document.querySelectorAll('.taster-card').forEach(el => el.classList.remove('active'));
+  }
+  function setTasterProgress(n) {
+    document.getElementById('prog-fill-taster').style.width = Math.round(n / 6 * 100) + '%';
+    document.getElementById('prog-label-taster').textContent = 'Step ' + n + ' of 6';
+    const pw = document.getElementById('prog-fill-taster').closest('.prog-wrap');
+    if (pw) pw.setAttribute('aria-valuenow', n);
+  }
+  function goToTasterCard(n) {
+    hideTasterCards();
+    document.getElementById('taster-card-' + n).classList.add('active');
+    setTasterProgress(n);
+    document.querySelector('#screen-taster .prompts-topbar')?.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    announce('Step ' + n + ' of 6: ' + tasterTitles[n - 1]);
+  }
+  for (let n = 1; n <= 5; n++) {
+    document.getElementById('btn-taster-next-' + n).addEventListener('click', () => goToTasterCard(n + 1));
+  }
+  for (let n = 2; n <= 6; n++) {
+    document.getElementById('btn-taster-back-' + n).addEventListener('click', () => goToTasterCard(n - 1));
+  }
+  document.getElementById('btn-back-taster').addEventListener('click', () => showScreen('screen-response'));
+  document.getElementById('btn-taster-apply').addEventListener('click', () => showScreen('screen-apply'));
 
   // ── Application form validation + submit ─────────────────────────────
   document.getElementById('btn-apply-submit').addEventListener('click', async () => {
@@ -1837,7 +2106,12 @@
     document.getElementById('prompt-card-3').classList.add('active');
     showScreen('screen-prompts');
   });
-  document.getElementById('btn-back-apply').addEventListener('click', () => showScreen('screen-response'));
+  document.getElementById('btn-back-apply').addEventListener('click', () => {
+    hideTasterCards();
+    document.getElementById('taster-card-6').classList.add('active');
+    setTasterProgress(6);
+    showScreen('screen-taster');
+  });
 
   </script>
 </body>
