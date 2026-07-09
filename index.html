@@ -184,7 +184,11 @@
 
     .entry-eyebrow {
       font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 2rem;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .entry-context {
+      font-size: 0.86rem; line-height: 1.7; color: rgba(255,255,255,0.72);
+      margin-bottom: 2rem; max-width: 34rem; margin-left: auto; margin-right: auto;
     }
 
     /* Georgia italic  --  large enough to read beautifully on mobile */
@@ -1057,6 +1061,7 @@
 
     <div class="entry-inner" id="main-content">
       <p class="entry-eyebrow">GIBS Digital Education &nbsp;&middot;&nbsp; World Mental Health Day 2026</p>
+      <p class="entry-context">This experience is inspired by the acclaimed GIBS Personal Mastery course, created by Dr Frank Magwegwe &mdash; a course that has helped people reflect deeply on how they lead themselves, their choices and their future.</p>
 
       <div class="testimonial-slider">
         <blockquote class="testimonial-slide active" id="testimonial-1">
@@ -1098,9 +1103,9 @@
 
       <p class="entry-programme-tag">Personal Mastery: Leading from Within</p>
       <p class="entry-tagline">
-        In a world of constant change and growing demands,<br />
-        the ability to lead yourself has never mattered more.<br />
-        This is where that journey begins.
+        Before you begin, take a few minutes to pause and reflect.<br />
+        This short experience invites you to look at where you have been,<br />
+        where you want to go, and what it may take to lead yourself with greater purpose.
       </p>
       <button class="btn btn-gold" id="btn-begin" type="button">
         Begin My Story
@@ -1338,8 +1343,8 @@
       <!-- Course taster CTA -->
       <div class="course-bridge" role="complementary" aria-labelledby="bridge-heading">
         <p class="cb-eyebrow">What comes next</p>
-        <h3 id="bridge-heading">Would you like to become the best version of yourself?</h3>
-        <p>Discover a short taster of the acclaimed GIBS Professional Development Course, <em>Personal Mastery: Lead from Within</em>, created by Dr Frank Magwegwe. The skills and insights from this course will help shift your outlook — in both your personal and professional life.</p>
+        <h3 id="bridge-heading">Ready to lead yourself with more clarity?</h3>
+        <p>The Personal Mastery course helps you strengthen your self-awareness, clarify what matters most, and take practical steps towards the life and work you want to create. This short taster gives you a glimpse into the tools and ideas that can help you move from reflection to action.</p>
         <button class="btn btn-gold" id="btn-continue" type="button">
           Explore the course taster
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1413,8 +1418,8 @@
     <div class="taster-card" id="taster-card-3" role="group" aria-labelledby="taster-h3">
       <p class="prompt-cat">What changes for you</p>
       <h2 id="taster-h3" style="font-family:var(--font-ui);font-size:1.1rem;color:var(--navy);margin-bottom:0.6rem;">The benefits are long lasting</h2>
-      <p>You'll find more balance across your life, and more time for others, at work and beyond, because you'll feel more connected to the people around you.</p>
-      <p>You'll see reality more clearly, think outside the box, and take on challenges willingly.</p>
+      <p>Personal mastery helps you pause, reflect and respond with greater intention. It strengthens your ability to see your current reality clearly, hold a meaningful personal vision, and take practical steps towards that vision.</p>
+      <p>Over time, this can support greater resilience, better decision-making, stronger relationships and a deeper sense of purpose in both life and work.</p>
       <div class="reveal-image" id="benefits-reveal">
         <img class="reveal-base" src="/assets/personal-mastery-about-white.png" alt="Personal mastery transforms your life and career by cultivating deep self-awareness, emotional intelligence and a proactive mindset. The core benefits include enhanced leadership skills, greater resilience to stress, and the ability to align your daily actions with your long-term vision." />
         <img class="reveal-colour" src="/assets/personal-mastery-about-colour.png" alt="" aria-hidden="true" />
@@ -1488,8 +1493,8 @@
 
     <!-- 6: CONCLUSION -->
     <div class="taster-card taster-conclude" id="taster-card-6" role="group" aria-labelledby="taster-h6">
-      <h2 id="taster-h6">It is simple.</h2>
-      <p>Personal mastery is about creating what you want, in life and in work. It rests on a few key practices: personal vision, personal purpose, holding the creative tension between vision and current reality, and taking action.</p>
+      <h2 id="taster-h6">The practice is simple. The impact can be powerful.</h2>
+      <p>Personal mastery is about learning to hold two things at once: a clear vision of what you want to create, and an honest view of where you are right now. The work begins in that space between vision and reality, and grows through purposeful action.</p>
       <p>Commit yourself to your own personal mastery.</p>
       <img class="taster-conclude-image" src="/assets/personal-mastery-own-your-mastery-image.png" alt="" aria-hidden="true" />
       <div class="taster-nav">
@@ -1507,7 +1512,7 @@
   <section class="screen" id="screen-apply" aria-labelledby="apply-heading">
     <div class="apply-topbar">
       <div>
-        <h2 id="apply-heading">One more step, <span class="apply-name-slot">there</span></h2>
+        <h2 id="apply-heading">One more step</h2>
         <p>Complete your application for a sponsored seat. Takes about 2 minutes.</p>
       </div>
     </div>
@@ -1544,7 +1549,7 @@
       <!-- Commitment checkboxes -->
       <div class="apply-card">
         <h3>Your commitments</h3>
-        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Please confirm the following so we can place you in the right cohort. All three are required.</p>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Before you apply, please confirm that you will be able to participate fully. Sponsored seats are limited, so we want to make sure they are offered to applicants who are ready and able to complete the course.</p>
         <div class="commit-list">
 
           <div class="commit-item" onclick="this.querySelector('input').click()">
@@ -1612,8 +1617,8 @@
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
 
-      <h2 class="confirm-heading" id="confirm-heading">You&#8217;re in, <span id="confirm-name">there</span>.</h2>
-      <p class="confirm-sub">Your application has been received. The GIBS Digital Education team will be in touch directly if you are selected for a sponsored seat.</p>
+      <h2 class="confirm-heading" id="confirm-heading">Your application has been received</h2>
+      <p class="confirm-sub">Thank you for applying for a sponsored seat in the GIBS Personal Mastery: Leading from Within course. Your application has been received, and the GIBS Digital Education team will contact successful applicants directly.</p>
 
       <div class="timeline-card" aria-label="What happens next">
         <h3>What happens next</h3>
@@ -2096,7 +2101,7 @@
     'What changes for you',
     'Where do you see yourself?',
     'Think for a moment',
-    'It is simple.'
+    'The practice is simple.'
   ];
 
   function goToTaster() {
