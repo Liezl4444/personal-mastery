@@ -441,15 +441,16 @@
       text-align: center; padding: 4rem 1.5rem; gap: 1.5rem;
     }
     .loading-ring {
-      width: 96px; height: 96px; border-radius: 50%;
-      overflow: hidden; border: 3px solid var(--purple);
+      width: 148px; height: 148px; border-radius: 50%;
+      overflow: hidden; border: 5px solid var(--avatar-ring);
       background: rgba(255,255,255,0.05);
+      box-shadow: 0 0 0 6px rgba(255,255,255,0.14);
       display: flex; align-items: center; justify-content: center;
       position: relative; flex-shrink: 0;
     }
     .loading-ring::after {
-      content: ''; position: absolute; inset: -7px; border-radius: 50%;
-      border: 3px solid transparent; border-top-color: var(--gold);
+      content: ''; position: absolute; inset: -9px; border-radius: 50%;
+      border: 4px solid transparent; border-top-color: var(--gold);
       animation: spin 1.1s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -2216,21 +2217,47 @@
   document.getElementById('btn-taster-apply').addEventListener('click', () => showScreen('screen-apply'));
 
   // ── Taster card 3: benefits image "comes alive" from white to colour ──
-  // Shows white first, then fades in the colour version shortly after the
-  // card arrives  --  reliable regardless of screen size, unlike a pure
-  // scroll trigger which fired instantly on short/tall phones.
-  let benefitsRevealTimer = null;
+  // Starts white, turns to colour once the person actually scrolls it
+  // into view. This app scrolls at the page level (the body has no fixed
+  // height), so this watches the real viewport, not an inner container.
+  // If the image is already fully in view with nothing to scroll (e.g.
+  // a tall desktop window), it reveals after a short pause instead of
+  // leaving the white version stranded forever.
+  let benefitsObserver = null;
   function resetBenefitsReveal() {
-    clearTimeout(benefitsRevealTimer);
-    document.getElementById('benefits-reveal')?.classList.remove('is-visible');
+    const target = document.getElementById('benefits-reveal');
+    if (target) target.classList.remove('is-visible');
+    if (benefitsObserver) { benefitsObserver.disconnect(); benefitsObserver = null; }
   }
   function triggerBenefitsReveal() {
-    clearTimeout(benefitsRevealTimer);
     const target = document.getElementById('benefits-reveal');
     if (!target) return;
     target.classList.remove('is-visible');
+
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    benefitsRevealTimer = setTimeout(() => target.classList.add('is-visible'), reduced ? 0 : 650);
+    if (reduced) { target.classList.add('is-visible'); return; }
+
+    if (!('IntersectionObserver' in window)) {
+      setTimeout(() => target.classList.add('is-visible'), 900);
+      return;
+    }
+
+    let firstCheck = true;
+    benefitsObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (firstCheck) {
+            // Nothing to scroll  --  reveal shortly rather than never.
+            setTimeout(() => target.classList.add('is-visible'), 900);
+          } else {
+            target.classList.add('is-visible');
+          }
+          if (benefitsObserver) { benefitsObserver.disconnect(); benefitsObserver = null; }
+        }
+        firstCheck = false;
+      });
+    }, { threshold: 0.35 });
+    benefitsObserver.observe(target);
   }
 
   // ── Taster card 4: one rating slider per trait, filled track shows progress ──
