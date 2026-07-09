@@ -184,11 +184,7 @@
 
     .entry-eyebrow {
       font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
-    }
-    .entry-context {
-      font-size: 0.86rem; line-height: 1.7; color: rgba(255,255,255,0.72);
-      margin-bottom: 2rem; max-width: 34rem; margin-left: auto; margin-right: auto;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 2rem;
     }
 
     /* Georgia italic  --  large enough to read beautifully on mobile */
@@ -202,7 +198,7 @@
     .entry-attribution { font-size: 0.72rem; color: rgba(255,255,255,0.55); letter-spacing: 0.07em; margin-bottom: 0.2rem; font-weight: 600; }
     .entry-attribution-role { font-size: 0.68rem; color: rgba(255,255,255,0.35); letter-spacing: 0.05em; margin-bottom: 0; }
 
-    .testimonial-slider { margin-bottom: 1.75rem; }
+    .testimonial-slider { margin-bottom: 2rem; }
     .testimonial-slide { display: none; margin: 0; }
     .testimonial-slide.active { display: block; }
     .testimonial-dots { display: flex; justify-content: center; gap: 0.2rem; margin-top: 1.6rem; }
@@ -220,13 +216,51 @@
     .entry-programme-tag {
       font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
       text-transform: uppercase; color: rgba(255,255,255,0.35);
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
     }
 
+    /* ============================================================
+       SCREEN 0b  --  ABOUT / CONTEXT
+       Same navy hero world as Entry  --  the "what is this, and why"
+       beat, kept off the hook screen so neither one is overloaded.
+       ============================================================ */
+    #screen-about {
+      background: url('/assets/pm-background.png') center/cover no-repeat;
+      align-items: center; justify-content: flex-start;
+      padding: 1.5rem 1.5rem 4rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+      flex: 1;
+      min-height: calc(100vh - 80px);
+    }
+    .btn-back-light {
+      color: rgba(255,255,255,0.6);
+    }
+    .btn-back-light:hover { color: #fff; }
+    .about-inner {
+      max-width: 560px; width: 100%;
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 1.5rem;
+    }
+    .about-eyebrow {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+      margin-bottom: 1.5rem;
+    }
+    .about-offer {
+      font-size: 1rem; line-height: 1.75; color: #fff;
+      margin-bottom: 1.75rem; font-weight: 500;
+    }
+    .about-offer strong { color: var(--gold); }
+    .entry-context {
+      font-size: 0.86rem; line-height: 1.7; color: rgba(255,255,255,0.65);
+      margin-bottom: 2rem;
+    }
+    .about-rule { width: 36px; height: 3px; background: var(--gold); border: none; margin: 0 auto 2rem; }
     .entry-tagline {
-      font-size: 0.94rem; font-weight: 400; color: rgba(255,255,255,0.6);
+      font-size: 0.94rem; font-weight: 400; color: rgba(255,255,255,0.85);
       line-height: 1.8; margin-bottom: 2.5rem;
-      max-width: 400px;
     }
 
     /* ============================================================
@@ -595,6 +629,7 @@
       font-size: clamp(0.9rem, 2.2vw, 1rem);
       font-style: italic; line-height: 1.85; color: var(--ink);
       box-shadow: var(--shadow-sm);
+      white-space: pre-line;
     }
     .ai-label-row {
       font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
@@ -893,7 +928,7 @@
       .prog-wrap { padding: 0.9rem 0.9rem 0; }
       .prompts-topbar, .resp-topbar { padding: 0.7rem 0.9rem; }
       .photo-card { padding: 1.75rem 1.1rem; }
-      #screen-entry { padding: 1.5rem 1.25rem 6rem; }
+      #screen-entry, #screen-about { padding: 1.5rem 1.25rem 6rem; }
       .entry-inner { padding-top: 0.5rem; }
     }
 
@@ -1056,12 +1091,11 @@
     <span class="header-badge">My Story</span>
   </header>
 
-  <!-- SCREEN 0  --  ENTRY -->
+  <!-- SCREEN 0  --  ENTRY (hook only) -->
   <main class="screen active" id="screen-entry" aria-labelledby="entry-quote">
 
     <div class="entry-inner" id="main-content">
       <p class="entry-eyebrow">GIBS Digital Education &nbsp;&middot;&nbsp; World Mental Health Day 2026</p>
-      <p class="entry-context">This experience is inspired by the acclaimed GIBS Personal Mastery course, created by Dr Frank Magwegwe &mdash; a course that has helped people reflect deeply on how they lead themselves, their choices and their future.</p>
 
       <div class="testimonial-slider">
         <blockquote class="testimonial-slide active" id="testimonial-1">
@@ -1102,22 +1136,40 @@
       </div>
 
       <p class="entry-programme-tag">Personal Mastery: Leading from Within</p>
-      <p class="entry-tagline">
-        Before you begin, take a few minutes to pause and reflect.<br />
-        This short experience invites you to look at where you have been,<br />
-        where you want to go, and what it may take to lead yourself with greater purpose.
-      </p>
       <button class="btn btn-gold" id="btn-begin" type="button">
-        Begin My Story
+        Find out more
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
     </div>
   </main>
 
+  <!-- SCREEN 0b  --  ABOUT / CONTEXT -->
+  <section class="screen" id="screen-about" aria-labelledby="about-heading">
+    <div class="back-row-centered">
+      <button class="btn-back btn-back-light" id="btn-back-about" type="button" aria-label="Back to start">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        Back
+      </button>
+    </div>
+    <div class="about-inner">
+      <p class="about-eyebrow" id="about-heading">Personal Mastery: Leading from Within</p>
+      <p class="about-offer">Complete this short experience and submit your application to stand a chance of being selected for a free seat on our October <em>Personal Mastery: Leading from Within</em> course, offered by GIBS Digital Education in honour of World Mental Health Day. GIBS is donating <strong>100 seats</strong> to help applicants invest in their own growth and leadership.</p>
+      <p class="entry-context">This experience is inspired by the acclaimed GIBS Personal Mastery course, created by Dr Frank Magwegwe &mdash; a course that has helped people reflect deeply on how they lead themselves, their choices and their future.</p>
+      <hr class="about-rule" aria-hidden="true" />
+      <p class="entry-tagline">
+        Before you begin, take a few minutes to pause and reflect on your personal journey. This short reflection invites you to look at where you have been, where you want to go, and what it may take to lead yourself with greater purpose.
+      </p>
+      <button class="btn btn-gold" id="btn-about-begin" type="button">
+        Begin My Story
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </section>
+
   <!-- SCREEN 1  --  PHOTO + NAME + CONSENT -->
   <section class="screen" id="screen-photo" aria-labelledby="photo-heading">
     <div class="back-row-centered">
-      <button class="btn-back" id="btn-back-photo" type="button" aria-label="Back to start">
+      <button class="btn-back" id="btn-back-photo" type="button" aria-label="Back">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
         Back
       </button>
@@ -1740,7 +1792,9 @@
   }
 
   // ── Screen 0 → Screen 1 ──────────────────────────────────────────────
-  document.getElementById('btn-begin').addEventListener('click', () => showScreen('screen-photo'));
+  document.getElementById('btn-begin').addEventListener('click', () => showScreen('screen-about'));
+  document.getElementById('btn-back-about').addEventListener('click', () => showScreen('screen-entry'));
+  document.getElementById('btn-about-begin').addEventListener('click', () => showScreen('screen-photo'));
 
   // ── Entry screen: testimonial slider ────────────────────────────────
   (function initTestimonials() {
@@ -1932,17 +1986,27 @@
     if (!p1 || !p2 || !p3) { announce('Please complete all three prompts before continuing.'); return; }
     showScreen('screen-loading');
     announce('Sending your letter. Please wait.');
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 20000);
     try {
       const res = await fetch('/.netlify/functions/reflect', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt1: p1, prompt2: p2, prompt3: p3 })
+        body: JSON.stringify({ prompt1: p1, prompt2: p2, prompt3: p3 }),
+        signal: controller.signal
       });
+      clearTimeout(timeoutId);
       const data = await res.json();
       if (!res.ok || data.error) showResponse(null, data.error || 'Something went wrong. Please try again.');
       else showResponse(data.response, null);
-    } catch(e) {
-      showResponse(null, 'Could not connect. Please check your connection and try again.');
+    } catch (e) {
+      clearTimeout(timeoutId);
+      if (e.name === 'AbortError') {
+        showResponse(null, 'This is taking longer than expected. Your reflection wasn\u2019t lost \u2014 you can try sending it again.');
+      } else {
+        showResponse(null, 'Could not connect. Please check your connection and try again.');
+      }
     }
   }
   function showResponse(text, error) {
@@ -1963,7 +2027,12 @@
     const errSlot = document.getElementById('resp-error-slot');
     if (error) {
       if (slot) slot.innerHTML = '';
-      if (errSlot) errSlot.innerHTML = '<div class="response-error" role="alert"><strong>Something went wrong.</strong><br />' + esc(error) + '</div>';
+      if (errSlot) {
+        errSlot.innerHTML = '<div class="response-error" role="alert"><strong>Something went wrong.</strong><br />' + esc(error) +
+          '<br /><button class="btn btn-navy" id="btn-retry-reflection" type="button" style="margin-top:0.85rem;width:auto;">Try again</button></div>';
+        const retryBtn = document.getElementById('btn-retry-reflection');
+        if (retryBtn) retryBtn.addEventListener('click', submitReflection);
+      }
       announce('Error: ' + error);
     } else {
       if (errSlot) errSlot.innerHTML = '';
@@ -2253,7 +2322,7 @@
   });
 
   // ── Back buttons ─────────────────────────────────────────────────────
-  document.getElementById('btn-back-photo').addEventListener('click', () => showScreen('screen-entry'));
+  document.getElementById('btn-back-photo').addEventListener('click', () => showScreen('screen-about'));
   document.getElementById('btn-back-prompts').addEventListener('click', () => showScreen('screen-photo'));
   document.getElementById('btn-back-response').addEventListener('click', () => {
     hideCards(); setProgress(3);
