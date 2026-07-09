@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     /* ============================================================
@@ -55,8 +55,8 @@
 
       /* Inter for all UI  --  excellent mobile legibility */
       --font-ui:      'Inter', system-ui, -apple-system, Arial, sans-serif;
-      /* Playfair only for large hero quote where serifs earn their place */
-      --font-serif:   'Playfair Display', Georgia, serif;
+      /* Georgia/Times for quotes  --  reads far easier in italic than Playfair Display did */
+      --font-serif:   Georgia, 'Times New Roman', Times, serif;
 
       --transition:   0.18s ease;
     }
@@ -187,7 +187,7 @@
       text-transform: uppercase; color: var(--gold); margin-bottom: 2rem;
     }
 
-    /* Playfair only here  --  large enough to read beautifully on mobile */
+    /* Georgia italic  --  large enough to read beautifully on mobile */
     .entry-quote {
       font-family: var(--font-serif);
       font-size: clamp(1.3rem, 4.5vw, 1.9rem);
@@ -195,7 +195,24 @@
       line-height: 1.5; color: white; margin-bottom: 0;
     }
     .entry-rule { width: 36px; height: 3px; background: var(--gold); border: none; margin: 1.5rem auto; }
-    .entry-attribution { font-size: 0.72rem; color: rgba(255,255,255,0.38); letter-spacing: 0.07em; margin-bottom: 0.5rem; }
+    .entry-attribution { font-size: 0.72rem; color: rgba(255,255,255,0.55); letter-spacing: 0.07em; margin-bottom: 0.2rem; font-weight: 600; }
+    .entry-attribution-role { font-size: 0.68rem; color: rgba(255,255,255,0.35); letter-spacing: 0.05em; margin-bottom: 0; }
+
+    .testimonial-slider { margin-bottom: 1.75rem; }
+    .testimonial-slide { display: none; margin: 0; }
+    .testimonial-slide.active { display: block; }
+    .testimonial-dots { display: flex; justify-content: center; gap: 0.2rem; margin-top: 1.6rem; }
+    .t-dot {
+      width: 10px; height: 10px; padding: 15px; box-sizing: content-box;
+      background-color: rgba(255,255,255,0.25); background-clip: content-box;
+      border: none; border-radius: 3px; cursor: pointer;
+      transition: background-color var(--transition);
+    }
+    .t-dot.active { background-color: var(--gold); }
+    .t-dot:hover { background-color: rgba(255,255,255,0.45); }
+    .t-dot.active:hover { background-color: var(--gold); }
+    .t-dot:focus-visible { outline: 3px solid var(--teal); outline-offset: 1px; }
+
     .entry-programme-tag {
       font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
       text-transform: uppercase; color: rgba(255,255,255,0.35);
@@ -1040,13 +1057,45 @@
 
     <div class="entry-inner" id="main-content">
       <p class="entry-eyebrow">GIBS Digital Education &nbsp;&middot;&nbsp; World Mental Health Day 2026</p>
-      <blockquote>
-        <p class="entry-quote" id="entry-quote">
-          &#8220;We aren't here to make the world evolve.<br />We are here to evolve as individuals<br />and then to spread that influence.&#8221;
-        </p>
-      </blockquote>
-      <hr class="entry-rule" aria-hidden="true" />
-      <p class="entry-attribution">Deepak Chopra</p>
+
+      <div class="testimonial-slider">
+        <blockquote class="testimonial-slide active" id="testimonial-1">
+          <p class="entry-quote" id="entry-quote">
+            &#8220;Standing ovation from all 350 guests&#8230; phenomenal human being and outstanding storyteller&#8230; message that hits home &mdash; sometimes really hard.&#8221;
+          </p>
+          <hr class="entry-rule" aria-hidden="true" />
+          <footer>
+            <p class="entry-attribution">Greg Reed</p>
+            <p class="entry-attribution-role">Managing Director, IdeaLab</p>
+          </footer>
+        </blockquote>
+        <blockquote class="testimonial-slide" id="testimonial-2">
+          <p class="entry-quote">
+            &#8220;Probably the most beneficial talk on financial stress and mental health that I have ever attended. Dr Mags is a fantastic speaker &mdash; inspiring, insightful, and practical.&#8221;
+          </p>
+          <hr class="entry-rule" aria-hidden="true" />
+          <footer>
+            <p class="entry-attribution">HR Director</p>
+          </footer>
+        </blockquote>
+        <blockquote class="testimonial-slide" id="testimonial-3">
+          <p class="entry-quote">
+            &#8220;From a cardboard bed to the boardroom&#8230; a reminder of the latent power in the human spirit.&#8221;
+          </p>
+          <hr class="entry-rule" aria-hidden="true" />
+          <footer>
+            <p class="entry-attribution">Alec Hogg</p>
+            <p class="entry-attribution-role">BizNews</p>
+          </footer>
+        </blockquote>
+
+        <div class="testimonial-dots" role="tablist" aria-label="Choose a testimonial about Dr Frank Magwegwe">
+          <button type="button" class="t-dot active" role="tab" id="t-tab-1" aria-controls="testimonial-1" aria-selected="true" aria-label="Testimonial from Greg Reed, IdeaLab"></button>
+          <button type="button" class="t-dot" role="tab" id="t-tab-2" aria-controls="testimonial-2" aria-selected="false" aria-label="Testimonial from an HR Director"></button>
+          <button type="button" class="t-dot" role="tab" id="t-tab-3" aria-controls="testimonial-3" aria-selected="false" aria-label="Testimonial from Alec Hogg, BizNews"></button>
+        </div>
+      </div>
+
       <p class="entry-programme-tag">Personal Mastery: Leading from Within</p>
       <p class="entry-tagline">
         In a world of constant change and growing demands,<br />
@@ -1379,42 +1428,42 @@
     <!-- 4: WHERE YOU ARE, WHERE YOU'RE HEADED -->
     <div class="taster-card" id="taster-card-4" role="group" aria-labelledby="taster-h4">
       <p class="prompt-cat">A moment for you</p>
-      <h2 id="taster-h4" style="font-family:var(--font-ui);font-size:1.1rem;color:var(--navy);margin-bottom:0.4rem;">Do you recognise yourself here?</h2>
-      <p>People skilled in personal mastery tend to share these traits. Slide to rate how much each sounds like you — nothing here is recorded or scored.</p>
+      <h2 id="taster-h4" style="font-family:var(--font-ui);font-size:1.1rem;color:var(--navy);margin-bottom:0.4rem;">Where do you see yourself?</h2>
+      <p>Personal mastery is not about being perfect. It is about becoming more aware of how you think, choose, respond, and grow. Slide to rate how much each statement feels true for you right now. Nothing here is recorded or scored.</p>
 
       <div class="rate-list">
         <div class="rate-item">
-          <p class="rate-q" id="rate-q-1">A special sense of purpose, a calling</p>
+          <p class="rate-q" id="rate-q-1">I have a strong sense of purpose or calling.</p>
           <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-1" aria-labelledby="rate-q-1">
           <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
         </div>
         <div class="rate-item">
-          <p class="rate-q" id="rate-q-2">Skilled at using creative tension to drive progress</p>
+          <p class="rate-q" id="rate-q-2">I can use the gap between where I am and where I want to be as energy for progress.</p>
           <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-2" aria-labelledby="rate-q-2">
           <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
         </div>
         <div class="rate-item">
-          <p class="rate-q" id="rate-q-3">Accurately assess current reality, and quick to spot faulty assumptions</p>
+          <p class="rate-q" id="rate-q-3">I am willing to look honestly at my current reality and notice where my assumptions may be holding me back.</p>
           <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-3" aria-labelledby="rate-q-3">
           <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
         </div>
         <div class="rate-item">
-          <p class="rate-q" id="rate-q-4">See change as an opportunity</p>
+          <p class="rate-q" id="rate-q-4">I see change as an opportunity to grow, learn, or create something new.</p>
           <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-4" aria-labelledby="rate-q-4">
           <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
         </div>
         <div class="rate-item">
-          <p class="rate-q" id="rate-q-5">Deeply inquisitive</p>
+          <p class="rate-q" id="rate-q-5">I am deeply curious and open to learning more about myself, others, and the world around me.</p>
           <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-5" aria-labelledby="rate-q-5">
           <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
         </div>
         <div class="rate-item">
-          <p class="rate-q" id="rate-q-6">Value personal connection without losing their individuality</p>
+          <p class="rate-q" id="rate-q-6">I value meaningful personal connections while still staying true to who I am.</p>
           <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-6" aria-labelledby="rate-q-6">
           <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
         </div>
         <div class="rate-item">
-          <p class="rate-q" id="rate-q-7">Systemic thinkers, who see themselves as one part of a larger system</p>
+          <p class="rate-q" id="rate-q-7">I see myself as part of a larger system, and I understand that my choices and actions can influence others.</p>
           <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-7" aria-labelledby="rate-q-7">
           <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
         </div>
@@ -1687,6 +1736,33 @@
 
   // ── Screen 0 → Screen 1 ──────────────────────────────────────────────
   document.getElementById('btn-begin').addEventListener('click', () => showScreen('screen-photo'));
+
+  // ── Entry screen: testimonial slider ────────────────────────────────
+  (function initTestimonials() {
+    const slides = Array.prototype.slice.call(document.querySelectorAll('.testimonial-slide'));
+    const tabs = Array.prototype.slice.call(document.querySelectorAll('.t-dot'));
+    if (!slides.length || !tabs.length) return;
+    let index = 0;
+    let autoTimer = null;
+
+    function goTo(i) {
+      index = (i + slides.length) % slides.length;
+      slides.forEach((el, n) => el.classList.toggle('active', n === index));
+      tabs.forEach((el, n) => {
+        el.classList.toggle('active', n === index);
+        el.setAttribute('aria-selected', n === index ? 'true' : 'false');
+      });
+    }
+    function stopAuto() { clearInterval(autoTimer); autoTimer = null; }
+    function startAuto() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      autoTimer = setInterval(() => goTo(index + 1), 7000);
+    }
+    tabs.forEach((tab, n) => {
+      tab.addEventListener('click', () => { stopAuto(); goTo(n); });
+    });
+    startAuto();
+  })();
 
   // ── Photo upload (no longer auto-advances) ───────────────────────────
   const photoInput = document.getElementById('photo-input');
@@ -2018,7 +2094,7 @@
     'Personal mastery',
     'Meet Dr Frank Magwegwe',
     'What changes for you',
-    'Do you recognise yourself here?',
+    'Where do you see yourself?',
     'Think for a moment',
     'It is simple.'
   ];
