@@ -3,13 +3,52 @@
 // sends confirmation email to applicant, sends notification to GIBS admin.
 //
 // Environment variables required (set in Netlify Dashboard → Site settings → Environment variables):
-//   ANTHROPIC_API_KEY        — Claude API key (for reflect.js)
 //   GIBS_ADMIN_EMAIL         — email address for admin notifications (e.g. personalmastery@gibs.co.za)
 //   SENDGRID_API_KEY         — SendGrid API key for outbound email
 //   FROM_EMAIL               — verified sender address in SendGrid (e.g. noreply@gibs.co.za)
-//   BLOB_STORE_TOKEN         — Netlify Blob token (auto-available in Netlify Functions, but can be set manually)
+//
+// NOTE: Netlify Blobs needs no manual site ID / token when called from inside
+// a Netlify Function — getStore({ name }) alone picks up the deploy context
+// automatically. Passing siteID/token manually (as this file used to) only
+// applies outside of Netlify Functions, and silently breaks storage here if
+// those specific env vars were never set.
 
+const https = require('https');
 const { getStore } = require('@netlify/blobs');
+
+// ── Same https helper as reflect.js  --  Netlify Functions' Node runtime
+// has not reliably had global fetch(); this avoids that dependency entirely
+// rather than assuming it's available. ─────────────────────────────────────
+function httpsPost(url, headers, body) {
+  return new Promise((resolve, reject) => {
+    const urlObj = new URL(url);
+    const options = {
+      hostname: urlObj.hostname,
+      path: urlObj.pathname,
+      method: 'POST',
+      headers: { ...headers, 'Content-Length': Buffer.byteLength(body) }
+    };
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => resolve({ status: res.statusCode, body: data }));
+    });
+    req.on('error', reject);
+    req.write(body);
+    req.end();
+  });
+}
+
+// Escape user-supplied text before it goes into an HTML email — firstName,
+// surname etc. were previously interpolated straight into the email HTML.
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
 exports.handler = async function (event, context) {
 
@@ -81,19 +120,20 @@ exports.handler = async function (event, context) {
 
   // ── Store to Netlify Blob ────────────────────────────────────────────
   // Blob key: applications/{applicationId}
-  // This gives Farzana's team a queryable store of all applicants.
+  // Zero-config getStore() — Netlify Functions provide the site/token
+  // context automatically at runtime. Do not pass siteID/token manually
+  // here; that path is for scripts running OUTSIDE Netlify Functions only.
+  let blobSaved = false;
   try {
-    const store = getStore({
-      name: 'pm-applications',
-      siteID:  process.env.NETLIFY_SITE_ID,
-      token:   process.env.BLOB_STORE_TOKEN || process.env.NETLIFY_TOKEN
-    });
+    const store = getStore({ name: 'pm-applications' });
     await store.setJSON(applicationId, record);
+    blobSaved = true;
+    console.log('Blob saved:', applicationId);
   } catch (blobErr) {
-    console.error('Blob storage error:', blobErr);
+    console.error('Blob storage error for', applicationId, ':', blobErr.message, blobErr.stack);
     // Don't fail the whole submission if Blob fails — log and continue.
-    // The email notification to admin will still fire.
-    console.warn('Application NOT saved to Blob. Proceeding with email only.');
+    // The email notification to admin still fires below, so the
+    // application isn't silently lost even if this write failed.
   }
 
   // ── Send emails via SendGrid ─────────────────────────────────────────
@@ -101,10 +141,17 @@ exports.handler = async function (event, context) {
   const fromEmail = process.env.FROM_EMAIL || 'noreply@gibs.co.za';
   const adminEmail = process.env.GIBS_ADMIN_EMAIL || 'digitallearning@gibs.co.za';
 
+  const safeFirstName = escapeHtml(record.firstName);
+  const safeSurname   = escapeHtml(record.surname);
+  const safeEmail     = escapeHtml(record.email);
+  const safePhone     = escapeHtml(record.phone);
+
+  let emailsSent = false;
+
   if (sgKey) {
     try {
       // ── Confirmation to applicant ──────────────────────────────────
-      const confirmationBody = {
+      const confirmationBody = JSON.stringify({
         personalizations: [{
           to: [{ email: record.email, name: `${record.firstName} ${record.surname}` }],
           subject: `Application received — Personal Mastery: Lead from Within`
@@ -123,7 +170,7 @@ exports.handler = async function (event, context) {
       <h1 style="color:#ffffff;font-size:20px;font-weight:700;margin:0;line-height:1.3;">Personal Mastery:<br />Lead from Within</h1>
     </div>
     <div style="padding:32px;">
-      <p style="color:#1c1c1e;font-size:16px;margin:0 0 16px;">Dear ${record.firstName},</p>
+      <p style="color:#1c1c1e;font-size:16px;margin:0 0 16px;">Dear ${safeFirstName},</p>
       <p style="color:#3d3d40;font-size:15px;line-height:1.7;margin:0 0 16px;">Thank you — your application for a sponsored seat on the <strong>Personal Mastery: Lead from Within</strong> Professional Development Course has been received.</p>
       <p style="color:#3d3d40;font-size:15px;line-height:1.7;margin:0 0 24px;">We received a number of applications and will contact you directly if you are selected. Please keep an eye on this inbox.</p>
       <div style="background:#f7f6f4;border-radius:10px;padding:20px 24px;margin:0 0 24px;">
@@ -145,10 +192,10 @@ exports.handler = async function (event, context) {
 </body>
 </html>`
         }]
-      };
+      });
 
       // ── Admin notification ─────────────────────────────────────────
-      const adminBody = {
+      const adminBody = JSON.stringify({
         personalizations: [{
           to: [{ email: adminEmail }],
           subject: `New PM:LFW application — ${record.firstName} ${record.surname}`
@@ -163,42 +210,54 @@ exports.handler = async function (event, context) {
 <table style="width:100%;border-collapse:collapse;margin-top:16px;">
   <tr style="background:#f7f6f4;"><td style="padding:10px 12px;font-size:13px;font-weight:600;width:140px;">Application ID</td><td style="padding:10px 12px;font-size:13px;">${applicationId}</td></tr>
   <tr><td style="padding:10px 12px;font-size:13px;font-weight:600;">Submitted</td><td style="padding:10px 12px;font-size:13px;">${new Date(submittedAt).toLocaleString('en-ZA',{timeZone:'Africa/Johannesburg'})}</td></tr>
-  <tr style="background:#f7f6f4;"><td style="padding:10px 12px;font-size:13px;font-weight:600;">First name</td><td style="padding:10px 12px;font-size:13px;">${record.firstName}</td></tr>
-  <tr><td style="padding:10px 12px;font-size:13px;font-weight:600;">Surname</td><td style="padding:10px 12px;font-size:13px;">${record.surname}</td></tr>
-  <tr style="background:#f7f6f4;"><td style="padding:10px 12px;font-size:13px;font-weight:600;">Email</td><td style="padding:10px 12px;font-size:13px;"><a href="mailto:${record.email}">${record.email}</a></td></tr>
-  <tr><td style="padding:10px 12px;font-size:13px;font-weight:600;">Phone</td><td style="padding:10px 12px;font-size:13px;">${record.phone}</td></tr>
+  <tr style="background:#f7f6f4;"><td style="padding:10px 12px;font-size:13px;font-weight:600;">First name</td><td style="padding:10px 12px;font-size:13px;">${safeFirstName}</td></tr>
+  <tr><td style="padding:10px 12px;font-size:13px;font-weight:600;">Surname</td><td style="padding:10px 12px;font-size:13px;">${safeSurname}</td></tr>
+  <tr style="background:#f7f6f4;"><td style="padding:10px 12px;font-size:13px;font-weight:600;">Email</td><td style="padding:10px 12px;font-size:13px;"><a href="mailto:${safeEmail}">${safeEmail}</a></td></tr>
+  <tr><td style="padding:10px 12px;font-size:13px;font-weight:600;">Phone</td><td style="padding:10px 12px;font-size:13px;">${safePhone}</td></tr>
   <tr style="background:#f7f6f4;"><td style="padding:10px 12px;font-size:13px;font-weight:600;">Commits: dates</td><td style="padding:10px 12px;font-size:13px;">${record.commitDates ? '✓ Yes' : '✗ No'}</td></tr>
   <tr><td style="padding:10px 12px;font-size:13px;font-weight:600;">Commits: hours</td><td style="padding:10px 12px;font-size:13px;">${record.commitHours ? '✓ Yes' : '✗ No'}</td></tr>
   <tr style="background:#f7f6f4;"><td style="padding:10px 12px;font-size:13px;font-weight:600;">Commits: device</td><td style="padding:10px 12px;font-size:13px;">${record.commitDevice ? '✓ Yes' : '✗ No'}</td></tr>
   <tr><td style="padding:10px 12px;font-size:13px;font-weight:600;">Marketing opt-in</td><td style="padding:10px 12px;font-size:13px;">${record.marketingOptIn ? '✓ Yes' : 'No'}</td></tr>
+  <tr style="background:#f7f6f4;"><td style="padding:10px 12px;font-size:13px;font-weight:600;">Saved to Blob</td><td style="padding:10px 12px;font-size:13px;">${blobSaved ? '✓ Yes' : '✗ NO — check function logs'}</td></tr>
 </table>
 <p style="margin-top:20px;font-size:12px;color:#888;">Source: ${record.source} &nbsp;·&nbsp; Campaign: ${record.campaign}</p>
 </body></html>`
         }]
-      };
+      });
 
-      // Send both emails in parallel
-      await Promise.all([
-        fetch('https://api.sendgrid.com/v3/mail/send', {
-          method: 'POST',
-          headers: { 'Authorization': `Bearer ${sgKey}`, 'Content-Type': 'application/json' },
-          body: JSON.stringify(confirmationBody)
-        }),
-        fetch('https://api.sendgrid.com/v3/mail/send', {
-          method: 'POST',
-          headers: { 'Authorization': `Bearer ${sgKey}`, 'Content-Type': 'application/json' },
-          body: JSON.stringify(adminBody)
-        })
+      const sgHeaders = { 'Authorization': `Bearer ${sgKey}`, 'Content-Type': 'application/json' };
+
+      const [confirmResult, adminResult] = await Promise.all([
+        httpsPost('https://api.sendgrid.com/v3/mail/send', sgHeaders, confirmationBody),
+        httpsPost('https://api.sendgrid.com/v3/mail/send', sgHeaders, adminBody)
       ]);
 
+      // SendGrid returns 202 on success and NOTHING else — 4xx/5xx with a
+      // body explaining exactly what's wrong (e.g. sender not verified).
+      // Log both outcomes so failures are actually visible in future.
+      if (confirmResult.status !== 202) {
+        console.error('SendGrid confirmation email failed:', confirmResult.status, confirmResult.body);
+      } else {
+        console.log('SendGrid confirmation email sent to', record.email);
+      }
+      if (adminResult.status !== 202) {
+        console.error('SendGrid admin email failed:', adminResult.status, adminResult.body);
+      } else {
+        console.log('SendGrid admin email sent to', adminEmail);
+      }
+
+      emailsSent = confirmResult.status === 202 && adminResult.status === 202;
+
     } catch (emailErr) {
-      console.error('Email send error:', emailErr);
-      // Email failure should NOT fail the submission from the user's perspective
-      // Data is already in Blob. Log and continue.
+      console.error('Email send error for', applicationId, ':', emailErr.message, emailErr.stack);
+      // Email failure should NOT fail the submission from the user's perspective.
+      // Data is already in Blob (if that succeeded above). Log and continue.
     }
   } else {
     console.warn('SENDGRID_API_KEY not set. Emails not sent. Application stored in Blob only.');
   }
+
+  console.log('Application processed:', applicationId, '| blobSaved:', blobSaved, '| emailsSent:', emailsSent);
 
   // ── Success ──────────────────────────────────────────────────────────
   return {
