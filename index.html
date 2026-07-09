@@ -28,6 +28,10 @@
       --gold-pale:    #fef6e4;
       --gold-border:  rgba(228,160,36,0.28);
 
+      /* Avatar ring  --  white/light, not purple, so the photo itself is the focus */
+      --avatar-ring:      #ffffff;
+      --avatar-ring-glow: rgba(107,114,128,0.20);
+
       /* Surfaces  --  warm stone/grey system, never blue */
       --stone-100:    #F7F6F4;   /* Warmest light  --  page bg */
       --stone-200:    #EFEDE9;   /* Cards on page bg */
@@ -106,12 +110,12 @@
        ============================================================ */
     .site-header {
       background: var(--navy);
-      height: 58px; padding: 0 1.5rem;
+      height: 66px; padding: 0 1.5rem;
       display: flex; align-items: center; justify-content: space-between;
       gap: 1rem; flex-shrink: 0;
     }
     .header-left { display: flex; align-items: center; gap: 1rem; }
-    .gibs-logo { height: 26px; width: auto; display: block; flex-shrink: 0; }
+    .gibs-logo { height: 34px; width: auto; display: block; flex-shrink: 0; }
     .header-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.14); flex-shrink: 0; }
     .header-prog {
       font-size: 0.65rem; font-weight: 500;
@@ -166,7 +170,7 @@
       text-align: center;
       position: relative; overflow: hidden;
       flex: 1;
-      min-height: calc(100vh - 58px);
+      min-height: calc(100vh - 66px);
     }
 
 
@@ -231,17 +235,17 @@
     }
     .photo-card > p { font-size: 0.84rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.75rem; }
 
-    .photo-frame-wrap { width: 136px; height: 136px; margin: 0 auto 0.9rem; }
+    .photo-frame-wrap { width: 172px; height: 172px; margin: 0 auto 0.9rem; }
     .photo-frame {
-      width: 136px; height: 136px; border-radius: 50%;
+      width: 172px; height: 172px; border-radius: 50%;
       border: 2px dashed var(--stone-300);
       overflow: hidden; display: flex; align-items: center; justify-content: center;
       background: var(--stone-100);
       transition: border-color var(--transition), box-shadow var(--transition);
     }
     .photo-frame.loaded {
-      border: 2.5px solid var(--purple);
-      box-shadow: 0 0 0 5px rgba(92,47,111,0.1);
+      border: 3px solid var(--avatar-ring);
+      box-shadow: 0 0 0 5px var(--avatar-ring-glow), var(--shadow-sm);
     }
     #photo-preview { width: 100%; height: 100%; object-fit: cover; display: none; }
     #photo-preview.visible { display: block; }
@@ -280,16 +284,16 @@
     .prompts-topbar {
       background: var(--white);
       border-bottom: 1px solid var(--stone-300);
-      padding: 0.75rem 1.5rem;
+      padding: 0.85rem 1.5rem;
       display: flex; align-items: center; gap: 1rem;
       flex-shrink: 0; box-shadow: var(--shadow-sm);
-      min-height: 84px;
+      min-height: 100px;
     }
     .p-thumb {
-      width: 68px; height: 68px; border-radius: 50%;
-      overflow: hidden; border: 3px solid var(--purple); flex-shrink: 0;
+      width: 80px; height: 80px; border-radius: 50%;
+      overflow: hidden; border: 3px solid var(--avatar-ring); flex-shrink: 0;
       background: var(--stone-200); display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 0 4px rgba(92,47,111,0.13);
+      box-shadow: 0 0 0 4px var(--avatar-ring-glow);
     }
     .p-thumb img { width: 100%; height: 100%; object-fit: cover; display: none; }
     .p-thumb-svg { width: 26px; height: 26px; color: var(--muted); }
@@ -408,8 +412,8 @@
 
     .resp-topbar {
       background: var(--white); border-bottom: 1px solid var(--stone-300);
-      padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 1rem;
-      flex-shrink: 0; box-shadow: var(--shadow-sm); min-height: 84px;
+      padding: 0.85rem 1.5rem; display: flex; align-items: center; gap: 1rem;
+      flex-shrink: 0; box-shadow: var(--shadow-sm); min-height: 100px;
     }
     .resp-topbar small { display: block; font-size: 0.6rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.1rem; }
     .resp-topbar h2 { font-size: 0.88rem; font-weight: 600; color: var(--navy); }
@@ -418,10 +422,10 @@
 
     .resp-sender { display: flex; align-items: center; gap: 0.9rem; }
     .resp-photo {
-      width: 80px; height: 80px; border-radius: 50%;
-      overflow: hidden; border: 3px solid var(--purple); flex-shrink: 0;
+      width: 96px; height: 96px; border-radius: 50%;
+      overflow: hidden; border: 3px solid var(--avatar-ring); flex-shrink: 0;
       background: var(--stone-200); display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 0 5px rgba(92,47,111,0.12);
+      box-shadow: 0 0 0 5px var(--avatar-ring-glow);
     }
     .resp-photo img { width: 100%; height: 100%; object-fit: cover; display: none; }
     .resp-sender-info small { display: block; font-size: 0.62rem; color: var(--muted); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 0.15rem; }
@@ -461,10 +465,10 @@
        FOOTER
        ============================================================ */
     .site-footer {
-      background: var(--navy-dark); padding: 0.75rem 1.5rem;
+      background: var(--navy-dark); padding: 0.9rem 1.5rem;
       text-align: center; flex-shrink: 0;
     }
-    .site-footer > p { font-size: 0.62rem; color: rgba(255,255,255,0.22); letter-spacing: 0.04em; padding-bottom: 0; }
+    .site-footer > p { font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.88); letter-spacing: 0.02em; padding-bottom: 0; }
 
     .prototype-note {
       margin-top: 1.25rem;
@@ -670,15 +674,6 @@
     .taster-learn-more:hover { text-decoration: underline; }
     .taster-learn-more:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
 
-    /* Card 4  --  rate-yourself checklist, built on the existing consent-checkbox pattern */
-    .trait-list { display: flex; flex-direction: column; gap: 0.55rem; margin: 0.75rem 0 0.5rem; }
-    .trait-list .check-row-entry {
-      background: var(--white); border: 1.5px solid var(--stone-300);
-      border-radius: var(--radius-sm); padding: 0.85rem 1rem; margin-bottom: 0;
-      transition: border-color var(--transition), background var(--transition);
-    }
-    .trait-list .check-row-entry:has(input:checked) { border-color: var(--teal); background: rgba(0,115,120,0.05); }
-
     /* Nav row inside each taster card */
     .taster-nav { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: auto; padding-top: 1.25rem; }
     .taster-back-link {
@@ -695,6 +690,67 @@
        padding rule has equal specificity and comes later in the cascade,
        so it needs this one override to actually win. */
     #taster-card-5.laotzu-panel { padding: 3.5rem 2rem; align-items: center; }
+
+    /* Card 3  --  benefits image that "comes alive" from white to colour as it scrolls into view */
+    .reveal-image {
+      position: relative; width: 100%; margin-top: 1.1rem;
+      border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md);
+    }
+    .reveal-image img { display: block; width: 100%; height: auto; }
+    .reveal-image .reveal-colour {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      opacity: 0; transition: opacity 0.9s ease;
+    }
+    .reveal-image.is-visible .reveal-colour { opacity: 1; }
+
+    /* Card 4  --  dual-handle growth scale ("where I am" -> "where I want to be") */
+    .growth-scale { margin-top: 1.1rem; }
+    .growth-track-wrap { position: relative; height: 44px; margin: 0 6px; }
+    .growth-track {
+      position: absolute; top: 50%; left: 0; right: 0; height: 6px;
+      background: var(--stone-300); border-radius: 999px; transform: translateY(-50%);
+      overflow: visible;
+    }
+    .growth-fill {
+      position: absolute; top: 0; bottom: 0; left: 30%; width: 45%;
+      background: linear-gradient(90deg, var(--navy), var(--gold)); border-radius: 999px;
+    }
+    .growth-range {
+      position: absolute; top: 0; left: -6px; width: calc(100% + 12px); height: 44px; margin: 0;
+      background: transparent; -webkit-appearance: none; appearance: none; pointer-events: none;
+    }
+    .growth-range::-webkit-slider-runnable-track { background: transparent; height: 44px; }
+    .growth-range::-moz-range-track { background: transparent; height: 44px; border: none; }
+    .growth-range::-webkit-slider-thumb {
+      -webkit-appearance: none; pointer-events: auto; cursor: pointer;
+      width: 28px; height: 28px; border-radius: 50%; border: 3px solid #fff;
+      box-shadow: var(--shadow-sm); margin-top: 8px;
+    }
+    .growth-range::-moz-range-thumb {
+      pointer-events: auto; cursor: pointer;
+      width: 28px; height: 28px; border-radius: 50%; border: 3px solid #fff;
+      box-shadow: var(--shadow-sm);
+    }
+    .growth-range-now::-webkit-slider-thumb, .growth-range-now::-moz-range-thumb { background: var(--navy); }
+    .growth-range-goal::-webkit-slider-thumb, .growth-range-goal::-moz-range-thumb { background: var(--gold); }
+    .growth-range:focus-visible::-webkit-slider-thumb { outline: 3px solid var(--teal); outline-offset: 2px; }
+    .growth-range:focus-visible::-moz-range-thumb { outline: 3px solid var(--teal); outline-offset: 2px; }
+    .growth-labels {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.76rem; font-weight: 600; color: var(--ink-mid); margin-top: 0.85rem;
+    }
+    .growth-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
+    .growth-dot-now { background: var(--navy); margin-right: 0.4rem; }
+    .growth-dot-goal { background: var(--gold); margin-left: 0.4rem; }
+
+    /* Card 5  --  reflect icon */
+    .taster-reflect-icon { width: 84px; height: auto; margin-bottom: 1.5rem; opacity: 0.9; }
+
+    /* Card 6  --  conclusion image */
+    .taster-conclude-image {
+      width: 100%; height: auto; border-radius: var(--radius);
+      box-shadow: var(--shadow-md); margin-top: 0.5rem;
+    }
 
     /* Card 6  --  conclusion */
     .taster-conclude h2 { font-family: var(--font-ui); font-size: 1.2rem; color: var(--navy); margin-bottom: 0.75rem; }
@@ -1297,7 +1353,7 @@
     <!-- 1: HOOK -->
     <div class="taster-card active" id="taster-card-1" role="group" aria-labelledby="taster-h1">
       <div class="taster-quote-card">
-        <img src="/assets/personal-mastery-hero.jpg" alt="" aria-hidden="true" />
+        <img src="/assets/personal-mastery-hero.png" alt="" aria-hidden="true" />
         <blockquote>
           <p class="t-quote" id="taster-h1">&#8220;Personal mastery can be defined as the practice of being able to keep both a personal vision and a clear picture of reality before oneself.&#8221;</p>
         </blockquote>
@@ -1336,50 +1392,34 @@
       <h2 id="taster-h3" style="font-family:var(--font-ui);font-size:1.1rem;color:var(--navy);margin-bottom:0.6rem;">The benefits are long lasting</h2>
       <p>You'll find more balance across your life, and more time for others, at work and beyond, because you'll feel more connected to the people around you.</p>
       <p>You'll see reality more clearly, think outside the box, and take on challenges willingly.</p>
+      <div class="reveal-image" id="benefits-reveal">
+        <img class="reveal-base" src="/assets/personal-mastery-about-white.png" alt="Personal mastery transforms your life and career by cultivating deep self-awareness, emotional intelligence and a proactive mindset. The core benefits include enhanced leadership skills, greater resilience to stress, and the ability to align your daily actions with your long-term vision." />
+        <img class="reveal-colour" src="/assets/personal-mastery-about-colour.png" alt="" aria-hidden="true" />
+      </div>
       <div class="taster-nav">
         <button class="taster-back-link" id="btn-taster-back-3" type="button">&larr; Back</button>
         <button class="btn btn-navy" id="btn-taster-next-3" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
     </div>
 
-    <!-- 4: RATE YOURSELF -->
+    <!-- 4: WHERE YOU ARE, WHERE YOU'RE HEADED -->
     <div class="taster-card" id="taster-card-4" role="group" aria-labelledby="taster-h4">
       <p class="prompt-cat">A moment for you</p>
-      <h2 id="taster-h4" style="font-family:var(--font-ui);font-size:1.1rem;color:var(--navy);margin-bottom:0.4rem;">Do you recognise yourself here?</h2>
-      <p>People skilled in personal mastery tend to share these traits. Tap the ones that sound like you — nothing here is recorded or scored.</p>
-      <fieldset style="border:0;margin:0;padding:0;">
-        <legend class="sr-only">Traits of people skilled in personal mastery</legend>
-        <div class="trait-list">
-          <div class="check-row-entry">
-            <input type="checkbox" id="trait-1" />
-            <label for="trait-1">A special sense of purpose, a calling</label>
-          </div>
-          <div class="check-row-entry">
-            <input type="checkbox" id="trait-2" />
-            <label for="trait-2">Skilled at using creative tension to drive progress</label>
-          </div>
-          <div class="check-row-entry">
-            <input type="checkbox" id="trait-3" />
-            <label for="trait-3">Accurately assess current reality, and quick to spot faulty assumptions</label>
-          </div>
-          <div class="check-row-entry">
-            <input type="checkbox" id="trait-4" />
-            <label for="trait-4">See change as an opportunity</label>
-          </div>
-          <div class="check-row-entry">
-            <input type="checkbox" id="trait-5" />
-            <label for="trait-5">Deeply inquisitive</label>
-          </div>
-          <div class="check-row-entry">
-            <input type="checkbox" id="trait-6" />
-            <label for="trait-6">Value personal connection without losing their individuality</label>
-          </div>
-          <div class="check-row-entry">
-            <input type="checkbox" id="trait-7" />
-            <label for="trait-7">Systemic thinkers, who see themselves as one part of a larger system</label>
-          </div>
+      <h2 id="taster-h4" style="font-family:var(--font-ui);font-size:1.1rem;color:var(--navy);margin-bottom:0.4rem;">Where are you, and where are you headed?</h2>
+      <p>Personal mastery is a practice, not a destination. Place a marker for where you feel you are today, and another for where you'd like to be. There's no right answer, and nothing here is recorded.</p>
+
+      <div class="growth-scale">
+        <div class="growth-track-wrap">
+          <div class="growth-track"><div class="growth-fill" id="growth-fill"></div></div>
+          <input type="range" min="0" max="100" value="30" step="1" class="growth-range growth-range-now" id="scale-now" aria-label="Marker for where you are now">
+          <input type="range" min="0" max="100" value="75" step="1" class="growth-range growth-range-goal" id="scale-goal" aria-label="Marker for where you want to be">
         </div>
-      </fieldset>
+        <div class="growth-labels">
+          <span><span class="growth-dot growth-dot-now" aria-hidden="true"></span>Where I am now</span>
+          <span>Where I want to be<span class="growth-dot growth-dot-goal" aria-hidden="true"></span></span>
+        </div>
+      </div>
+
       <div class="taster-nav">
         <button class="taster-back-link" id="btn-taster-back-4" type="button">&larr; Back</button>
         <button class="btn btn-navy" id="btn-taster-next-4" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -1388,6 +1428,7 @@
 
     <!-- 5: REFLECT  --  reuses the laotzu-panel treatment: same reflective-pause moment -->
     <div class="taster-card laotzu-panel" id="taster-card-5" role="group" aria-labelledby="taster-h5" style="border-radius:var(--radius);">
+      <img class="taster-reflect-icon" src="/assets/personal-mastery-icon.png" alt="" aria-hidden="true" />
       <div class="laotzu-rule" aria-hidden="true"></div>
       <p class="laotzu-quote" id="taster-h5">Start by becoming aware of yourself, your strengths and your weaknesses. Build on what makes you stronger, and let go of what holds you back.<br /><br />Focus on reality rather than wishful thinking. On the present and the future, rather than the past.</p>
       <footer class="laotzu-attr">This is the beginning of your journey to personal mastery.</footer>
@@ -1402,6 +1443,7 @@
       <h2 id="taster-h6">It is simple.</h2>
       <p>Personal mastery is about creating what you want, in life and in work. It rests on a few key practices: personal vision, personal purpose, holding the creative tension between vision and current reality, and taking action.</p>
       <p>Commit yourself to your own personal mastery.</p>
+      <img class="taster-conclude-image" src="/assets/personal-mastery-own-your-mastery-image.png" alt="" aria-hidden="true" />
       <div class="taster-nav">
         <button class="taster-back-link" id="btn-taster-back-6" type="button">&larr; Back</button>
         <button class="btn btn-gold" id="btn-taster-apply" type="button">Continue to application <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -1942,8 +1984,8 @@
         ctx.clip();
         ctx.drawImage(img, px - r, py - r, r * 2, r * 2);
         ctx.restore();
-        // Purple ring
-        ctx.strokeStyle = '#5C2F6F';
+        // Avatar ring  --  white, matches the in-app avatar treatment
+        ctx.strokeStyle = 'rgba(255,255,255,0.85)';
         ctx.lineWidth = 4;
         ctx.beginPath();
         ctx.arc(px, py, r + 2, 0, Math.PI * 2);
@@ -2012,6 +2054,39 @@
   }
   document.getElementById('btn-back-taster').addEventListener('click', () => showScreen('screen-response'));
   document.getElementById('btn-taster-apply').addEventListener('click', () => showScreen('screen-apply'));
+
+  // ── Taster card 3: benefits image "comes alive" from white to colour ──
+  (function initRevealImage() {
+    const target = document.getElementById('benefits-reveal');
+    const root = document.getElementById('taster-card-3');
+    if (!target || !root || !('IntersectionObserver' in window)) {
+      if (target) target.classList.add('is-visible');
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) target.classList.add('is-visible');
+      });
+    }, { root: root, threshold: 0.4 });
+    io.observe(target);
+  })();
+
+  // ── Taster card 4: dual-handle growth scale ─────────────────────────
+  (function initGrowthScale() {
+    const now = document.getElementById('scale-now');
+    const goal = document.getElementById('scale-goal');
+    const fill = document.getElementById('growth-fill');
+    if (!now || !goal || !fill) return;
+    function update() {
+      const lo = Math.min(+now.value, +goal.value);
+      const hi = Math.max(+now.value, +goal.value);
+      fill.style.left = lo + '%';
+      fill.style.width = (hi - lo) + '%';
+    }
+    now.addEventListener('input', update);
+    goal.addEventListener('input', update);
+    update();
+  })();
 
   // ── Application form validation + submit ─────────────────────────────
   document.getElementById('btn-apply-submit').addEventListener('click', async () => {
