@@ -233,10 +233,6 @@
       flex: 1;
       min-height: calc(100vh - 80px);
     }
-    .btn-back-light {
-      color: rgba(255,255,255,0.6);
-    }
-    .btn-back-light:hover { color: #fff; }
     .about-inner {
       max-width: 560px; width: 100%;
       position: relative; z-index: 2;
@@ -924,6 +920,8 @@
       align-items: center; justify-content: center;
       text-align: center; padding: 4rem 1.5rem; gap: 1.5rem;
     }
+
+    @media (max-width: 500px) {
       .prompt-card, .resp-body { padding: 1.1rem 0.9rem; }
       .prog-wrap { padding: 0.9rem 0.9rem 0; }
       .prompts-topbar, .resp-topbar { padding: 0.7rem 0.9rem; }
@@ -934,15 +932,27 @@
 
     /* Back button */
     .btn-back {
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      background: none; border: none; color: var(--muted);
-      font-family: var(--font-ui); font-size: 0.8rem; font-weight: 500;
-      cursor: pointer; padding: 0.5rem 0; min-height: 44px;
-      transition: color var(--transition);
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+      background: var(--white); border: 1.5px solid var(--stone-300); color: var(--ink-mid);
+      font-family: var(--font-ui); font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; min-width: 44px; min-height: 44px; padding: 0 1.1rem;
+      border-radius: 999px; box-shadow: var(--shadow-sm);
+      transition: border-color var(--transition), color var(--transition), background var(--transition);
     }
-    .btn-back:hover { color: var(--navy); }
-    .btn-back:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
+    .btn-back:hover { border-color: var(--teal); color: var(--teal); }
+    .btn-back:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
     .btn-back svg { flex-shrink: 0; }
+
+    /* Icon-only variant  --  used inline in topbars, next to the avatar */
+    .btn-back-icon { padding: 0; width: 44px; }
+
+    /* Light variant  --  for back buttons sitting on navy/photo backgrounds */
+    .btn-back-light {
+      background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); color: #fff;
+      box-shadow: none;
+    }
+    .btn-back-light:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.65); color: #fff; }
+    .btn-back-light:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 
     /* Back row sits above the photo card and prompt cards */
     .back-row {
@@ -1096,6 +1106,7 @@
 
     <div class="entry-inner" id="main-content">
       <p class="entry-eyebrow">GIBS Digital Education &nbsp;&middot;&nbsp; World Mental Health Day 2026</p>
+      <p class="entry-context">This experience is inspired by the acclaimed GIBS Personal Mastery course, created by Dr Frank Magwegwe &mdash; a course that has helped people reflect deeply on how they lead themselves, their choices and their future.</p>
 
       <div class="testimonial-slider">
         <blockquote class="testimonial-slide active" id="testimonial-1">
@@ -1154,7 +1165,6 @@
     <div class="about-inner">
       <p class="about-eyebrow" id="about-heading">Personal Mastery: Leading from Within</p>
       <p class="about-offer">Complete this short experience and submit your application to stand a chance of being selected for a free seat on our October <em>Personal Mastery: Leading from Within</em> course, offered by GIBS Digital Education in honour of World Mental Health Day. GIBS is donating <strong>100 seats</strong> to help applicants invest in their own growth and leadership.</p>
-      <p class="entry-context">This experience is inspired by the acclaimed GIBS Personal Mastery course, created by Dr Frank Magwegwe &mdash; a course that has helped people reflect deeply on how they lead themselves, their choices and their future.</p>
       <hr class="about-rule" aria-hidden="true" />
       <p class="entry-tagline">
         Before you begin, take a few minutes to pause and reflect on your personal journey. This short reflection invites you to look at where you have been, where you want to go, and what it may take to lead yourself with greater purpose.
@@ -1245,7 +1255,7 @@
   <!-- SCREEN 2  --  PROMPTS -->
   <section class="screen" id="screen-prompts" aria-labelledby="prompts-label">
     <div class="prompts-topbar">
-      <button class="btn-back" id="btn-back-prompts" type="button" aria-label="Back to photo upload" style="margin-right:0.25rem;flex-shrink:0;">
+      <button class="btn-back btn-back-icon" id="btn-back-prompts" type="button" aria-label="Back to photo upload" style="margin-right:0.25rem;flex-shrink:0;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
       <div class="p-thumb" aria-hidden="true">
@@ -1324,7 +1334,7 @@
   <!-- SCREEN 4  --  RESPONSE -->
   <section class="screen" id="screen-response" aria-labelledby="resp-heading">
     <div class="resp-topbar">
-      <button class="btn-back" id="btn-back-response" type="button" aria-label="Back to prompts" style="margin-right:0.25rem;flex-shrink:0;">
+      <button class="btn-back btn-back-icon" id="btn-back-response" type="button" aria-label="Back to prompts" style="margin-right:0.25rem;flex-shrink:0;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
       <div class="p-thumb" aria-hidden="true">
@@ -1416,7 +1426,7 @@
   <!-- SCREEN 4b  --  COURSE TASTER (6 short nuggets, not a single scroll) -->
   <section class="screen" id="screen-taster" aria-labelledby="taster-label">
     <div class="prompts-topbar">
-      <button class="btn-back" id="btn-back-taster" type="button" aria-label="Back to your reflection" style="margin-right:0.25rem;flex-shrink:0;">
+      <button class="btn-back btn-back-icon" id="btn-back-taster" type="button" aria-label="Back to your reflection" style="margin-right:0.25rem;flex-shrink:0;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
       <div class="p-thumb" aria-hidden="true">
