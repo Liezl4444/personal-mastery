@@ -219,6 +219,22 @@
       margin-bottom: 2.5rem;
     }
 
+    .entry-heading {
+      font-family: var(--font-ui); font-weight: 800;
+      font-size: clamp(1.5rem, 5vw, 2.1rem); line-height: 1.2;
+      color: #fff; margin-bottom: 0.5rem; letter-spacing: -0.01em;
+    }
+    .entry-subheading {
+      font-family: var(--font-serif); font-style: italic; font-weight: 400;
+      font-size: clamp(1.05rem, 3.5vw, 1.3rem); line-height: 1.4;
+      color: var(--gold-light); margin-bottom: 1.25rem;
+    }
+    .entry-hook {
+      font-size: 0.92rem; line-height: 1.7; color: rgba(255,255,255,0.75);
+      margin-bottom: 2rem; max-width: 46ch;
+    }
+    .entry-hook strong { color: rgba(255,255,255,0.92); font-weight: 600; }
+
     /* ============================================================
        SCREEN 0b  --  ABOUT / CONTEXT
        Same navy hero world as Entry  --  the "what is this, and why"
@@ -1103,21 +1119,23 @@
   </header>
 
   <!-- SCREEN 0  --  ENTRY (hook only) -->
-  <main class="screen active" id="screen-entry" aria-labelledby="entry-quote">
+  <main class="screen active" id="screen-entry" aria-labelledby="entry-heading">
 
     <div class="entry-inner" id="main-content">
       <p class="entry-eyebrow">GIBS Digital Education &nbsp;&middot;&nbsp; World Mental Health Day 2026</p>
-      <p class="entry-context">This experience is inspired by the acclaimed GIBS Personal Mastery course, created by Dr Frank Magwegwe &mdash; a course that has helped people reflect deeply on how they lead themselves, their choices and their future.</p>
+      <h1 class="entry-heading" id="entry-heading">Personal Mastery Experience</h1>
+      <p class="entry-subheading">Who are you becoming?</p>
+      <p class="entry-hook">A guided reflective experience inspired by GIBS Personal Mastery. <strong>This isn&rsquo;t a personality test.</strong> It&rsquo;s a guided conversation with yourself.</p>
 
       <div class="testimonial-slider">
         <blockquote class="testimonial-slide active" id="testimonial-1">
           <p class="entry-quote" id="entry-quote">
-            &#8220;Standing ovation from all 350 guests&#8230; phenomenal human being and outstanding storyteller&#8230; message that hits home &mdash; sometimes really hard.&#8221;
+            &#8220;From a cardboard bed to the boardroom&#8230; a reminder of the latent power in the human spirit.&#8221;
           </p>
           <hr class="entry-rule" aria-hidden="true" />
           <footer>
-            <p class="entry-attribution">Greg Reed</p>
-            <p class="entry-attribution-role">Managing Director, IdeaLab</p>
+            <p class="entry-attribution">Alec Hogg</p>
+            <p class="entry-attribution-role">BizNews</p>
           </footer>
         </blockquote>
         <blockquote class="testimonial-slide" id="testimonial-2">
@@ -1131,19 +1149,19 @@
         </blockquote>
         <blockquote class="testimonial-slide" id="testimonial-3">
           <p class="entry-quote">
-            &#8220;From a cardboard bed to the boardroom&#8230; a reminder of the latent power in the human spirit.&#8221;
+            &#8220;Standing ovation from all 350 guests&#8230; phenomenal human being and outstanding storyteller&#8230; message that hits home &mdash; sometimes really hard.&#8221;
           </p>
           <hr class="entry-rule" aria-hidden="true" />
           <footer>
-            <p class="entry-attribution">Alec Hogg</p>
-            <p class="entry-attribution-role">BizNews</p>
+            <p class="entry-attribution">Greg Reed</p>
+            <p class="entry-attribution-role">Managing Director, IdeaLab</p>
           </footer>
         </blockquote>
 
         <div class="testimonial-dots" role="tablist" aria-label="Choose a testimonial about Dr Frank Magwegwe">
-          <button type="button" class="t-dot active" role="tab" id="t-tab-1" aria-controls="testimonial-1" aria-selected="true" aria-label="Testimonial from Greg Reed, IdeaLab"></button>
+          <button type="button" class="t-dot active" role="tab" id="t-tab-1" aria-controls="testimonial-1" aria-selected="true" aria-label="Testimonial from Alec Hogg, BizNews"></button>
           <button type="button" class="t-dot" role="tab" id="t-tab-2" aria-controls="testimonial-2" aria-selected="false" aria-label="Testimonial from an HR Director"></button>
-          <button type="button" class="t-dot" role="tab" id="t-tab-3" aria-controls="testimonial-3" aria-selected="false" aria-label="Testimonial from Alec Hogg, BizNews"></button>
+          <button type="button" class="t-dot" role="tab" id="t-tab-3" aria-controls="testimonial-3" aria-selected="false" aria-label="Testimonial from Greg Reed, IdeaLab"></button>
         </div>
       </div>
 
