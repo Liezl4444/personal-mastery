@@ -2234,30 +2234,61 @@
   document.getElementById('btn-back-taster').addEventListener('click', () => showScreen('screen-response'));
   document.getElementById('btn-taster-apply').addEventListener('click', () => showScreen('screen-apply'));
 
-  // ── Taster card 3: benefits image "comes alive" from white to colour ──
-  // Deliberate, fixed-delay fade rather than a scroll-triggered one — this
-  // card fits within the viewport on most screen sizes, so there's rarely
-  // enough to scroll to trigger a "real" reveal anyway. A short pause then
-  // fade gives the same effect predictably, every time, on every device.
-  let benefitsRevealTimer = null;
+  // ── Taster card 3: benefits image tracks scroll position directly ──
+  // Colour when the image has been scrolled up into the top portion of
+  // the viewport, back to white if you scroll it back down — genuinely
+  // reversible, tied to scroll position rather than a one-off trigger.
+  let benefitsScrollActive = false;
+  let benefitsScrollTicking = false;
+
+  function updateBenefitsReveal() {
+    benefitsScrollTicking = false;
+    const target = document.getElementById('benefits-reveal');
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    const viewportH = window.innerHeight || document.documentElement.clientHeight;
+    // Colour once the image's vertical centre has crossed above ~70% of
+    // the viewport height; reverts to white if scrolled back below that.
+    const elementMid = rect.top + rect.height / 2;
+    const shouldBeVisible = elementMid < viewportH * 0.7;
+    target.classList.toggle('is-visible', shouldBeVisible);
+  }
+
+  function onBenefitsScroll() {
+    if (benefitsScrollTicking) return;
+    benefitsScrollTicking = true;
+    requestAnimationFrame(updateBenefitsReveal);
+  }
+
   function resetBenefitsReveal() {
     const target = document.getElementById('benefits-reveal');
     if (target) target.classList.remove('is-visible');
-    if (benefitsRevealTimer) { clearTimeout(benefitsRevealTimer); benefitsRevealTimer = null; }
+    if (benefitsScrollActive) {
+      document.removeEventListener('scroll', onBenefitsScroll, true);
+      window.removeEventListener('resize', onBenefitsScroll);
+      benefitsScrollActive = false;
+    }
   }
+
   function triggerBenefitsReveal() {
     const target = document.getElementById('benefits-reveal');
     if (!target) return;
-    target.classList.remove('is-visible');
-    if (benefitsRevealTimer) { clearTimeout(benefitsRevealTimer); benefitsRevealTimer = null; }
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) { target.classList.add('is-visible'); return; }
 
-    benefitsRevealTimer = setTimeout(() => {
-      target.classList.add('is-visible');
-      benefitsRevealTimer = null;
-    }, 1600);
+    if (!benefitsScrollActive) {
+      // .taster-card has its own overflow-y: auto, so on many screens it
+      // scrolls internally rather than the window scrolling. A capturing
+      // listener on document catches scroll events from either — the
+      // window scrolling, or the card itself scrolling inside it.
+      document.addEventListener('scroll', onBenefitsScroll, { capture: true, passive: true });
+      window.addEventListener('resize', onBenefitsScroll, { passive: true });
+      benefitsScrollActive = true;
+    }
+    // Set the correct initial state immediately, in case the image is
+    // already within the trigger zone with nothing further to scroll.
+    updateBenefitsReveal();
   }
 
   // ── Taster card 4: one rating slider per trait, filled track shows progress ──
