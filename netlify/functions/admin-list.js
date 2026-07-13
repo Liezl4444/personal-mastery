@@ -19,28 +19,37 @@
 // client-side in admin.html, since they depend on comparing every
 // record against every other — this function's job is just to return
 // the full, current record set as fast and simply as possible.
+//
+// Written in the classic exports.handler style (matching signup.js and
+// reflect.js in this repo) rather than the V2 export-default/Request
+// style, so it's guaranteed to route the same way those two already do.
 // ============================================================
 
-import { getStore } from "@netlify/blobs";
+const { getStore } = require('@netlify/blobs');
 
-export default async (request, context) => {
-  const url = new URL(request.url);
-  const key    = url.searchParams.get("key") || "";
-  const format = url.searchParams.get("format") || "json";
+exports.handler = async function (event) {
+  if (event.httpMethod !== 'GET') {
+    return { statusCode: 405, body: JSON.stringify({ ok: false, error: 'Method not allowed.' }) };
+  }
+
+  const params = event.queryStringParameters || {};
+  const key    = params.key || '';
+  const format = params.format || 'json';
 
   // The expected key lives in a Netlify environment variable. If ADMIN_KEY
   // is unset, refuse to serve anything — safer than defaulting to a
   // known-bad value.
-  const expected = process.env.ADMIN_KEY || "";
+  const expected = process.env.ADMIN_KEY || '';
   if (!expected || key !== expected) {
-    return new Response(
-      JSON.stringify({ ok: false, error: "Forbidden" }),
-      { status: 403, headers: { "content-type": "application/json" } }
-    );
+    return {
+      statusCode: 403,
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ ok: false, error: 'Forbidden' })
+    };
   }
 
   try {
-    const store = getStore({ name: "pm-applications" });
+    const store = getStore({ name: 'pm-applications' });
 
     // List every key in the store. At this campaign's scale (up to a
     // few hundred applications) this is fast and needs no pagination.
@@ -48,7 +57,7 @@ export default async (request, context) => {
 
     // Read each record. Promise.all runs them in parallel.
     const records = await Promise.all(
-      blobs.map((b) => store.get(b.key, { type: "json" }))
+      blobs.map((b) => store.get(b.key, { type: 'json' }))
     );
 
     // Drop nulls (should not occur, but a record could fail to parse).
@@ -56,51 +65,53 @@ export default async (request, context) => {
 
     // Sort newest first.
     entries.sort((a, b) =>
-      (b.submittedAt || "").localeCompare(a.submittedAt || "")
+      (b.submittedAt || '').localeCompare(a.submittedAt || '')
     );
 
-    if (format === "csv") {
+    if (format === 'csv') {
       const header = [
-        "applicationId", "submittedAt", "firstName", "surname", "email",
-        "phone", "commitDates", "commitHours", "commitDevice",
-        "marketingOptIn", "source", "campaign", "status"
+        'applicationId', 'submittedAt', 'firstName', 'surname', 'email',
+        'phone', 'commitDates', 'commitHours', 'commitDevice',
+        'marketingOptIn', 'source', 'campaign', 'status'
       ];
-      const csvLines = [header.join(",")];
+      const csvLines = [header.join(',')];
       for (const r of entries) {
         const row = header
           .map((k) => {
             const v = r[k];
-            const s = v == null ? "" : String(v);
-            // Wrap fields that contain a comma, quote, or newline.
+            const s = v == null ? '' : String(v);
             return /[,"\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
           })
-          .join(",");
+          .join(',');
         csvLines.push(row);
       }
-      return new Response(csvLines.join("\n"), {
-        status: 200,
+      return {
+        statusCode: 200,
         headers: {
-          "content-type": "text/csv; charset=utf-8",
-          "content-disposition": `attachment; filename="pm-lfw-applications-${new Date().toISOString().slice(0, 10)}.csv"`,
+          'content-type': 'text/csv; charset=utf-8',
+          'content-disposition': `attachment; filename="pm-lfw-applications-${new Date().toISOString().slice(0, 10)}.csv"`
         },
-      });
+        body: csvLines.join('\n')
+      };
     }
 
     // Default: JSON response.
-    return new Response(
-      JSON.stringify({
+    return {
+      statusCode: 200,
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
         ok: true,
-        store: "pm-applications",
+        store: 'pm-applications',
         count: entries.length,
-        entries,
-      }, null, 2),
-      { status: 200, headers: { "content-type": "application/json" } }
-    );
+        entries
+      }, null, 2)
+    };
   } catch (err) {
-    console.error("Admin list failed:", err.message, err.stack);
-    return new Response(
-      JSON.stringify({ ok: false, error: "Storage unavailable" }),
-      { status: 500, headers: { "content-type": "application/json" } }
-    );
+    console.error('Admin list failed:', err.message, err.stack);
+    return {
+      statusCode: 500,
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ ok: false, error: 'Storage unavailable' })
+    };
   }
 };
