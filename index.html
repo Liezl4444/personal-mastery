@@ -2235,47 +2235,29 @@
   document.getElementById('btn-taster-apply').addEventListener('click', () => showScreen('screen-apply'));
 
   // ── Taster card 3: benefits image "comes alive" from white to colour ──
-  // Starts white, turns to colour once the person actually scrolls it
-  // into view. This app scrolls at the page level (the body has no fixed
-  // height), so this watches the real viewport, not an inner container.
-  // If the image is already fully in view with nothing to scroll (e.g.
-  // a tall desktop window), it reveals after a short pause instead of
-  // leaving the white version stranded forever.
-  let benefitsObserver = null;
+  // Deliberate, fixed-delay fade rather than a scroll-triggered one — this
+  // card fits within the viewport on most screen sizes, so there's rarely
+  // enough to scroll to trigger a "real" reveal anyway. A short pause then
+  // fade gives the same effect predictably, every time, on every device.
+  let benefitsRevealTimer = null;
   function resetBenefitsReveal() {
     const target = document.getElementById('benefits-reveal');
     if (target) target.classList.remove('is-visible');
-    if (benefitsObserver) { benefitsObserver.disconnect(); benefitsObserver = null; }
+    if (benefitsRevealTimer) { clearTimeout(benefitsRevealTimer); benefitsRevealTimer = null; }
   }
   function triggerBenefitsReveal() {
     const target = document.getElementById('benefits-reveal');
     if (!target) return;
     target.classList.remove('is-visible');
+    if (benefitsRevealTimer) { clearTimeout(benefitsRevealTimer); benefitsRevealTimer = null; }
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) { target.classList.add('is-visible'); return; }
 
-    if (!('IntersectionObserver' in window)) {
-      setTimeout(() => target.classList.add('is-visible'), 900);
-      return;
-    }
-
-    let firstCheck = true;
-    benefitsObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          if (firstCheck) {
-            // Nothing to scroll  --  reveal shortly rather than never.
-            setTimeout(() => target.classList.add('is-visible'), 900);
-          } else {
-            target.classList.add('is-visible');
-          }
-          if (benefitsObserver) { benefitsObserver.disconnect(); benefitsObserver = null; }
-        }
-        firstCheck = false;
-      });
-    }, { threshold: 0.35 });
-    benefitsObserver.observe(target);
+    benefitsRevealTimer = setTimeout(() => {
+      target.classList.add('is-visible');
+      benefitsRevealTimer = null;
+    }, 1600);
   }
 
   // ── Taster card 4: one rating slider per trait, filled track shows progress ──
