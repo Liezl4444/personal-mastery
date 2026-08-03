@@ -660,6 +660,21 @@
       margin: 0.9rem 0 1.1rem;
     }
     .taster-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    /* Video key points -- text alternative for the video, per GIBS accessibility standard */
+    .video-keypoints {
+      background: var(--stone-100); border: 1px solid var(--stone-300);
+      border-left: 3px solid var(--teal);
+      border-radius: var(--radius-sm); padding: 1rem 1.1rem;
+      margin-bottom: 1.1rem;
+    }
+    .video-keypoints__label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 0.6rem;
+    }
+    .video-keypoints__list { margin: 0; padding-left: 1.1rem; }
+    .video-keypoints__list li { font-size: 0.84rem; color: var(--ink-mid); line-height: 1.6; margin-bottom: 0.5rem; }
+    .video-keypoints__list li:last-child { margin-bottom: 0; }
+
     .taster-learn-more {
       display: inline-flex; align-items: center; gap: 0.4rem;
       font-family: var(--font-ui); font-size: 0.82rem; font-weight: 600;
@@ -974,6 +989,48 @@
       }
     }
 
+    /* ============================================================
+       PRINTABLE REPORT
+       Hidden on screen; shown only inside the print media query via
+       .pm-printable, using the same visibility-swap pattern as the
+       GIBS Interactive print convention.
+       ============================================================ */
+    .pm-report { display: none; }
+    .pm-report__banner {
+      background: var(--navy); color: #fff; border-radius: var(--radius);
+      padding: 1.5rem 1.75rem; margin-bottom: 1.25rem;
+    }
+    .pm-report__kicker { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 0.5rem; }
+    .pm-report__title { font-family: var(--font-ui); font-size: 1.4rem; font-weight: 800; margin-bottom: 0.35rem; }
+    .pm-report__sub { font-size: 0.82rem; color: rgba(255,255,255,0.7); }
+    .pm-report__card {
+      background: var(--white); border: 1px solid var(--stone-300); border-radius: var(--radius);
+      padding: 1.4rem 1.6rem; margin-bottom: 1.1rem;
+    }
+    .pm-report__card-title { font-family: var(--font-ui); font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 1rem; }
+    .pm-report__answer { margin-bottom: 1.1rem; }
+    .pm-report__answer:last-child { margin-bottom: 0; }
+    .pm-report__q { font-size: 0.78rem; font-weight: 600; color: var(--gold-mid); margin-bottom: 0.35rem; }
+    .pm-report__a { font-family: var(--font-serif); font-style: italic; font-size: 0.94rem; color: var(--ink); line-height: 1.75; }
+    .pm-report__ai { font-family: var(--font-serif); font-style: italic; font-size: 0.94rem; color: var(--ink); line-height: 1.85; white-space: pre-line; }
+    .pm-report__intro { font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.1rem; }
+    .pm-report__dimension { margin-bottom: 1.1rem; padding-bottom: 1.1rem; border-bottom: 1px solid var(--stone-200); }
+    .pm-report__dimension:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .pm-report__dim-label { font-size: 0.85rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; }
+    .pm-report__dim-label span { font-weight: 500; color: var(--muted); font-size: 0.78rem; text-transform: none; letter-spacing: 0; }
+    .pm-report__dim-text { font-size: 0.86rem; color: var(--ink-mid); line-height: 1.7; }
+    .pm-report__footer { text-align: center; padding: 1rem 0; }
+    .pm-report__footer p { font-size: 0.72rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.3rem; }
+
+    @media print {
+      body * { visibility: hidden; }
+      .pm-printable, .pm-printable * { visibility: visible; }
+      .pm-printable {
+        display: block !important;
+        position: absolute; top: 0; left: 0; width: 100%;
+        padding: 0.5in;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1353,11 +1410,15 @@
         </div>
       </div>
 
-      <!-- Download button -->
+      <!-- Download buttons -->
       <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
         <button class="btn-download" id="btn-download-card" type="button" aria-label="Save your reflection as an image">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Save reflection to my device
+        </button>
+        <button class="btn-download" id="btn-download-report" type="button" aria-label="Download your Personal Mastery reflection report">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="15" y2="11"/></svg>
+          Download my Personal Mastery Report
         </button>
       </div>
 
@@ -1432,6 +1493,14 @@
         <iframe src="https://player.vimeo.com/video/1212424927?h=8252700820&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
           title="Introducing Dr Frank Magwegwe, GIBS Personal Mastery: Lead from Within"
           allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-keypoints" aria-labelledby="video-keypoints-h2">
+        <p class="video-keypoints__label" id="video-keypoints-h2">Key points from this video</p>
+        <ul class="video-keypoints__list">
+          <li>Personal mastery is a practice, not a one-off fix: it is built through ongoing self-awareness, resilience and reflection.</li>
+          <li>Resilience is a teachable skill, not a fixed trait, and can be strengthened deliberately over time.</li>
+          <li>Wellbeing is an ongoing process rather than a destination, shaped by how you adapt to change and setbacks.</li>
+        </ul>
       </div>
       <a class="taster-learn-more" href="https://frankmagwegwe.com/" target="_blank" rel="noopener noreferrer">
         Learn more about Dr Frank Magwegwe
@@ -1747,6 +1816,65 @@
     </footer>
   </section>
 
+  <!-- ============================================================
+       PRINTABLE REPORT  --  hidden on screen, only rendered when the
+       person clicks "Download my Personal Mastery Report". Populated
+       dynamically from their own answers via JS, then window.print()
+       is called. Uses the same visibility-swap convention as the GIBS
+       Interactive print pattern, scoped with .pm-printable.
+       ============================================================ -->
+  <section class="pm-report pm-printable" id="pm-report" aria-hidden="true">
+    <header class="pm-report__banner">
+      <p class="pm-report__kicker">Personal Mastery: Leading from Within</p>
+      <h1 class="pm-report__title">Your Personal Mastery Reflection Report</h1>
+      <p class="pm-report__sub" id="pm-report-meta">Prepared for you &middot; GIBS Digital Education</p>
+    </header>
+
+    <section class="pm-report__card">
+      <h2 class="pm-report__card-title">Your reflection, in your own words</h2>
+      <div class="pm-report__answer">
+        <p class="pm-report__q">Your Story &mdash; What has shaped you into who you are right now?</p>
+        <p class="pm-report__a" id="pm-report-a1"></p>
+      </div>
+      <div class="pm-report__answer">
+        <p class="pm-report__q">Your Vision &mdash; What would you create if you gave yourself full permission?</p>
+        <p class="pm-report__a" id="pm-report-a2"></p>
+      </div>
+      <div class="pm-report__answer">
+        <p class="pm-report__q">Your Next Step &mdash; What could kickstart your path to becoming future you?</p>
+        <p class="pm-report__a" id="pm-report-a3"></p>
+      </div>
+    </section>
+
+    <section class="pm-report__card">
+      <h2 class="pm-report__card-title">A note from the version of you who already knows</h2>
+      <p class="pm-report__ai" id="pm-report-ai"></p>
+    </section>
+
+    <section class="pm-report__card">
+      <h2 class="pm-report__card-title">Understanding your personal mastery</h2>
+      <p class="pm-report__intro">This is not a score or a psychological assessment. It is a guide to what each part of your reflection reveals about your practice of personal mastery, and a prompt for what to explore next.</p>
+
+      <div class="pm-report__dimension">
+        <p class="pm-report__dim-label">Self-Awareness <span>&middot; from Your Story</span></p>
+        <p class="pm-report__dim-text">Your response to this prompt reflects your relationship with your own history: the moments that have shaped who you are. Self-awareness is the foundation of personal mastery. The more clearly you can see your own patterns, strengths and turning points, the more intentionally you can choose your next steps.</p>
+      </div>
+      <div class="pm-report__dimension">
+        <p class="pm-report__dim-label">Vision &amp; Purpose <span>&middot; from Your Vision</span></p>
+        <p class="pm-report__dim-text">This prompt invited you to imagine your life and work as a deliberate creation. A clear, honestly-held vision creates what Peter Senge calls creative tension: the gap between where you are and where you want to be becomes a source of energy rather than discouragement.</p>
+      </div>
+      <div class="pm-report__dimension">
+        <p class="pm-report__dim-label">Action &amp; Momentum <span>&middot; from Your Next Step</span></p>
+        <p class="pm-report__dim-text">Personal mastery is not only insight, it is practice. The steps you named here are the bridge between reflection and reality. Small, consistent action compounds over time into meaningful change.</p>
+      </div>
+    </section>
+
+    <footer class="pm-report__footer">
+      <p>This report is a self-reflection tool intended to support your personal growth. It is not a psychological assessment or clinical evaluation.</p>
+      <p>GIBS Personal Mastery: Leading from Within &middot; Gordon Institute of Business Science, University of Pretoria</p>
+    </footer>
+  </section>
+
   <script>
   'use strict';
 
@@ -1965,7 +2093,14 @@
   }
 
   // ── Voice input ──────────────────────────────────────────────────────
+  // Guarded with voiceSetupDone: the mic-row elements live in the page
+  // permanently (screens are shown/hidden, never removed), so without
+  // this guard, revisiting the prompts screen would call setupVoice()
+  // again and append a second, third, etc. button into each row. This
+  // ensures exactly one mic button is ever created per prompt.
+  let voiceSetupDone = false;
   function setupVoice() {
+    if (voiceSetupDone) return;
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     const isLocal = ['localhost','127.0.0.1'].includes(location.hostname);
     if (!SR || isLocal) {
@@ -1973,6 +2108,7 @@
         const r = document.getElementById('mic-row-' + n);
         if (r) r.innerHTML = '<span class="mic-note">Voice input available on the live site.</span>';
       });
+      voiceSetupDone = true;
       return;
     }
     [1,2,3].forEach(n => {
@@ -1986,6 +2122,7 @@
       btn.addEventListener('click', () => toggleVoice(n, btn));
       row.appendChild(btn);
     });
+    voiceSetupDone = true;
   }
   function toggleVoice(n, btn) {
     if (state.isRecording) { if (state.recognition) state.recognition.stop(); return; }
@@ -2205,6 +2342,32 @@
     }
   });
 
+  // ── Download My Personal Mastery Report (print-to-PDF) ────────────────
+  document.getElementById('btn-download-report').addEventListener('click', () => {
+    const fullName = (state.firstName + ' ' + state.surname).trim() || 'You';
+    const today = new Date().toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    document.getElementById('pm-report-meta').textContent = 'Prepared for ' + fullName + ' \u00b7 ' + today;
+    document.getElementById('pm-report-a1').textContent = document.getElementById('textarea-1').value.trim();
+    document.getElementById('pm-report-a2').textContent = document.getElementById('textarea-2').value.trim();
+    document.getElementById('pm-report-a3').textContent = document.getElementById('textarea-3').value.trim();
+
+    const aiCard = document.querySelector('#response-slot .ai-response-card');
+    const aiText = aiCard ? aiCard.textContent.trim() : '';
+    const aiSection = document.getElementById('pm-report-ai').closest('.pm-report__card');
+    if (aiText) {
+      document.getElementById('pm-report-ai').textContent = aiText;
+      aiSection.style.display = '';
+    } else {
+      // AI response wasn't available (e.g. the request failed) -- skip
+      // that section in the report rather than printing it empty.
+      aiSection.style.display = 'none';
+    }
+
+    announce('Preparing your Personal Mastery report for download.');
+    window.print();
+  });
+
   // ── Response → Apply ─────────────────────────────────────────────────
   document.getElementById('btn-continue').addEventListener('click', goToTaster);
 
@@ -2251,61 +2414,32 @@
   document.getElementById('btn-back-taster').addEventListener('click', () => showScreen('screen-response'));
   document.getElementById('btn-taster-apply').addEventListener('click', () => showScreen('screen-apply'));
 
-  // ── Taster card 3: benefits image tracks scroll position directly ──
-  // Colour when the image has been scrolled up into the top portion of
-  // the viewport, back to white if you scroll it back down — genuinely
-  // reversible, tied to scroll position rather than a one-off trigger.
-  let benefitsScrollActive = false;
-  let benefitsScrollTicking = false;
-
-  function updateBenefitsReveal() {
-    benefitsScrollTicking = false;
-    const target = document.getElementById('benefits-reveal');
-    if (!target) return;
-    const rect = target.getBoundingClientRect();
-    const viewportH = window.innerHeight || document.documentElement.clientHeight;
-    // Colour once the image's vertical centre has crossed above ~70% of
-    // the viewport height; reverts to white if scrolled back below that.
-    const elementMid = rect.top + rect.height / 2;
-    const shouldBeVisible = elementMid < viewportH * 0.7;
-    target.classList.toggle('is-visible', shouldBeVisible);
-  }
-
-  function onBenefitsScroll() {
-    if (benefitsScrollTicking) return;
-    benefitsScrollTicking = true;
-    requestAnimationFrame(updateBenefitsReveal);
-  }
+  // ── Taster card 3: benefits image auto-reveals from white to colour ──
+  // Simple timed fade: 5 seconds after the card becomes active, the
+  // colour layer fades in over the existing 0.9s CSS transition. Resets
+  // (and re-arms) each time the learner leaves and returns to the card.
+  let benefitsRevealTimer = null;
 
   function resetBenefitsReveal() {
     const target = document.getElementById('benefits-reveal');
     if (target) target.classList.remove('is-visible');
-    if (benefitsScrollActive) {
-      document.removeEventListener('scroll', onBenefitsScroll, true);
-      window.removeEventListener('resize', onBenefitsScroll);
-      benefitsScrollActive = false;
-    }
+    if (benefitsRevealTimer) { clearTimeout(benefitsRevealTimer); benefitsRevealTimer = null; }
   }
 
   function triggerBenefitsReveal() {
     const target = document.getElementById('benefits-reveal');
     if (!target) return;
 
+    target.classList.remove('is-visible');
+    if (benefitsRevealTimer) clearTimeout(benefitsRevealTimer);
+
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) { target.classList.add('is-visible'); return; }
 
-    if (!benefitsScrollActive) {
-      // .taster-card has its own overflow-y: auto, so on many screens it
-      // scrolls internally rather than the window scrolling. A capturing
-      // listener on document catches scroll events from either — the
-      // window scrolling, or the card itself scrolling inside it.
-      document.addEventListener('scroll', onBenefitsScroll, { capture: true, passive: true });
-      window.addEventListener('resize', onBenefitsScroll, { passive: true });
-      benefitsScrollActive = true;
-    }
-    // Set the correct initial state immediately, in case the image is
-    // already within the trigger zone with nothing further to scroll.
-    updateBenefitsReveal();
+    benefitsRevealTimer = setTimeout(() => {
+      target.classList.add('is-visible');
+      benefitsRevealTimer = null;
+    }, 5000);
   }
 
   // ── Taster card 4: one rating slider per trait, filled track shows progress ──
