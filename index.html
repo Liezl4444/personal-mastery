@@ -11,13 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    /* ============================================================
-       DESIGN TOKENS  --  strict GIBS brand alignment
-       Stone / grey / white surfaces. Gold warmth. Purple accent.
-       Navy as text and accent only  --  never as a background wall.
-       ============================================================ */
     :root {
-      /* GIBS Brand primaries */
       --navy:         #002C77;
       --navy-dark:    #001e55;
       --purple:       #5C2F6F;
@@ -28,23 +22,19 @@
       --gold-pale:    #fef6e4;
       --gold-border:  rgba(228,160,36,0.28);
 
-      /* Avatar ring  --  white/light, not purple, so the photo itself is the focus */
       --avatar-ring:      #ffffff;
       --avatar-ring-glow: rgba(107,114,128,0.20);
 
-      /* Surfaces  --  warm stone/grey system, never blue */
-      --stone-100:    #F7F6F4;   /* Warmest light  --  page bg */
-      --stone-200:    #EFEDE9;   /* Cards on page bg */
-      --stone-300:    #E2DDD8;   /* Borders, dividers */
+      --stone-100:    #F7F6F4;
+      --stone-200:    #EFEDE9;
+      --stone-300:    #E2DDD8;
       --white:        #FFFFFF;
-      --ink:          #1C1C1E;   /* Near-black  --  readable, no blue cast */
+      --ink:          #1C1C1E;
       --ink-mid:      #3D3D40;
-      --muted:        #6E6E73;   /* iOS-style muted  --  warm not grey-blue */
+      --muted:        #6E6E73;
 
-      /* Entry hero  --  deep navy but textured, not flat */
       --hero:         #001440;
 
-      /* Shadows  --  warm not cool */
       --shadow-sm:    0 1px 3px rgba(0,0,0,0.07), 0 2px 8px rgba(0,0,0,0.05);
       --shadow-md:    0 4px 16px rgba(0,0,0,0.09), 0 8px 32px rgba(0,0,0,0.06);
       --shadow-lg:    0 12px 40px rgba(0,0,0,0.12), 0 24px 64px rgba(0,0,0,0.08);
@@ -53,17 +43,12 @@
       --radius-sm:    8px;
       --radius-full:  9999px;
 
-      /* Inter for all UI  --  excellent mobile legibility */
       --font-ui:      'Inter', system-ui, -apple-system, Arial, sans-serif;
-      /* Georgia/Times for quotes  --  reads far easier in italic than Playfair Display did */
       --font-serif:   Georgia, 'Times New Roman', Times, serif;
 
       --transition:   0.18s ease;
     }
 
-    /* ============================================================
-       RESET
-       ============================================================ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { font-size: 16px; scroll-behaviour: smooth; -webkit-text-size-adjust: 100%; }
     body {
@@ -76,9 +61,6 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ============================================================
-       ACCESSIBILITY
-       ============================================================ */
     .skip-link {
       position: absolute; top: -100%; left: 1rem; z-index: 9999;
       background: var(--gold); color: var(--ink);
@@ -91,9 +73,6 @@
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
     :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
 
-    /* ============================================================
-       SCREEN SYSTEM
-       ============================================================ */
     .screen { display: none; flex: 1; flex-direction: column; animation: fadeUp 320ms ease forwards; }
     .screen.active { display: flex; }
     @keyframes fadeUp {
@@ -105,9 +84,6 @@
       *, *::before, *::after { transition-duration: 0ms !important; }
     }
 
-    /* ============================================================
-       SITE HEADER
-       ============================================================ */
     .site-header {
       background: var(--navy);
       height: 80px; padding: 0 1.5rem;
@@ -133,9 +109,6 @@
       .header-prog, .header-divider { display: none; }
     }
 
-    /* ============================================================
-       BUTTONS
-       ============================================================ */
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
       gap: 0.45rem; font-family: var(--font-ui); font-size: 0.9rem;
@@ -159,10 +132,6 @@
     }
     .btn-ghost-light:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.32); color: white; }
 
-    /* ============================================================
-       SCREEN 0  --  ENTRY
-       Navy hero with the scribble/lightbulb SVG illustration behind text
-       ============================================================ */
     #screen-entry {
       background: url('/assets/pm-background.png') center/cover no-repeat;
       align-items: center; justify-content: flex-start;
@@ -172,8 +141,6 @@
       flex: 1;
       min-height: calc(100vh - 80px);
     }
-
-
 
     .entry-inner {
       max-width: 580px; width: 100%;
@@ -187,7 +154,6 @@
       text-transform: uppercase; color: var(--gold); margin-bottom: 2rem;
     }
 
-    /* Georgia italic  --  large enough to read beautifully on mobile */
     .entry-quote {
       font-family: var(--font-serif);
       font-size: clamp(1.3rem, 4.5vw, 1.9rem);
@@ -235,11 +201,6 @@
     }
     .entry-hook strong { color: rgba(255,255,255,0.92); font-weight: 600; }
 
-    /* ============================================================
-       SCREEN 0b  --  ABOUT / CONTEXT
-       Same navy hero world as Entry  --  the "what is this, and why"
-       beat, kept off the hook screen so neither one is overloaded.
-       ============================================================ */
     #screen-about {
       background: url('/assets/pm-background.png') center/cover no-repeat;
       align-items: center; justify-content: flex-start;
@@ -275,9 +236,20 @@
       line-height: 1.8; margin-bottom: 2.5rem;
     }
 
-    /* ============================================================
-       SCREEN 1  --  PHOTO UPLOAD  --  stone surface, card on it
-       ============================================================ */
+    .pricing-stats { display: flex; gap: 1.75rem; flex-wrap: wrap; }
+    .pricing-stats .stat { text-align: center; }
+    .pricing-stats .stat-label { display: block; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.25rem; }
+    .pricing-stats .stat-value { font-family: var(--font-ui); font-weight: 700; font-size: 1.05rem; }
+    .pricing-stats.on-dark { justify-content: center; margin-bottom: 1.75rem; }
+    .pricing-stats.on-dark .stat-label { color: rgba(255,255,255,0.4); }
+    .pricing-stats.on-dark .stat-value { color: #fff; }
+    .pricing-stats.on-dark .stat-value.accent { color: var(--gold-light); }
+    .pricing-stats.on-dark .stat-value s { color: rgba(255,255,255,0.35); font-weight: 500; font-size: 0.85rem; }
+    .pricing-stats.on-light { justify-content: flex-start; }
+    .pricing-stats.on-light .stat-label { color: var(--muted); }
+    .pricing-stats.on-light .stat-value { color: var(--navy); }
+    .pricing-stats.on-light .stat-value s { color: var(--muted); font-weight: 500; font-size: 0.85rem; }
+
     #screen-photo {
       background: var(--stone-100);
       align-items: center; justify-content: center;
@@ -343,9 +315,6 @@
     .photo-skip:hover { color: var(--ink); }
     .photo-skip:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
 
-    /* ============================================================
-       SCREEN 2  --  PROMPTS
-       ============================================================ */
     #screen-prompts { background: var(--stone-100); }
 
     .prompts-topbar {
@@ -376,13 +345,11 @@
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
 
-    /* Progress */
     .prog-wrap { padding: 1.1rem 1.5rem 0; max-width: 640px; width: 100%; margin: 0 auto; }
     .prog-track { height: 3px; background: var(--stone-300); border-radius: 2px; overflow: hidden; margin-bottom: 0.4rem; }
     .prog-fill { height: 100%; background: linear-gradient(90deg, var(--navy), var(--purple)); border-radius: 2px; transition: width 0.38s ease; }
     .prog-label { font-size: 0.62rem; font-weight: 600; color: var(--muted); letter-spacing: 0.09em; text-transform: uppercase; }
 
-    /* Prompt card */
     .prompt-card { display: none; flex: 1; flex-direction: column; padding: 1.5rem; max-width: 640px; width: 100%; margin: 0 auto; }
     .prompt-card.active { display: flex; }
 
@@ -425,7 +392,6 @@
     .prompt-textarea:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,115,120,0.1), var(--shadow-sm); }
     .prompt-textarea::placeholder { color: var(--muted); }
 
-    /* Lao Tzu pause */
     .laotzu-panel {
       display: none; flex: 1;
       background: var(--navy);
@@ -448,9 +414,6 @@
     .laotzu-attr { font-size: 0.68rem; color: rgba(255,255,255,0.35); margin-top: 0.7rem; letter-spacing: 0.07em; position: relative; }
     .laotzu-tap { margin-top: 2.5rem; font-size: 0.64rem; color: rgba(255,255,255,0.2); letter-spacing: 0.07em; position: relative; }
 
-    /* ============================================================
-       SCREEN 3  --  LOADING
-       ============================================================ */
     #screen-loading {
       background: var(--hero); flex: 1;
       align-items: center; justify-content: center;
@@ -474,9 +437,6 @@
     .loading-ring img { width: 100%; height: 100%; object-fit: cover; display: none; }
     .loading-text { font-family: var(--font-serif); font-size: 1rem; font-style: italic; color: rgba(255,255,255,0.6); }
 
-    /* ============================================================
-       SCREEN 4  --  RESPONSE
-       ============================================================ */
     #screen-response { background: var(--stone-100); }
 
     .resp-topbar {
@@ -500,7 +460,6 @@
     .resp-sender-info small { display: block; font-size: 0.62rem; color: var(--muted); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 0.15rem; }
     .resp-sender-info strong { font-size: 0.88rem; font-weight: 600; color: var(--navy); }
 
-    /* Response  --  gold left accent now, not purple. Gold = warmth, this is the reward moment */
     .response-card {
       background: var(--white);
       border: 1px solid var(--stone-300);
@@ -520,7 +479,6 @@
       padding: 1.1rem 1.4rem; font-size: 0.875rem; color: #7f1d1d; line-height: 1.6;
     }
 
-    /* Bridge  --  gold-pale, feels warm and open not institutional */
     .resp-bridge {
       background: var(--gold-pale);
       border: 1px solid var(--gold-border);
@@ -530,9 +488,6 @@
     }
     .resp-bridge p { font-size: 0.88rem; color: var(--ink-mid); line-height: 1.75; margin-bottom: 1.1rem; }
 
-    /* ============================================================
-       FOOTER
-       ============================================================ */
     .site-footer {
       background: var(--navy-dark); padding: 0.9rem 1.5rem;
       text-align: center; flex-shrink: 0;
@@ -559,7 +514,6 @@
     }
     .proto-body:last-child { margin-bottom: 0.75rem; }
 
-    /* Prompt quote block */
     .prompt-quote {
       background: rgba(0,44,119,0.05);
       border-left: 3px solid var(--gold);
@@ -583,7 +537,6 @@
       text-transform: uppercase;
     }
 
-    /* Response screen — summary card */
     .reflection-summary {
       background: var(--white);
       border: 1px solid var(--stone-300);
@@ -631,7 +584,6 @@
       font-size: 0.88rem; color: var(--ink); line-height: 1.7;
     }
 
-    /* AI response card — now sits below summary */
     .ai-response-card {
       background: var(--white);
       border: 1px solid var(--stone-300);
@@ -650,7 +602,6 @@
       margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem;
     }
 
-    /* Download card button */
     .btn-download {
       display: inline-flex; align-items: center; gap: 0.45rem;
       background: var(--stone-100); border: 1.5px solid var(--stone-300);
@@ -662,7 +613,6 @@
     }
     .btn-download:hover { background: var(--gold-pale); border-color: var(--gold); }
 
-    /* Course taster bridge */
     .course-bridge {
       background: linear-gradient(135deg, var(--navy) 0%, #003da0 100%);
       border-radius: var(--radius);
@@ -692,26 +642,17 @@
       font-size: 0.9rem; padding: 0.85rem 1.75rem; width: auto;
     }
 
-    /* ============================================================
-       SCREEN 4b  --  COURSE TASTER
-       6 short "nugget" cards, same active-toggle pattern as
-       .prompt-card. Reuses .prompts-topbar, .prog-wrap/.prog-track,
-       .prompt-cat, .check-row-entry and .laotzu-panel wherever the
-       visual job is identical  --  new rules only where it isn't.
-       ============================================================ */
     #screen-taster { background: var(--stone-100); }
 
     .taster-card { display: none; flex: 1; flex-direction: column; padding: 1.5rem; max-width: 640px; width: 100%; margin: 0 auto; overflow-y: auto; }
     .taster-card.active { display: flex; }
 
-    /* Card 1  --  the real hero graphic, full and uncropped (it already carries the quote) */
     .taster-hero-image {
       width: 100%; border-radius: var(--radius); overflow: hidden;
       box-shadow: var(--shadow-md); margin-bottom: 1.25rem; background: var(--navy);
     }
     .taster-hero-image img { display: block; width: 100%; height: auto; }
 
-    /* Card 2  --  video */
     .taster-video-frame {
       position: relative; width: 100%; aspect-ratio: 16/9;
       border-radius: var(--radius); overflow: hidden;
@@ -727,7 +668,6 @@
     .taster-learn-more:hover { text-decoration: underline; }
     .taster-learn-more:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
 
-    /* Nav row inside each taster card */
     .taster-nav { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: auto; padding-top: 1.25rem; }
     .taster-back-link {
       background: none; border: none; color: var(--muted);
@@ -739,12 +679,8 @@
     .taster-back-link:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
     .taster-nav:first-child { justify-content: flex-end; margin-top: 0.5rem; }
 
-    /* Card 5 reuses .laotzu-panel's immersive padding  --  .taster-card's own
-       padding rule has equal specificity and comes later in the cascade,
-       so it needs this one override to actually win. */
     #taster-card-5.laotzu-panel { padding: 3.5rem 2rem; align-items: center; }
 
-    /* Card 3  --  benefits image that "comes alive" from white to colour as it scrolls into view */
     .reveal-image {
       position: relative; width: 100%; margin-top: 1.1rem;
       border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md);
@@ -756,7 +692,6 @@
     }
     .reveal-image.is-visible .reveal-colour { opacity: 1; }
 
-    /* Card 4  --  one slider per trait question */
     .rate-list { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1.35rem; }
     .rate-item { }
     .rate-q { font-size: 0.9rem; font-weight: 600; color: var(--ink); margin-bottom: 0.7rem; line-height: 1.45; }
@@ -789,22 +724,32 @@
       font-size: 0.68rem; color: var(--muted); margin-top: 0.3rem;
     }
 
-    /* Card 5  --  reflect icon */
     .taster-reflect-icon { width: 150px; height: auto; margin-bottom: 1.5rem; }
 
-    /* Card 6  --  conclusion image */
     .taster-conclude-image {
       width: 100%; height: auto; border-radius: var(--radius);
       box-shadow: var(--shadow-md); margin-top: 0.5rem;
     }
 
-    /* Card 6  --  conclusion */
     .taster-conclude h2 { font-family: var(--font-ui); font-size: 1.2rem; color: var(--navy); margin-bottom: 0.75rem; }
     .taster-conclude p { font-size: 0.92rem; color: var(--ink-mid); line-height: 1.75; margin-bottom: 1rem; }
 
-    /* Canvas (hidden — for downloadable image generation) */
+    /* Card 7 -- Pay-It-Forward steps, sits inside a .course-bridge panel for visual weight */
+    .pif-steps { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem; }
+    .pif-step { display: flex; gap: 0.85rem; align-items: flex-start; }
+    .pif-num {
+      flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; font-family: var(--font-ui); font-weight: 700; font-size: 0.8rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pif-step-reward .pif-num { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+    .pif-step-text { display: flex; flex-direction: column; gap: 0.1rem; padding-top: 0.15rem; }
+    .pif-step-text strong { font-size: 0.85rem; color: #fff; font-weight: 600; }
+    .pif-step-text span { font-size: 0.78rem; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
     #reflection-canvas { display: none; }
-       ============================================================ */
+
     .entry-fields { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.25rem; }
     .field-group { display: flex; flex-direction: column; gap: 0.3rem; text-align: left; }
     .field-label { font-size: 0.82rem; font-weight: 600; color: var(--ink); letter-spacing: 0.01em; }
@@ -839,9 +784,6 @@
     }
     .check-row-entry label { font-size: 0.8rem; color: var(--ink); line-height: 1.55; cursor: pointer; }
 
-    /* ============================================================
-       SCREEN 5  --  APPLICATION FORM
-       ============================================================ */
     #screen-apply { background: var(--stone-100); }
 
     .apply-topbar {
@@ -888,7 +830,6 @@
     }
     .commit-item label strong { color: var(--navy); }
 
-    /* Screen 6 — Confirmation */
     #screen-confirm { background: var(--stone-100); }
     .confirm-body {
       max-width: 560px; width: 100%; margin: 0 auto;
@@ -931,7 +872,6 @@
     .btn-copy { background: var(--stone-200); color: var(--ink); }
     .btn-copy:hover { background: var(--stone-300); }
 
-    /* Loading apply screen */
     #screen-loading-apply {
       background: var(--hero); flex: 1;
       align-items: center; justify-content: center;
@@ -947,7 +887,6 @@
       .entry-inner { padding-top: 0.5rem; }
     }
 
-    /* Back button */
     .btn-back {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
       background: var(--white); border: 1.5px solid var(--stone-300); color: var(--ink-mid);
@@ -960,10 +899,8 @@
     .btn-back:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
     .btn-back svg { flex-shrink: 0; }
 
-    /* Icon-only variant  --  used inline in topbars, next to the avatar */
     .btn-back-icon { padding: 0; width: 44px; }
 
-    /* Light variant  --  for back buttons sitting on navy/photo backgrounds */
     .btn-back-light {
       background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); color: #fff;
       box-shadow: none;
@@ -971,7 +908,6 @@
     .btn-back-light:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.65); color: #fff; }
     .btn-back-light:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 
-    /* Back row sits above the photo card and prompt cards */
     .back-row {
       width: 100%; max-width: 640px; margin: 0 auto;
       padding: 0.75rem 1.5rem 0;
@@ -981,20 +917,17 @@
       padding: 0.75rem 1.5rem 0;
     }
 
-    /* Desktop: constrain layout to comfortable reading width */
     @media (min-width: 900px) {
       #screen-prompts, #screen-response, #screen-taster {
         background: var(--stone-100);
       }
 
-      /* Centred content column on desktop */
       .desktop-col {
         max-width: 780px;
         width: 100%;
         margin: 0 auto;
       }
 
-      /* Topbars get a centred inner wrapper on desktop */
       .prompts-topbar, .resp-topbar {
         padding: 0.75rem calc((100% - 780px) / 2);
       }
@@ -1023,12 +956,10 @@
         padding-right: 0;
       }
 
-      /* Entry screen: text stays nicely centred, max width tighter */
       .entry-inner {
         max-width: 600px;
       }
 
-      /* Response topbar padding matches */
       .resp-topbar {
         justify-content: flex-start;
       }
@@ -1183,7 +1114,25 @@
     </div>
     <div class="about-inner">
       <p class="about-eyebrow" id="about-heading">Personal Mastery: Leading from Within</p>
-      <p class="about-offer">Complete this short experience and submit your application to stand a chance of being selected for a free seat on our October <em>Personal Mastery: Leading from Within</em> course, offered by GIBS Digital Education in honour of World Mental Health Day. GIBS is donating <strong>100 seats</strong> to help applicants invest in their own growth and leadership.</p>
+      <p class="about-offer">Complete this short experience and apply for a <strong>20% sponsored learning contribution</strong> toward the <em>Personal Mastery: Leading from Within</em> course, offered by GIBS Digital Education ahead of Mental Health Awareness Month.</p>
+
+      <div class="pricing-stats on-dark" aria-label="Course pricing">
+        <div class="stat">
+          <span class="stat-label">Full price</span>
+          <span class="stat-value"><s>R5,540</s></span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Your contribution</span>
+          <span class="stat-value accent">R4,432</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">You save</span>
+          <span class="stat-value accent">R1,108</span>
+        </div>
+      </div>
+
+      <p class="about-offer" style="font-size:0.86rem;">And when you complete the course and earn your certificate, your journey does not end there. You will unlock the chance to pay it forward, nominating someone else for the same experience, at no cost to them.</p>
+
       <hr class="about-rule" aria-hidden="true" />
       <p class="entry-tagline">
         Before you begin, take a few minutes to pause and reflect on your personal journey. This short reflection invites you to look at where you have been, where you want to go, and what it may take to lead yourself with greater purpose.
@@ -1350,7 +1299,6 @@
   </section>
 
   <!-- SCREEN 4  --  RESPONSE -->
-  <!-- SCREEN 4  --  RESPONSE -->
   <section class="screen" id="screen-response" aria-labelledby="resp-heading">
     <div class="resp-topbar">
       <button class="btn-back btn-back-icon" id="btn-back-response" type="button" aria-label="Back to prompts" style="margin-right:0.25rem;flex-shrink:0;">
@@ -1442,7 +1390,7 @@
     </footer>
   </section>
 
-  <!-- SCREEN 4b  --  COURSE TASTER (6 short nuggets, not a single scroll) -->
+  <!-- SCREEN 4b  --  COURSE TASTER (7 short nuggets, not a single scroll) -->
   <section class="screen" id="screen-taster" aria-labelledby="taster-label">
     <div class="prompts-topbar">
       <button class="btn-back btn-back-icon" id="btn-back-taster" type="button" aria-label="Back to your reflection" style="margin-right:0.25rem;flex-shrink:0;">
@@ -1457,9 +1405,9 @@
       </div>
     </div>
 
-    <div class="prog-wrap" role="progressbar" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1" aria-label="Taster step 1 of 6">
-      <div class="prog-track"><div class="prog-fill" id="prog-fill-taster" style="width:16.6%;"></div></div>
-      <p class="prog-label" id="prog-label-taster">Step 1 of 6</p>
+    <div class="prog-wrap" role="progressbar" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1" aria-label="Taster step 1 of 7">
+      <div class="prog-track"><div class="prog-fill" id="prog-fill-taster" style="width:14.3%;"></div></div>
+      <p class="prog-label" id="prog-label-taster">Step 1 of 7</p>
     </div>
 
     <!-- 1: HOOK -->
@@ -1481,7 +1429,7 @@
       <h2 id="taster-h2" style="font-family:var(--font-ui);font-size:1.1rem;color:var(--navy);margin-bottom:0.6rem;">Dr Frank Magwegwe</h2>
       <p>Here's a short video introducing Dr Frank Magwegwe, GIBS faculty and the force behind Personal Mastery: Lead from Within.</p>
       <div class="taster-video-frame">
-        <iframe src="https://player.vimeo.com/video/818408221?h=99b42a2d94&amp;title=0&amp;byline=0&amp;portrait=0"
+        <iframe src="https://player.vimeo.com/video/1212424927?h=8252700820&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
           title="Introducing Dr Frank Magwegwe, GIBS Personal Mastery: Lead from Within"
           allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
       </div>
@@ -1580,6 +1528,45 @@
       <img class="taster-conclude-image" src="/assets/personal-mastery-own-your-mastery-image.png" alt="" aria-hidden="true" />
       <div class="taster-nav">
         <button class="taster-back-link" id="btn-taster-back-6" type="button">&larr; Back</button>
+        <button class="btn btn-navy" id="btn-taster-next-6" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+
+    <!-- 7: PAY IT FORWARD  --  the differentiator. Sits inside a .course-bridge
+         panel to give it the same visual weight as the Response-screen CTA,
+         reinforcing "this is a big deal" through a consistent visual language. -->
+    <div class="taster-card" id="taster-card-7" role="group" aria-labelledby="taster-h7">
+      <p class="prompt-cat">The Pay-It-Forward Promise</p>
+      <h2 id="taster-h7" style="font-family:var(--font-ui);font-size:1.15rem;color:var(--navy);margin-bottom:0.9rem;">Your growth doesn't stop with you.</h2>
+
+      <div class="course-bridge" style="margin-bottom:0;">
+        <p class="cb-eyebrow">What makes this different</p>
+        <p style="font-size:0.9rem;line-height:1.75;color:rgba(255,255,255,0.88);margin-bottom:1.4rem;">When you complete the course and earn your GIBS certificate, you will be invited to nominate one person you believe deserves the same experience. If they are approved, they receive it at no cost to them.</p>
+
+        <ol class="pif-steps" aria-label="How Pay-It-Forward works">
+          <li class="pif-step">
+            <span class="pif-num" aria-hidden="true">1</span>
+            <div class="pif-step-text"><strong>Complete the course</strong><span>Finish Personal Mastery within your access month.</span></div>
+          </li>
+          <li class="pif-step">
+            <span class="pif-num" aria-hidden="true">2</span>
+            <div class="pif-step-text"><strong>Earn your certificate</strong><span>Receive your GIBS Certificate of Completion and Digital Credential.</span></div>
+          </li>
+          <li class="pif-step">
+            <span class="pif-num" aria-hidden="true">3</span>
+            <div class="pif-step-text"><strong>Nominate someone</strong><span>Choose one person you believe would benefit from the same journey.</span></div>
+          </li>
+          <li class="pif-step pif-step-reward">
+            <span class="pif-num" aria-hidden="true">4</span>
+            <div class="pif-step-text"><strong>They apply, at no cost</strong><span>Subject to eligibility and approval, your nominee receives the course for free.</span></div>
+          </li>
+        </ol>
+      </div>
+
+      <p style="font-size:0.82rem;color:var(--muted);line-height:1.65;margin-top:1.1rem;">This is what makes Personal Mastery different. It is not just an opportunity for you, it is a chance to extend that same opportunity to someone else.</p>
+
+      <div class="taster-nav">
+        <button class="taster-back-link" id="btn-taster-back-7" type="button">&larr; Back</button>
         <button class="btn btn-gold" id="btn-taster-apply" type="button">Continue to application <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
     </div>
@@ -1594,7 +1581,7 @@
     <div class="apply-topbar">
       <div>
         <h2 id="apply-heading">One more step</h2>
-        <p>Complete your application for a sponsored seat. Takes about 2 minutes.</p>
+        <p>Complete your application for a 20% sponsored learning contribution. Takes about 2 minutes.</p>
       </div>
     </div>
 
@@ -1627,6 +1614,27 @@
         </div>
       </div>
 
+      <!-- Your investment -->
+      <div class="apply-card">
+        <h3>Your investment</h3>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.65;margin-bottom:0.9rem;">Approved applicants receive a 20% sponsored learning contribution toward the course fee.</p>
+        <div class="pricing-stats on-light">
+          <div class="stat">
+            <span class="stat-label">Full price</span>
+            <span class="stat-value"><s>R5,540</s></span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Your contribution</span>
+            <span class="stat-value">R4,432</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">You save</span>
+            <span class="stat-value">R1,108</span>
+          </div>
+        </div>
+        <p style="font-size:0.76rem;color:var(--muted);line-height:1.6;margin-top:0.9rem;">Payment instructions will be provided if your application is approved. The sponsored contribution is non-transferable and cannot be exchanged for cash.</p>
+      </div>
+
       <!-- Commitment checkboxes -->
       <div class="apply-card">
         <h3>Your commitments</h3>
@@ -1634,7 +1642,14 @@
         <div class="commit-list">
 
           <div class="commit-item" onclick="this.querySelector('input').click()">
-            <input type="checkbox" id="commit-dates" aria-required="true" aria-describedby="err-commits" onclick="event.stopPropagation()" />
+            <input type="checkbox" id="commit-age" aria-required="true" aria-describedby="err-commits" onclick="event.stopPropagation()" />
+            <label for="commit-age" onclick="event.preventDefault()">
+              I confirm that I am <strong>18 years or older</strong>.
+            </label>
+          </div>
+
+          <div class="commit-item" onclick="this.querySelector('input').click()">
+            <input type="checkbox" id="commit-dates" aria-required="true" onclick="event.stopPropagation()" />
             <label for="commit-dates" onclick="event.preventDefault()">
               I commit to completing the course between <strong>1 October and 31 October 2026</strong>. I understand that access closes on 31 October and incomplete courses will not be certified.
             </label>
@@ -1699,19 +1714,20 @@
       </div>
 
       <h2 class="confirm-heading" id="confirm-heading">Your application has been received</h2>
-      <p class="confirm-sub">Thank you for applying for a sponsored seat in the GIBS Personal Mastery: Leading from Within course. Your application has been received, and the GIBS Digital Education team will contact successful applicants directly.</p>
+      <p class="confirm-sub">Thank you for applying for a 20% sponsored learning contribution toward the GIBS Personal Mastery: Leading from Within course. Your application has been received, and the GIBS Digital Education team will contact successful applicants directly.</p>
 
       <div class="timeline-card" aria-label="What happens next">
         <h3>What happens next</h3>
         <div class="timeline-item"><span class="t-date">Now</span><span>Your application is with the GIBS team.</span></div>
-        <div class="timeline-item"><span class="t-date">16 Sept</span><span>Applications close. Eligible applicants are selected at random.</span></div>
-        <div class="timeline-item"><span class="t-date">Late Sept</span><span>Successful applicants contacted by email with course access instructions.</span></div>
+        <div class="timeline-item"><span class="t-date">16 Sept</span><span>Applications close. Eligibility and suitability review begins.</span></div>
+        <div class="timeline-item"><span class="t-date">Late Sept</span><span>Approved applicants receive payment instructions and registration details.</span></div>
         <div class="timeline-item"><span class="t-date">1 Oct</span><span>Course access opens. You have the full month of October to complete it.</span></div>
         <div class="timeline-item"><span class="t-date">On completion</span><span>Receive your GIBS Certificate of Completion and Digital Credential via Credly.</span></div>
+        <div class="timeline-item"><span class="t-date">After that</span><span>Pay-It-Forward unlocks. Nominate someone for the same course, at no cost to them.</span></div>
       </div>
 
       <div class="share-card" role="region" aria-label="Share this experience">
-        <p><strong>Know someone who should be here?</strong><br />Share this experience with someone in your network who would benefit from it. The more people who discover Personal Mastery, the wider the ripple.</p>
+        <p><strong>Know someone who should be here?</strong><br />Share this experience with someone in your network who would benefit from it. And once you complete the course, remember: you will have your own chance to nominate someone for the same opportunity, at no cost to them.</p>
         <div class="share-btns">
           <button class="btn-share btn-wa" id="btn-share-wa" type="button" aria-label="Share via WhatsApp">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.552 4.103 1.508 5.83L0 24l6.335-1.652C8.03 23.345 9.979 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.833 0-3.558-.487-5.053-1.336l-.362-.215-3.76.981.999-3.656-.235-.376A9.919 9.919 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
@@ -2192,14 +2208,15 @@
   // ── Response → Apply ─────────────────────────────────────────────────
   document.getElementById('btn-continue').addEventListener('click', goToTaster);
 
-  // ── Course taster stepper (6 nuggets) ────────────────────────────────
+  // ── Course taster stepper (7 nuggets) ────────────────────────────────
   const tasterTitles = [
     'Personal mastery',
     'Meet Dr Frank Magwegwe',
     'What changes for you',
     'Where do you see yourself?',
     'Think for a moment',
-    'The practice is simple.'
+    'The practice is simple.',
+    'Pay it forward'
   ];
 
   function goToTaster() {
@@ -2212,8 +2229,8 @@
     document.querySelectorAll('.taster-card').forEach(el => el.classList.remove('active'));
   }
   function setTasterProgress(n) {
-    document.getElementById('prog-fill-taster').style.width = Math.round(n / 6 * 100) + '%';
-    document.getElementById('prog-label-taster').textContent = 'Step ' + n + ' of 6';
+    document.getElementById('prog-fill-taster').style.width = Math.round(n / 7 * 100) + '%';
+    document.getElementById('prog-label-taster').textContent = 'Step ' + n + ' of 7';
     const pw = document.getElementById('prog-fill-taster').closest('.prog-wrap');
     if (pw) pw.setAttribute('aria-valuenow', n);
   }
@@ -2222,13 +2239,13 @@
     document.getElementById('taster-card-' + n).classList.add('active');
     setTasterProgress(n);
     document.querySelector('#screen-taster .prompts-topbar')?.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    announce('Step ' + n + ' of 6: ' + tasterTitles[n - 1]);
+    announce('Step ' + n + ' of 7: ' + tasterTitles[n - 1]);
     if (n === 3) { triggerBenefitsReveal(); } else { resetBenefitsReveal(); }
   }
-  for (let n = 1; n <= 5; n++) {
+  for (let n = 1; n <= 6; n++) {
     document.getElementById('btn-taster-next-' + n).addEventListener('click', () => goToTasterCard(n + 1));
   }
-  for (let n = 2; n <= 6; n++) {
+  for (let n = 2; n <= 7; n++) {
     document.getElementById('btn-taster-back-' + n).addEventListener('click', () => goToTasterCard(n - 1));
   }
   document.getElementById('btn-back-taster').addEventListener('click', () => showScreen('screen-response'));
@@ -2310,6 +2327,7 @@
     const sn  = document.getElementById('apply-surname');
     const em  = document.getElementById('apply-email');
     const ph  = document.getElementById('apply-phone');
+    const c0  = document.getElementById('commit-age');
     const c1  = document.getElementById('commit-dates');
     const c2  = document.getElementById('commit-hours');
     const c3  = document.getElementById('commit-device');
@@ -2322,7 +2340,7 @@
     if (!sn.value.trim())  { setErr('err-apply-surname','Required.'); setInvalid('apply-surname',true); valid = false; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) { setErr('err-apply-email','Please enter a valid email address.'); setInvalid('apply-email',true); valid = false; }
     if (!ph.value.trim())  { setErr('err-apply-phone','Please enter a contact number.'); setInvalid('apply-phone',true); valid = false; }
-    if (!c1.checked || !c2.checked || !c3.checked) { setErr('err-commits','Please tick all three commitments to continue.'); valid = false; }
+    if (!c0.checked || !c1.checked || !c2.checked || !c3.checked) { setErr('err-commits','Please tick all four commitments to continue.'); valid = false; }
 
     if (!valid) { announce('Please correct the errors in the form before submitting.'); return; }
 
@@ -2348,6 +2366,7 @@
           surname:   state.surname,
           email:     state.email,
           phone:     state.phone,
+          commitAge:    c0.checked,
           commitDates:  c1.checked,
           commitHours:  c2.checked,
           commitDevice: c3.checked,
@@ -2372,7 +2391,7 @@
 
   // ── Share buttons ────────────────────────────────────────────────────
   const CAMPAIGN_URL = 'https://gibs-personal-mastery.netlify.app';
-  const WA_MSG = encodeURIComponent('I just completed a reflection with GIBS Digital Education on Personal Mastery: Leading from Within. There are limited free sponsored seats available — worth exploring. ' + CAMPAIGN_URL + ' #GIBSPersonalMastery #LeadFromWithin');
+  const WA_MSG = encodeURIComponent('I just completed a reflection with GIBS Digital Education on Personal Mastery: Leading from Within, a course with a 20% sponsored learning contribution and a Pay-It-Forward promise once you complete it. Worth exploring. ' + CAMPAIGN_URL + ' #GIBSPersonalMastery #LeadFromWithin');
 
   document.getElementById('btn-share-wa').addEventListener('click', () => {
     window.open('https://wa.me/?text=' + WA_MSG, '_blank', 'noopener,noreferrer');
@@ -2399,8 +2418,8 @@
   });
   document.getElementById('btn-back-apply').addEventListener('click', () => {
     hideTasterCards();
-    document.getElementById('taster-card-6').classList.add('active');
-    setTasterProgress(6);
+    document.getElementById('taster-card-7').classList.add('active');
+    setTasterProgress(7);
     showScreen('screen-taster');
   });
 
