@@ -700,12 +700,11 @@
       position: relative; width: 100%; margin-top: 1.1rem;
       border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md);
     }
-    .reveal-image img { display: block; width: 100%; height: auto; }
-    .reveal-image .reveal-colour {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-      opacity: 0; transition: opacity 0.9s ease;
+    .reveal-image img {
+      display: block; width: 100%; height: auto;
+      filter: grayscale(1); transition: filter 0.9s ease;
     }
-    .reveal-image.is-visible .reveal-colour { opacity: 1; }
+    .reveal-image.is-visible img { filter: grayscale(0); }
 
     .rate-list { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1.35rem; }
     .rate-item { }
@@ -1519,8 +1518,7 @@
       <p>Personal mastery helps you pause, reflect and respond with greater intention. It strengthens your ability to see your current reality clearly, hold a meaningful personal vision, and take practical steps towards that vision.</p>
       <p>Over time, this can support greater resilience, better decision-making, stronger relationships and a deeper sense of purpose in both life and work.</p>
       <div class="reveal-image" id="benefits-reveal">
-        <img class="reveal-base" src="/assets/personal-mastery-about-white.png" alt="Personal mastery transforms your life and career by cultivating deep self-awareness, emotional intelligence and a proactive mindset. The core benefits include enhanced leadership skills, greater resilience to stress, and the ability to align your daily actions with your long-term vision." />
-        <img class="reveal-colour" src="/assets/personal-mastery-about-colour.png" alt="" aria-hidden="true" />
+        <img src="/assets/personal-mastery-about-colour.png" alt="Personal mastery transforms your life and career by cultivating deep self-awareness, emotional intelligence and a proactive mindset. The core benefits include enhanced leadership skills, greater resilience to stress, and the ability to align your daily actions with your long-term vision." />
       </div>
       <div class="taster-nav">
         <button class="taster-back-link" id="btn-taster-back-3" type="button">&larr; Back</button>
