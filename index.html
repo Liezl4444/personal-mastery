@@ -694,7 +694,7 @@
     .taster-back-link:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
     .taster-nav:first-child { justify-content: flex-end; margin-top: 0.5rem; }
 
-    #taster-card-5.laotzu-panel { padding: 3.5rem 2rem; align-items: center; }
+    #taster-card-6.laotzu-panel { padding: 3.5rem 2rem; align-items: center; }
 
     .reveal-image {
       position: relative; width: 100%; margin-top: 1.1rem;
@@ -706,37 +706,65 @@
     }
     .reveal-image.is-visible img { filter: grayscale(0); }
 
-    .rate-list { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1.35rem; }
-    .rate-item { }
-    .rate-q { font-size: 0.9rem; font-weight: 600; color: var(--ink); margin-bottom: 0.7rem; line-height: 1.45; }
-    .rate-slider {
-      width: 100%; height: 36px; margin: 0; display: block;
-      -webkit-appearance: none; appearance: none; background: transparent;
+    /* Card 4 -- discrete 1-7 rating scale, replacing the old continuous sliders */
+    .rating-scale-key {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.4rem;
+      margin: 1rem 0 1.35rem;
     }
-    .rate-slider::-webkit-slider-runnable-track {
-      height: 6px; border-radius: 999px;
-      background: linear-gradient(to right, var(--navy) 0%, var(--navy) var(--fill, 50%), var(--stone-300) var(--fill, 50%), var(--stone-300) 100%);
+    .rating-scale-key .key-item {
+      border: 1.5px solid var(--stone-300); border-radius: var(--radius-sm);
+      padding: 0.5rem 0.35rem; text-align: center; background: var(--white);
     }
-    .rate-slider::-moz-range-track {
-      height: 6px; border-radius: 999px; border: none;
-      background: linear-gradient(to right, var(--navy) 0%, var(--navy) var(--fill, 50%), var(--stone-300) var(--fill, 50%), var(--stone-300) 100%);
+    .rating-scale-key .key-item strong { display: block; color: var(--navy); font-size: 1rem; margin-bottom: 0.15rem; }
+    .rating-scale-key .key-item span { display: block; font-size: 0.62rem; color: var(--muted); line-height: 1.25; }
+
+    .rating-table { display: flex; flex-direction: column; gap: 0.9rem; }
+    .rating-row {
+      background: var(--white); border: 1px solid var(--stone-300); border-left: 4px solid var(--teal);
+      border-radius: var(--radius-sm); padding: 0.9rem 1rem; box-shadow: var(--shadow-sm);
     }
-    .rate-slider { border-radius: 999px; }
-    .rate-slider::-webkit-slider-thumb {
-      -webkit-appearance: none; margin-top: -11px; cursor: pointer;
-      width: 28px; height: 28px; border-radius: 50%;
-      background: var(--navy); border: 3px solid #fff; box-shadow: var(--shadow-sm);
+    .rating-row .rate-q { font-size: 0.86rem; font-weight: 600; color: var(--ink); margin-bottom: 0.7rem; line-height: 1.4; }
+    .rating-options { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0.4rem; }
+    .rating-options label {
+      position: relative; display: flex; align-items: center; justify-content: center;
+      min-height: 40px; border: 1.5px solid var(--stone-300); border-radius: var(--radius-sm);
+      color: var(--teal); font-weight: 700; font-size: 0.85rem; cursor: pointer; background: var(--white);
+      transition: all var(--transition);
     }
-    .rate-slider::-moz-range-thumb {
-      cursor: pointer; width: 28px; height: 28px; border-radius: 50%;
-      background: var(--navy); border: 3px solid #fff; box-shadow: var(--shadow-sm);
+    .rating-options label:hover { background: rgba(0,115,120,0.06); border-color: var(--teal); }
+    .rating-options input { position: absolute; opacity: 0; pointer-events: none; }
+    .rating-options input:focus-visible + span {
+      outline: 3px solid var(--teal); outline-offset: 2px; border-radius: 6px;
     }
-    .rate-slider:focus-visible::-webkit-slider-thumb { outline: 3px solid var(--teal); outline-offset: 2px; }
-    .rate-slider:focus-visible::-moz-range-thumb { outline: 3px solid var(--teal); outline-offset: 2px; }
-    .rate-scale-labels {
-      display: flex; justify-content: space-between;
-      font-size: 0.68rem; color: var(--muted); margin-top: 0.3rem;
+    .rating-options input:checked + span {
+      background: var(--teal); color: #fff; width: 100%; height: 100%; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
     }
+    @media (max-width: 420px) {
+      .rating-options { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .rating-scale-key { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    /* Card 5 -- Your Personal Mastery Snapshot (subscale results + PDF download) */
+    .snapshot-results { display: flex; flex-direction: column; gap: 0.9rem; margin: 1.1rem 0 1.4rem; }
+    .snapshot-card {
+      background: var(--white); border: 1px solid var(--stone-300); border-left: 4px solid var(--navy);
+      border-radius: var(--radius-sm); padding: 1rem 1.1rem; box-shadow: var(--shadow-sm);
+    }
+    .snapshot-card .sc-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-mid); margin-bottom: 0.35rem; }
+    .snapshot-card .sc-score { font-family: var(--font-ui); font-weight: 800; font-size: 1.5rem; color: var(--navy); margin-bottom: 0.35rem; }
+    .snapshot-card .sc-band { display: inline-block; font-size: 0.72rem; font-weight: 600; color: var(--teal); background: rgba(0,115,120,0.08); padding: 0.15rem 0.6rem; border-radius: var(--radius-full); margin-bottom: 0.5rem; }
+    .snapshot-card .sc-text { font-size: 0.82rem; color: var(--ink-mid); line-height: 1.6; }
+    .snapshot-note { font-size: 0.8rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.1rem; }
+    .btn-snapshot-download {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      width: 100%; background: var(--gold); color: var(--ink);
+      font-family: var(--font-ui); font-size: 0.92rem; font-weight: 700;
+      padding: 0.9rem 1.5rem; border: none; border-radius: var(--radius-sm);
+      cursor: pointer; min-height: 48px; transition: all var(--transition);
+    }
+    .btn-snapshot-download:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(228,160,36,0.35); }
+    .btn-snapshot-download:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .taster-reflect-icon { width: 150px; height: auto; margin-bottom: 1.5rem; }
 
@@ -988,48 +1016,6 @@
       }
     }
 
-    /* ============================================================
-       PRINTABLE REPORT
-       Hidden on screen; shown only inside the print media query via
-       .pm-printable, using the same visibility-swap pattern as the
-       GIBS Interactive print convention.
-       ============================================================ */
-    .pm-report { display: none; }
-    .pm-report__banner {
-      background: var(--navy); color: #fff; border-radius: var(--radius);
-      padding: 1.5rem 1.75rem; margin-bottom: 1.25rem;
-    }
-    .pm-report__kicker { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 0.5rem; }
-    .pm-report__title { font-family: var(--font-ui); font-size: 1.4rem; font-weight: 800; margin-bottom: 0.35rem; }
-    .pm-report__sub { font-size: 0.82rem; color: rgba(255,255,255,0.7); }
-    .pm-report__card {
-      background: var(--white); border: 1px solid var(--stone-300); border-radius: var(--radius);
-      padding: 1.4rem 1.6rem; margin-bottom: 1.1rem;
-    }
-    .pm-report__card-title { font-family: var(--font-ui); font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 1rem; }
-    .pm-report__answer { margin-bottom: 1.1rem; }
-    .pm-report__answer:last-child { margin-bottom: 0; }
-    .pm-report__q { font-size: 0.78rem; font-weight: 600; color: var(--gold-mid); margin-bottom: 0.35rem; }
-    .pm-report__a { font-family: var(--font-serif); font-style: italic; font-size: 0.94rem; color: var(--ink); line-height: 1.75; }
-    .pm-report__ai { font-family: var(--font-serif); font-style: italic; font-size: 0.94rem; color: var(--ink); line-height: 1.85; white-space: pre-line; }
-    .pm-report__intro { font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.1rem; }
-    .pm-report__dimension { margin-bottom: 1.1rem; padding-bottom: 1.1rem; border-bottom: 1px solid var(--stone-200); }
-    .pm-report__dimension:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-    .pm-report__dim-label { font-size: 0.85rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; }
-    .pm-report__dim-label span { font-weight: 500; color: var(--muted); font-size: 0.78rem; text-transform: none; letter-spacing: 0; }
-    .pm-report__dim-text { font-size: 0.86rem; color: var(--ink-mid); line-height: 1.7; }
-    .pm-report__footer { text-align: center; padding: 1rem 0; }
-    .pm-report__footer p { font-size: 0.72rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.3rem; }
-
-    @media print {
-      body * { visibility: hidden; }
-      .pm-printable, .pm-printable * { visibility: visible; }
-      .pm-printable {
-        display: block !important;
-        position: absolute; top: 0; left: 0; width: 100%;
-        padding: 0.5in;
-      }
-    }
   </style>
 </head>
 <body>
@@ -1409,15 +1395,11 @@
         </div>
       </div>
 
-      <!-- Download buttons -->
+      <!-- Download button -->
       <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
         <button class="btn-download" id="btn-download-card" type="button" aria-label="Save your reflection as an image">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Save reflection to my device
-        </button>
-        <button class="btn-download" id="btn-download-report" type="button" aria-label="Download your Personal Mastery reflection report">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="15" y2="11"/></svg>
-          Download my Personal Mastery Report
         </button>
       </div>
 
@@ -1465,9 +1447,9 @@
       </div>
     </div>
 
-    <div class="prog-wrap" role="progressbar" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1" aria-label="Taster step 1 of 7">
-      <div class="prog-track"><div class="prog-fill" id="prog-fill-taster" style="width:14.3%;"></div></div>
-      <p class="prog-label" id="prog-label-taster">Step 1 of 7</p>
+    <div class="prog-wrap" role="progressbar" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1" aria-label="Taster step 1 of 8">
+      <div class="prog-track"><div class="prog-fill" id="prog-fill-taster" style="width:12.5%;"></div></div>
+      <p class="prog-label" id="prog-label-taster">Step 1 of 8</p>
     </div>
 
     <!-- 1: HOOK -->
@@ -1526,85 +1508,82 @@
       </div>
     </div>
 
-    <!-- 4: WHERE YOU ARE, WHERE YOU'RE HEADED -->
+    <!-- 4: RATING SCALE -->
     <div class="taster-card" id="taster-card-4" role="group" aria-labelledby="taster-h4">
       <p class="prompt-cat">A moment for you</p>
       <h2 id="taster-h4" style="font-family:var(--font-ui);font-size:1.1rem;color:var(--navy);margin-bottom:0.4rem;">Where do you see yourself?</h2>
-      <p>Personal mastery is not about being perfect. It is about becoming more aware of how you think, choose, respond, and grow. Slide to rate how much each statement feels true for you right now. Nothing here is recorded or scored.</p>
+      <p>Personal mastery is not about being perfect. It is about becoming more aware of how you think, choose, respond, and grow. Rate how true each statement feels for you right now.</p>
 
-      <div class="rate-list">
-        <div class="rate-item">
-          <p class="rate-q" id="rate-q-1">I have a strong sense of purpose or calling.</p>
-          <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-1" aria-labelledby="rate-q-1">
-          <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
-        </div>
-        <div class="rate-item">
-          <p class="rate-q" id="rate-q-2">I can use the gap between where I am and where I want to be as energy for progress.</p>
-          <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-2" aria-labelledby="rate-q-2">
-          <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
-        </div>
-        <div class="rate-item">
-          <p class="rate-q" id="rate-q-3">I am willing to look honestly at my current reality and notice where my assumptions may be holding me back.</p>
-          <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-3" aria-labelledby="rate-q-3">
-          <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
-        </div>
-        <div class="rate-item">
-          <p class="rate-q" id="rate-q-4">I see change as an opportunity to grow, learn, or create something new.</p>
-          <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-4" aria-labelledby="rate-q-4">
-          <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
-        </div>
-        <div class="rate-item">
-          <p class="rate-q" id="rate-q-5">I am deeply curious and open to learning more about myself, others, and the world around me.</p>
-          <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-5" aria-labelledby="rate-q-5">
-          <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
-        </div>
-        <div class="rate-item">
-          <p class="rate-q" id="rate-q-6">I value meaningful personal connections while still staying true to who I am.</p>
-          <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-6" aria-labelledby="rate-q-6">
-          <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
-        </div>
-        <div class="rate-item">
-          <p class="rate-q" id="rate-q-7">I see myself as part of a larger system, and I understand that my choices and actions can influence others.</p>
-          <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-7" aria-labelledby="rate-q-7">
-          <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
-        </div>
+      <div class="rating-scale-key" aria-hidden="true">
+        <div class="key-item"><strong>1</strong><span>Not true</span></div>
+        <div class="key-item"><strong>2</strong></div>
+        <div class="key-item"><strong>3</strong></div>
+        <div class="key-item"><strong>4</strong><span>Unsure</span></div>
+        <div class="key-item"><strong>5</strong></div>
+        <div class="key-item"><strong>6</strong></div>
+        <div class="key-item"><strong>7</strong><span>Very true</span></div>
+      </div>
+
+      <div class="rating-table" id="rating-table" role="group" aria-label="Personal mastery self-rating statements">
+        <!-- 9 rows generated by JS: buildRatingRows() -->
       </div>
 
       <div class="taster-nav">
         <button class="taster-back-link" id="btn-taster-back-4" type="button">&larr; Back</button>
-        <button class="btn btn-navy" id="btn-taster-next-4" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="btn btn-navy" id="btn-taster-next-4" type="button" disabled>Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
     </div>
 
-    <!-- 5: REFLECT  --  reuses the laotzu-panel treatment: same reflective-pause moment -->
-    <div class="taster-card laotzu-panel" id="taster-card-5" role="group" aria-labelledby="taster-h5" style="border-radius:var(--radius);">
+    <!-- 5: YOUR PERSONAL MASTERY SNAPSHOT  --  subscale results + PDF download -->
+    <div class="taster-card" id="taster-card-5" role="group" aria-labelledby="taster-h5">
+      <p class="prompt-cat">Your results</p>
+      <h2 id="taster-h5" style="font-family:var(--font-ui);font-size:1.15rem;color:var(--navy);margin-bottom:0.5rem;">Your Personal Mastery Snapshot</h2>
+      <p class="snapshot-note">These scores are not a judgement, and there is no "good" or "bad" combination. They are a reflective snapshot across three areas of personal mastery, drawn directly from your own ratings, not an algorithm's assessment of you.</p>
+
+      <div class="snapshot-results" id="snapshot-results">
+        <!-- 3 subscale result cards generated by JS: renderSnapshot() -->
+      </div>
+
+      <button class="btn-snapshot-download" id="btn-download-report" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download my Personal Mastery Report (PDF)
+      </button>
+
+      <div class="taster-nav">
+        <button class="taster-back-link" id="btn-taster-back-5" type="button">&larr; Back</button>
+        <button class="btn btn-navy" id="btn-taster-next-5" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+
+    <!-- 6: REFLECT  --  reuses the laotzu-panel treatment: same reflective-pause moment -->
+    <div class="taster-card laotzu-panel" id="taster-card-6" role="group" aria-labelledby="taster-h6" style="border-radius:var(--radius);">
       <img class="taster-reflect-icon" src="/assets/personal-mastery-icon.png" alt="" aria-hidden="true" />
-      <p class="laotzu-quote" id="taster-h5">Start by becoming aware of yourself, your strengths and your weaknesses. Build on what makes you stronger, and let go of what holds you back.<br /><br />Focus on reality rather than wishful thinking. On the present and the future, rather than the past.</p>
+      <p class="laotzu-quote" id="taster-h6">Start by becoming aware of yourself, your strengths and your weaknesses. Build on what makes you stronger, and let go of what holds you back.<br /><br />Focus on reality rather than wishful thinking. On the present and the future, rather than the past.</p>
       <footer class="laotzu-attr">This is the beginning of your journey to personal mastery.</footer>
       <div class="taster-nav" style="width:100%;max-width:380px;">
-        <button class="taster-back-link" id="btn-taster-back-5" type="button" style="color:rgba(255,255,255,0.55);">&larr; Back</button>
-        <button class="btn btn-gold" id="btn-taster-next-5" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="taster-back-link" id="btn-taster-back-6" type="button" style="color:rgba(255,255,255,0.55);">&larr; Back</button>
+        <button class="btn btn-gold" id="btn-taster-next-6" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
     </div>
 
-    <!-- 6: CONCLUSION -->
-    <div class="taster-card taster-conclude" id="taster-card-6" role="group" aria-labelledby="taster-h6">
-      <h2 id="taster-h6">The practice is simple. The impact can be powerful.</h2>
+    <!-- 7: CONCLUSION -->
+    <div class="taster-card taster-conclude" id="taster-card-7" role="group" aria-labelledby="taster-h7">
+      <h2 id="taster-h7">The practice is simple. The impact can be powerful.</h2>
       <p>Personal mastery is about learning to hold two things at once: a clear vision of what you want to create, and an honest view of where you are right now. The work begins in that space between vision and reality, and grows through purposeful action.</p>
       <p>Commit yourself to your own personal mastery.</p>
       <img class="taster-conclude-image" src="/assets/personal-mastery-own-your-mastery-image.png" alt="" aria-hidden="true" />
       <div class="taster-nav">
-        <button class="taster-back-link" id="btn-taster-back-6" type="button">&larr; Back</button>
-        <button class="btn btn-navy" id="btn-taster-next-6" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="taster-back-link" id="btn-taster-back-7" type="button">&larr; Back</button>
+        <button class="btn btn-navy" id="btn-taster-next-7" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
     </div>
 
-    <!-- 7: PAY IT FORWARD  --  the differentiator. Sits inside a .course-bridge
+    <!-- 8: PAY IT FORWARD  --  the differentiator. Sits inside a .course-bridge
          panel to give it the same visual weight as the Response-screen CTA,
          reinforcing "this is a big deal" through a consistent visual language. -->
-    <div class="taster-card" id="taster-card-7" role="group" aria-labelledby="taster-h7">
+    <div class="taster-card" id="taster-card-8" role="group" aria-labelledby="taster-h8">
       <p class="prompt-cat">The Pay-It-Forward Promise</p>
-      <h2 id="taster-h7" style="font-family:var(--font-ui);font-size:1.15rem;color:var(--navy);margin-bottom:0.9rem;">Your growth doesn't stop with you.</h2>
+      <h2 id="taster-h8" style="font-family:var(--font-ui);font-size:1.15rem;color:var(--navy);margin-bottom:0.9rem;">Your growth doesn't stop with you.</h2>
 
       <div class="course-bridge" style="margin-bottom:0;">
         <p class="cb-eyebrow">What makes this different</p>
@@ -1633,7 +1612,7 @@
       <p style="font-size:0.82rem;color:var(--muted);line-height:1.65;margin-top:1.1rem;">This is what makes Personal Mastery different. It is not just an opportunity for you, it is a chance to extend that same opportunity to someone else.</p>
 
       <div class="taster-nav">
-        <button class="taster-back-link" id="btn-taster-back-7" type="button">&larr; Back</button>
+        <button class="taster-back-link" id="btn-taster-back-8" type="button">&larr; Back</button>
         <button class="btn btn-gold" id="btn-taster-apply" type="button">Continue to application <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
     </div>
@@ -1814,65 +1793,7 @@
     </footer>
   </section>
 
-  <!-- ============================================================
-       PRINTABLE REPORT  --  hidden on screen, only rendered when the
-       person clicks "Download my Personal Mastery Report". Populated
-       dynamically from their own answers via JS, then window.print()
-       is called. Uses the same visibility-swap convention as the GIBS
-       Interactive print pattern, scoped with .pm-printable.
-       ============================================================ -->
-  <section class="pm-report pm-printable" id="pm-report" aria-hidden="true">
-    <header class="pm-report__banner">
-      <p class="pm-report__kicker">Personal Mastery: Leading from Within</p>
-      <h1 class="pm-report__title">Your Personal Mastery Reflection Report</h1>
-      <p class="pm-report__sub" id="pm-report-meta">Prepared for you &middot; GIBS Digital Education</p>
-    </header>
-
-    <section class="pm-report__card">
-      <h2 class="pm-report__card-title">Your reflection, in your own words</h2>
-      <div class="pm-report__answer">
-        <p class="pm-report__q">Your Story &mdash; What has shaped you into who you are right now?</p>
-        <p class="pm-report__a" id="pm-report-a1"></p>
-      </div>
-      <div class="pm-report__answer">
-        <p class="pm-report__q">Your Vision &mdash; What would you create if you gave yourself full permission?</p>
-        <p class="pm-report__a" id="pm-report-a2"></p>
-      </div>
-      <div class="pm-report__answer">
-        <p class="pm-report__q">Your Next Step &mdash; What could kickstart your path to becoming future you?</p>
-        <p class="pm-report__a" id="pm-report-a3"></p>
-      </div>
-    </section>
-
-    <section class="pm-report__card">
-      <h2 class="pm-report__card-title">A note from the version of you who already knows</h2>
-      <p class="pm-report__ai" id="pm-report-ai"></p>
-    </section>
-
-    <section class="pm-report__card">
-      <h2 class="pm-report__card-title">Understanding your personal mastery</h2>
-      <p class="pm-report__intro">This is not a score or a psychological assessment. It is a guide to what each part of your reflection reveals about your practice of personal mastery, and a prompt for what to explore next.</p>
-
-      <div class="pm-report__dimension">
-        <p class="pm-report__dim-label">Self-Awareness <span>&middot; from Your Story</span></p>
-        <p class="pm-report__dim-text">Your response to this prompt reflects your relationship with your own history: the moments that have shaped who you are. Self-awareness is the foundation of personal mastery. The more clearly you can see your own patterns, strengths and turning points, the more intentionally you can choose your next steps.</p>
-      </div>
-      <div class="pm-report__dimension">
-        <p class="pm-report__dim-label">Vision &amp; Purpose <span>&middot; from Your Vision</span></p>
-        <p class="pm-report__dim-text">This prompt invited you to imagine your life and work as a deliberate creation. A clear, honestly-held vision creates what Peter Senge calls creative tension: the gap between where you are and where you want to be becomes a source of energy rather than discouragement.</p>
-      </div>
-      <div class="pm-report__dimension">
-        <p class="pm-report__dim-label">Action &amp; Momentum <span>&middot; from Your Next Step</span></p>
-        <p class="pm-report__dim-text">Personal mastery is not only insight, it is practice. The steps you named here are the bridge between reflection and reality. Small, consistent action compounds over time into meaningful change.</p>
-      </div>
-    </section>
-
-    <footer class="pm-report__footer">
-      <p>This report is a self-reflection tool intended to support your personal growth. It is not a psychological assessment or clinical evaluation.</p>
-      <p>GIBS Personal Mastery: Leading from Within &middot; Gordon Institute of Business Science, University of Pretoria</p>
-    </footer>
-  </section>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
   'use strict';
 
@@ -2340,41 +2261,16 @@
     }
   });
 
-  // ── Download My Personal Mastery Report (print-to-PDF) ────────────────
-  document.getElementById('btn-download-report').addEventListener('click', () => {
-    const fullName = (state.firstName + ' ' + state.surname).trim() || 'You';
-    const today = new Date().toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' });
-
-    document.getElementById('pm-report-meta').textContent = 'Prepared for ' + fullName + ' \u00b7 ' + today;
-    document.getElementById('pm-report-a1').textContent = document.getElementById('textarea-1').value.trim();
-    document.getElementById('pm-report-a2').textContent = document.getElementById('textarea-2').value.trim();
-    document.getElementById('pm-report-a3').textContent = document.getElementById('textarea-3').value.trim();
-
-    const aiCard = document.querySelector('#response-slot .ai-response-card');
-    const aiText = aiCard ? aiCard.textContent.trim() : '';
-    const aiSection = document.getElementById('pm-report-ai').closest('.pm-report__card');
-    if (aiText) {
-      document.getElementById('pm-report-ai').textContent = aiText;
-      aiSection.style.display = '';
-    } else {
-      // AI response wasn't available (e.g. the request failed) -- skip
-      // that section in the report rather than printing it empty.
-      aiSection.style.display = 'none';
-    }
-
-    announce('Preparing your Personal Mastery report for download.');
-    window.print();
-  });
-
   // ── Response → Apply ─────────────────────────────────────────────────
   document.getElementById('btn-continue').addEventListener('click', goToTaster);
 
-  // ── Course taster stepper (7 nuggets) ────────────────────────────────
+  // ── Course taster stepper (8 nuggets) ────────────────────────────────
   const tasterTitles = [
     'Personal mastery',
     'Meet Dr Frank Magwegwe',
     'What changes for you',
     'Where do you see yourself?',
+    'Your Personal Mastery Snapshot',
     'Think for a moment',
     'The practice is simple.',
     'Pay it forward'
@@ -2390,8 +2286,8 @@
     document.querySelectorAll('.taster-card').forEach(el => el.classList.remove('active'));
   }
   function setTasterProgress(n) {
-    document.getElementById('prog-fill-taster').style.width = Math.round(n / 7 * 100) + '%';
-    document.getElementById('prog-label-taster').textContent = 'Step ' + n + ' of 7';
+    document.getElementById('prog-fill-taster').style.width = Math.round(n / 8 * 100) + '%';
+    document.getElementById('prog-label-taster').textContent = 'Step ' + n + ' of 8';
     const pw = document.getElementById('prog-fill-taster').closest('.prog-wrap');
     if (pw) pw.setAttribute('aria-valuenow', n);
   }
@@ -2400,13 +2296,14 @@
     document.getElementById('taster-card-' + n).classList.add('active');
     setTasterProgress(n);
     document.querySelector('#screen-taster .prompts-topbar')?.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    announce('Step ' + n + ' of 7: ' + tasterTitles[n - 1]);
+    announce('Step ' + n + ' of 8: ' + tasterTitles[n - 1]);
     if (n === 3) { triggerBenefitsReveal(); } else { resetBenefitsReveal(); }
+    if (n === 5) { renderSnapshot(); }
   }
-  for (let n = 1; n <= 6; n++) {
+  for (let n = 1; n <= 7; n++) {
     document.getElementById('btn-taster-next-' + n).addEventListener('click', () => goToTasterCard(n + 1));
   }
-  for (let n = 2; n <= 7; n++) {
+  for (let n = 2; n <= 8; n++) {
     document.getElementById('btn-taster-back-' + n).addEventListener('click', () => goToTasterCard(n - 1));
   }
   document.getElementById('btn-back-taster').addEventListener('click', () => showScreen('screen-response'));
@@ -2440,18 +2337,242 @@
     }, 5000);
   }
 
-  // ── Taster card 4: one rating slider per trait, filled track shows progress ──
-  (function initRateSliders() {
-    const sliders = document.querySelectorAll('.rate-slider');
-    function paint(el) {
-      const pct = ((el.value - el.min) / (el.max - el.min)) * 100;
-      el.style.setProperty('--fill', pct + '%');
+  // ── Taster card 4: personal mastery self-rating scale ──────────────────
+  // 9 statements, 3 per subscale, 1-7 discrete rating each (matches the
+  // GIBS MIQ-style pattern). Subscales are drawn from the actual course
+  // modules: Self-Awareness, Purpose & Vision, Relationship Management.
+  const ratingStatements = [
+    { id: 'r1', subscale: 'awareness', text: 'I am aware of my own patterns, assumptions, and blind spots.' },
+    { id: 'r2', subscale: 'awareness', text: "I can honestly assess my current reality, even when it's uncomfortable." },
+    { id: 'r3', subscale: 'awareness', text: 'I understand how my beliefs and perceptions shape my decisions.' },
+    { id: 'r4', subscale: 'vision', text: 'I have a clear sense of purpose that guides my choices.' },
+    { id: 'r5', subscale: 'vision', text: 'I can hold a vision for my future while still being honest about where I am today.' },
+    { id: 'r6', subscale: 'vision', text: 'I use the gap between my current reality and my vision as motivation, not discouragement.' },
+    { id: 'r7', subscale: 'relationships', text: 'I build relationships based on trust, empathy, and honesty.' },
+    { id: 'r8', subscale: 'relationships', text: 'I stay true to who I am while remaining open to other perspectives.' },
+    { id: 'r9', subscale: 'relationships', text: 'I recognise that my choices and actions influence the people around me.' }
+  ];
+
+  const subscaleInfo = {
+    awareness: {
+      label: 'Self-Awareness',
+      bands: [
+        { max: 10, band: 'Emerging', text: 'Self-awareness is often the first thing that grows once you start paying attention to it. The Self-Awareness module in Personal Mastery is a natural next step.' },
+        { max: 16, band: 'Developing', text: "You're already noticing some of your own patterns and assumptions. The course builds on this with tools like the ladder of perception." },
+        { max: 21, band: 'Strong', text: "You have a solid grasp on your own patterns and current reality. Personal Mastery can help you put that awareness into more deliberate practice." }
+      ]
+    },
+    vision: {
+      label: 'Purpose & Vision',
+      bands: [
+        { max: 10, band: 'Emerging', text: "Purpose and vision can feel abstract until you have language and tools for them. The course's Purpose and Vision module works through exactly this." },
+        { max: 16, band: 'Developing', text: 'You have some sense of direction. The course introduces creative tension, using the gap between reality and vision as fuel rather than friction.' },
+        { max: 21, band: 'Strong', text: 'You hold a clear vision alongside an honest view of reality; that combination is what Senge calls creative tension, and it is a genuine strength.' }
+      ]
+    },
+    relationships: {
+      label: 'Relationship Management',
+      bands: [
+        { max: 10, band: 'Emerging', text: 'Relationship management is a learnable skill, not a fixed trait. The course covers communication, empathy, and trust-building in practical terms.' },
+        { max: 16, band: 'Developing', text: 'You have a foundation of trust and empathy to build on. The Relationship Management module adds tools for conflict and rapport-building.' },
+        { max: 21, band: 'Strong', text: 'You navigate relationships with both authenticity and openness, a strength the course helps you extend further into leadership contexts.' }
+      ]
     }
-    sliders.forEach(el => {
-      paint(el);
-      el.addEventListener('input', () => paint(el));
+  };
+
+  function buildRatingRows() {
+    const table = document.getElementById('rating-table');
+    if (!table) return;
+    table.innerHTML = '';
+    ratingStatements.forEach(stmt => {
+      const row = document.createElement('div');
+      row.className = 'rating-row';
+
+      const q = document.createElement('p');
+      q.className = 'rate-q';
+      q.id = 'rate-q-' + stmt.id;
+      q.textContent = stmt.text;
+      row.appendChild(q);
+
+      const options = document.createElement('div');
+      options.className = 'rating-options';
+      options.setAttribute('role', 'radiogroup');
+      options.setAttribute('aria-labelledby', 'rate-q-' + stmt.id);
+
+      for (let v = 1; v <= 7; v++) {
+        const label = document.createElement('label');
+        const input = document.createElement('input');
+        const span = document.createElement('span');
+        input.type = 'radio';
+        input.name = 'rating-' + stmt.id;
+        input.value = v;
+        input.setAttribute('aria-label', stmt.text + ' rating ' + v + ' of 7');
+        span.textContent = v;
+        input.addEventListener('change', updateRatingCompletion);
+        label.appendChild(input);
+        label.appendChild(span);
+        options.appendChild(label);
+      }
+      row.appendChild(options);
+      table.appendChild(row);
     });
-  })();
+  }
+  function updateRatingCompletion() {
+    const allAnswered = ratingStatements.every(stmt =>
+      document.querySelector('input[name="rating-' + stmt.id + '"]:checked')
+    );
+    const nextBtn = document.getElementById('btn-taster-next-4');
+    if (nextBtn) nextBtn.disabled = !allAnswered;
+  }
+  function computeSubscaleScores() {
+    const totals = { awareness: 0, vision: 0, relationships: 0 };
+    ratingStatements.forEach(stmt => {
+      const checked = document.querySelector('input[name="rating-' + stmt.id + '"]:checked');
+      if (checked) totals[stmt.subscale] += Number(checked.value);
+    });
+    return totals;
+  }
+  function bandFor(subscaleKey, score) {
+    const bands = subscaleInfo[subscaleKey].bands;
+    for (const b of bands) { if (score <= b.max) return b; }
+    return bands[bands.length - 1];
+  }
+  function renderSnapshot() {
+    const totals = computeSubscaleScores();
+    state.subscaleScores = totals;
+    const container = document.getElementById('snapshot-results');
+    if (!container) return;
+    container.innerHTML = '';
+    ['awareness', 'vision', 'relationships'].forEach(key => {
+      const score = totals[key];
+      const info = subscaleInfo[key];
+      const band = bandFor(key, score);
+      const card = document.createElement('div');
+      card.className = 'snapshot-card';
+      card.innerHTML =
+        '<p class="sc-label">' + info.label + '</p>' +
+        '<p class="sc-score">' + score + ' / 21</p>' +
+        '<span class="sc-band">' + band.band + '</span>' +
+        '<p class="sc-text">' + band.text + '</p>';
+      container.appendChild(card);
+    });
+  }
+  buildRatingRows();
+
+  // ── Download My Personal Mastery Report (real PDF via jsPDF) ──────────
+  function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+    const pageW = doc.internal.pageSize.getWidth();
+    const margin = 48;
+    let y = 0;
+
+    const navy = [0, 44, 119];
+    const gold = [228, 160, 36];
+    const ink = [28, 28, 30];
+    const muted = [110, 110, 115];
+
+    // Banner
+    doc.setFillColor(navy[0], navy[1], navy[2]);
+    doc.rect(0, 0, pageW, 100, 'F');
+    doc.setTextColor(gold[0], gold[1], gold[2]);
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(9);
+    doc.text('PERSONAL MASTERY: LEADING FROM WITHIN', margin, 34);
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(20);
+    doc.text('Your Personal Mastery Report', margin, 60);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
+    doc.setTextColor(230, 230, 230);
+    const fullName = (state.firstName + ' ' + state.surname).trim() || 'You';
+    const today = new Date().toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' });
+    doc.text('Prepared for ' + fullName + '  \u00b7  ' + today, margin, 80);
+    y = 130;
+
+    function heading(text) {
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(13);
+      doc.setTextColor(navy[0], navy[1], navy[2]);
+      doc.text(text, margin, y);
+      y += 18;
+    }
+    function paragraph(text, opts) {
+      opts = opts || {};
+      doc.setFont(opts.italic ? 'times' : 'helvetica', opts.italic ? 'italic' : 'normal');
+      doc.setFontSize(opts.size || 10.5);
+      doc.setTextColor.apply(doc, opts.color || ink);
+      const lines = doc.splitTextToSize(text, pageW - margin * 2);
+      lines.forEach(line => {
+        if (y > 780) { doc.addPage(); y = 48; }
+        doc.text(line, margin, y);
+        y += (opts.size || 10.5) * 1.45;
+      });
+      y += 8;
+    }
+    function ensureSpace(needed) {
+      if (y + needed > 800) { doc.addPage(); y = 48; }
+    }
+
+    // Reflection Q&A
+    heading('Your reflection, in your own words');
+    const qa = [
+      ['Your Story', 'What has shaped you into who you are right now?', document.getElementById('textarea-1').value.trim()],
+      ['Your Vision', 'What would you create if you gave yourself full permission?', document.getElementById('textarea-2').value.trim()],
+      ['Your Next Step', 'What could kickstart your path to becoming future you?', document.getElementById('textarea-3').value.trim()]
+    ];
+    qa.forEach(([cat, q, a]) => {
+      ensureSpace(50);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(9.5);
+      doc.setTextColor(200, 140, 20);
+      doc.text(cat.toUpperCase() + ' \u2014 ' + q, margin, y);
+      y += 14;
+      paragraph(a || '(not answered)', { italic: true });
+    });
+
+    // AI reflection note
+    const aiCard = document.querySelector('#response-slot .ai-response-card');
+    const aiText = aiCard ? aiCard.textContent.trim() : '';
+    if (aiText) {
+      ensureSpace(40);
+      heading('A note from the version of you who already knows');
+      paragraph(aiText, { italic: true });
+    }
+
+    // Personal Mastery Snapshot
+    ensureSpace(40);
+    heading('Your Personal Mastery Snapshot');
+    paragraph('These scores are not a judgement, and there is no "good" or "bad" combination. They are a reflective snapshot across three areas of personal mastery, drawn directly from your own ratings.', { size: 9.5, color: muted });
+
+    ['awareness', 'vision', 'relationships'].forEach(key => {
+      const score = state.subscaleScores ? state.subscaleScores[key] : null;
+      if (score === null || score === undefined) return;
+      const info = subscaleInfo[key];
+      const band = bandFor(key, score);
+      ensureSpace(60);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(11.5);
+      doc.setTextColor(navy[0], navy[1], navy[2]);
+      doc.text(info.label + '  \u2014  ' + score + ' / 21  (' + band.band + ')', margin, y);
+      y += 16;
+      paragraph(band.text, { size: 9.5 });
+    });
+
+    // Footer disclaimer
+    ensureSpace(50);
+    doc.setDrawColor(220, 220, 220);
+    doc.line(margin, y, pageW - margin, y);
+    y += 16;
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5);
+    doc.setTextColor(muted[0], muted[1], muted[2]);
+    doc.text('This report is a self-reflection tool intended to support your personal growth. It is not a psychological assessment or clinical evaluation.', margin, y, { maxWidth: pageW - margin * 2 });
+    y += 24;
+    doc.text('GIBS Personal Mastery: Leading from Within \u00b7 Gordon Institute of Business Science, University of Pretoria', margin, y);
+
+    doc.save('personal-mastery-report.pdf');
+  }
+
+  document.getElementById('btn-download-report').addEventListener('click', () => {
+    announce('Preparing your Personal Mastery report for download.');
+    generatePDF();
+  });
+
 
   // ── Application form validation + submit ─────────────────────────────
   document.getElementById('btn-apply-submit').addEventListener('click', async () => {
@@ -2550,8 +2671,8 @@
   });
   document.getElementById('btn-back-apply').addEventListener('click', () => {
     hideTasterCards();
-    document.getElementById('taster-card-7').classList.add('active');
-    setTasterProgress(7);
+    document.getElementById('taster-card-8').classList.add('active');
+    setTasterProgress(8);
     showScreen('screen-taster');
   });
 
