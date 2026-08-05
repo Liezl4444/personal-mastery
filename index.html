@@ -295,7 +295,12 @@
     #photo-preview { width: 100%; height: 100%; object-fit: cover; display: none; }
     #photo-preview.visible { display: block; }
 
-    .photo-caption { font-size: 0.68rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.55; }
+    .photo-caption { font-size: 0.68rem; color: var(--muted); margin-bottom: 0.4rem; line-height: 1.55; }
+    .photo-privacy-note {
+      display: flex; align-items: flex-start; gap: 0.4rem; text-align: left;
+      font-size: 0.68rem; color: var(--muted); line-height: 1.55; margin-bottom: 1.5rem;
+    }
+    .photo-privacy-note svg { flex-shrink: 0; margin-top: 0.15rem; color: var(--muted); }
 
     #photo-input { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
     .photo-upload-label {
@@ -1151,7 +1156,11 @@
           <img id="photo-preview" src="" alt="Your uploaded photo" />
         </div>
       </div>
-      <p class="photo-caption" id="photo-caption">Your photo stays on your device only. Never uploaded to any server.</p>
+      <p class="photo-caption" id="photo-caption">Add a photo so the reflection can speak to you by name.</p>
+      <p class="photo-privacy-note">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        This photo is used only within this experience. It stays on your device, is never uploaded or seen by anyone else, and is only ever shared if you choose to screenshot and share it yourself.
+      </p>
       <input type="file" id="photo-input" accept="image/*" aria-label="Choose a photo from your device or camera" />
       <label for="photo-input" class="photo-upload-label" id="photo-upload-label" tabindex="0" style="margin-bottom:1.5rem;">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
@@ -1161,7 +1170,7 @@
       <!-- Divider -->
       <hr style="border:none;border-top:1px solid var(--stone-300);margin:0 0 1.5rem;" aria-hidden="true" />
 
-      <!-- Name + email fields -->
+      <!-- Name fields -->
       <div class="entry-fields">
         <div class="field-group">
           <label class="field-label" for="entry-firstname">First name <span style="color:#c0392b;" aria-hidden="true">*</span></label>
@@ -1173,32 +1182,9 @@
           <input class="field-input" type="text" id="entry-surname" name="surname" autocomplete="family-name" placeholder="e.g. Dlamini" required aria-required="true" aria-describedby="err-surname" />
           <span class="field-err" id="err-surname" role="alert"></span>
         </div>
-        <div class="field-group">
-          <label class="field-label" for="entry-email">Email address <span style="color:#c0392b;" aria-hidden="true">*</span></label>
-          <input class="field-input" type="email" id="entry-email" name="email" autocomplete="email" placeholder="you@example.com" required aria-required="true" aria-describedby="err-email entry-email-hint" />
-          <span class="field-hint" id="entry-email-hint">Used only if your application is successful.</span>
-          <span class="field-err" id="err-email" role="alert"></span>
-        </div>
       </div>
 
-      <!-- POPIA consent -->
-      <div class="popia-block" role="region" aria-labelledby="popia-lbl-entry">
-        <p class="popia-lbl" id="popia-lbl-entry">Privacy Notice (POPIA)</p>
-        <p class="popia-text">Your personal information will be collected and used by GIBS Digital Education solely to administer this campaign experience and, if your application is successful, to contact you about course access. Your information will not be sold or shared with third parties outside this process.</p>
-      </div>
-
-      <div class="check-row-entry">
-        <input type="checkbox" id="consent-popia-entry" aria-required="true" aria-describedby="err-popia-entry" />
-        <label for="consent-popia-entry">I consent to the collection and use of my personal information as described above, in accordance with the <strong>Protection of Personal Information Act (POPIA)</strong>. <span style="color:#c0392b;" aria-hidden="true">*</span></label>
-      </div>
-      <span class="field-err" id="err-popia-entry" role="alert" style="margin-left:2rem;display:block;margin-bottom:0.75rem;"></span>
-
-      <div class="check-row-entry" style="margin-bottom:1.5rem;">
-        <input type="checkbox" id="consent-marketing-entry" />
-        <label for="consent-marketing-entry"><strong>Optional:</strong> I'd like to hear from GIBS about upcoming programmes and opportunities. This will not affect your participation.</label>
-      </div>
-
-      <button class="btn btn-gold" id="btn-start-story" type="button" style="width:100%;">
+      <button class="btn btn-gold" id="btn-start-story" type="button" style="width:100%;margin-top:1.5rem;">
         Start my story
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
@@ -1636,9 +1622,7 @@
     recognition: null,
     isRecording: false,
     firstName: '',
-    surname: '',
-    email: '',
-    phone: ''
+    surname: ''
   };
 
   // ── Utilities ────────────────────────────────────────────────────────
@@ -1756,31 +1740,23 @@
   document.getElementById('btn-start-story').addEventListener('click', () => {
     const fn = document.getElementById('entry-firstname');
     const sn = document.getElementById('entry-surname');
-    const em = document.getElementById('entry-email');
-    const cp = document.getElementById('consent-popia-entry');
-    clearErrs('err-firstname','err-surname','err-email','err-popia-entry');
-    [fn, sn, em].forEach(el => setInvalid(el.id, false));
+    clearErrs('err-firstname','err-surname');
+    [fn, sn].forEach(el => setInvalid(el.id, false));
 
     let valid = true;
     if (!fn.value.trim()) { setErr('err-firstname','Please enter your first name.'); setInvalid('entry-firstname',true); valid = false; }
     if (!sn.value.trim()) { setErr('err-surname','Please enter your surname.'); setInvalid('entry-surname',true); valid = false; }
-    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim());
-    if (!emailOk) { setErr('err-email','Please enter a valid email address.'); setInvalid('entry-email',true); valid = false; }
-    if (!cp.checked) { setErr('err-popia-entry','You must consent to continue.'); valid = false; }
 
     if (!valid) {
       // Focus first error
       if (!fn.value.trim()) fn.focus();
-      else if (!sn.value.trim()) sn.focus();
-      else if (!emailOk) em.focus();
-      else cp.focus();
+      else sn.focus();
       return;
     }
 
     // Store to state
     state.firstName = fn.value.trim().split(' ')[0];
     state.surname = sn.value.trim();
-    state.email = em.value.trim();
 
     // Populate all name slots across screens
     populateNameSlots();
