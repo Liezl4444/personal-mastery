@@ -663,21 +663,13 @@
     }
     .taster-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-    /* Card 2 -- welcome video companion: photo, nameplate, short bio */
+    /* Card 2 -- welcome video companion: photo (name is baked into the graphic), short bio */
     .faculty-intro { margin-bottom: 1.1rem; }
-    .faculty-photo-frame { position: relative; width: 148px; margin: 0 auto 1.6rem; }
-    .faculty-photo-frame img {
-      width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block;
-      border-radius: 50% 50% 10px 10px; border: 3px solid var(--white);
-      box-shadow: var(--shadow-md); background: var(--stone-200);
+    .faculty-photo-frame {
+      width: 100%; max-width: 280px; margin: 0 auto 1.1rem;
+      border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md);
     }
-    .faculty-nameplate {
-      position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%);
-      background: var(--navy); color: #fff; font-family: var(--font-ui); font-weight: 700;
-      font-size: 0.65rem; letter-spacing: 0.03em; text-transform: uppercase;
-      padding: 0.4rem 0.9rem; border-radius: var(--radius-full); white-space: nowrap;
-      box-shadow: var(--shadow-sm);
-    }
+    .faculty-photo-frame img { display: block; width: 100%; height: auto; }
     .faculty-bio { font-size: 0.84rem; color: var(--ink-mid); line-height: 1.65; text-align: left; }
 
     .taster-learn-more {
@@ -1400,8 +1392,7 @@
 
       <div class="faculty-intro">
         <div class="faculty-photo-frame">
-          <img src="/assets/dr-frank-magwegwe-photo.png" alt="Dr Frank Magwegwe, GIBS faculty" />
-          <span class="faculty-nameplate">Dr Frank Magwegwe</span>
+          <img src="/assets/dr-frank-photo-v2.png" alt="Dr Frank Magwegwe, GIBS faculty" />
         </div>
         <p class="faculty-bio">Dr Frank Magwegwe, known as Dr Mags, brings 25 years of leadership experience across financial services, including senior roles at Momentum and Investment Solutions. At GIBS, he teaches finance, resilience and personal mastery, and speaks widely on wellbeing in the workplace.</p>
       </div>
@@ -1578,7 +1569,7 @@
 
       <!-- Pay-It-Forward recap -->
       <div class="banner-image">
-        <img src="/assets/personal-mastery-payitforward.png" alt="Don't forget: Pay It Forward. When you complete the course and earn your GIBS certificate, you'll be invited to nominate one person for the same experience, at no cost to them. Your growth does not have to stop with you." />
+        <img src="/assets/personal-mastery-pay-it-forward2.png" alt="Don't forget: Pay It Forward. When you complete the course and earn your GIBS certificate, you'll be invited to nominate one person for the same experience, at no cost to them. Your growth does not have to stop with you." />
       </div>
 
       <!-- Data note -->
