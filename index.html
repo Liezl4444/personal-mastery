@@ -11,40 +11,31 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    /* ============================================================
-       DESIGN TOKENS  --  strict GIBS brand alignment
-       Stone / grey / white surfaces. Gold warmth. Purple accent.
-       Navy as text and accent only  --  never as a background wall.
-       ============================================================ */
     :root {
-      /* GIBS Brand primaries */
       --navy:         #002C77;
       --navy-dark:    #001e55;
       --purple:       #5C2F6F;
       --teal:         #007378;
       --gold:         #E4A024;
       --gold-mid:     #c98d1a;
+      --gold-text:    #8a5f12;   /* WCAG AA-compliant gold for small text/labels on light backgrounds (5.7:1 on white); --gold-mid fails at 2.87:1 so is decorative-only */
       --gold-light:   #f0bc55;
       --gold-pale:    #fef6e4;
       --gold-border:  rgba(228,160,36,0.28);
 
-      /* Avatar ring  --  white/light, not purple, so the photo itself is the focus */
       --avatar-ring:      #ffffff;
       --avatar-ring-glow: rgba(107,114,128,0.20);
 
-      /* Surfaces  --  warm stone/grey system, never blue */
-      --stone-100:    #F7F6F4;   /* Warmest light  --  page bg */
-      --stone-200:    #EFEDE9;   /* Cards on page bg */
-      --stone-300:    #E2DDD8;   /* Borders, dividers */
+      --stone-100:    #F7F6F4;
+      --stone-200:    #EFEDE9;
+      --stone-300:    #E2DDD8;
       --white:        #FFFFFF;
-      --ink:          #1C1C1E;   /* Near-black  --  readable, no blue cast */
+      --ink:          #1C1C1E;
       --ink-mid:      #3D3D40;
-      --muted:        #6E6E73;   /* iOS-style muted  --  warm not grey-blue */
+      --muted:        #6E6E73;
 
-      /* Entry hero  --  deep navy but textured, not flat */
       --hero:         #001440;
 
-      /* Shadows  --  warm not cool */
       --shadow-sm:    0 1px 3px rgba(0,0,0,0.07), 0 2px 8px rgba(0,0,0,0.05);
       --shadow-md:    0 4px 16px rgba(0,0,0,0.09), 0 8px 32px rgba(0,0,0,0.06);
       --shadow-lg:    0 12px 40px rgba(0,0,0,0.12), 0 24px 64px rgba(0,0,0,0.08);
@@ -53,17 +44,12 @@
       --radius-sm:    8px;
       --radius-full:  9999px;
 
-      /* Inter for all UI  --  excellent mobile legibility */
       --font-ui:      'Inter', system-ui, -apple-system, Arial, sans-serif;
-      /* Georgia/Times for quotes  --  reads far easier in italic than Playfair Display did */
       --font-serif:   Georgia, 'Times New Roman', Times, serif;
 
       --transition:   0.18s ease;
     }
 
-    /* ============================================================
-       RESET
-       ============================================================ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { font-size: 16px; scroll-behaviour: smooth; -webkit-text-size-adjust: 100%; }
     body {
@@ -76,9 +62,6 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ============================================================
-       ACCESSIBILITY
-       ============================================================ */
     .skip-link {
       position: absolute; top: -100%; left: 1rem; z-index: 9999;
       background: var(--gold); color: var(--ink);
@@ -91,9 +74,6 @@
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
     :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
 
-    /* ============================================================
-       SCREEN SYSTEM
-       ============================================================ */
     .screen { display: none; flex: 1; flex-direction: column; animation: fadeUp 320ms ease forwards; }
     .screen.active { display: flex; }
     @keyframes fadeUp {
@@ -105,9 +85,6 @@
       *, *::before, *::after { transition-duration: 0ms !important; }
     }
 
-    /* ============================================================
-       SITE HEADER
-       ============================================================ */
     .site-header {
       background: var(--navy);
       height: 80px; padding: 0 1.5rem;
@@ -133,9 +110,6 @@
       .header-prog, .header-divider { display: none; }
     }
 
-    /* ============================================================
-       BUTTONS
-       ============================================================ */
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
       gap: 0.45rem; font-family: var(--font-ui); font-size: 0.9rem;
@@ -159,10 +133,6 @@
     }
     .btn-ghost-light:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.32); color: white; }
 
-    /* ============================================================
-       SCREEN 0  --  ENTRY
-       Navy hero with the scribble/lightbulb SVG illustration behind text
-       ============================================================ */
     #screen-entry {
       background: url('/assets/pm-background.png') center/cover no-repeat;
       align-items: center; justify-content: flex-start;
@@ -172,8 +142,6 @@
       flex: 1;
       min-height: calc(100vh - 80px);
     }
-
-
 
     .entry-inner {
       max-width: 580px; width: 100%;
@@ -187,7 +155,6 @@
       text-transform: uppercase; color: var(--gold); margin-bottom: 2rem;
     }
 
-    /* Georgia italic  --  large enough to read beautifully on mobile */
     .entry-quote {
       font-family: var(--font-serif);
       font-size: clamp(1.3rem, 4.5vw, 1.9rem);
@@ -235,11 +202,6 @@
     }
     .entry-hook strong { color: rgba(255,255,255,0.92); font-weight: 600; }
 
-    /* ============================================================
-       SCREEN 0b  --  ABOUT / CONTEXT
-       Same navy hero world as Entry  --  the "what is this, and why"
-       beat, kept off the hook screen so neither one is overloaded.
-       ============================================================ */
     #screen-about {
       background: url('/assets/pm-background.png') center/cover no-repeat;
       align-items: center; justify-content: flex-start;
@@ -275,9 +237,26 @@
       line-height: 1.8; margin-bottom: 2.5rem;
     }
 
-    /* ============================================================
-       SCREEN 1  --  PHOTO UPLOAD  --  stone surface, card on it
-       ============================================================ */
+    .about-offer-price {
+      font-family: var(--font-ui); font-weight: 700; font-size: 1.2rem;
+      color: var(--gold-light); text-align: center; margin-bottom: 1.5rem;
+    }
+    .about-offer-price strong { color: var(--gold); font-size: 1.4rem; }
+
+    .pricing-stats { display: flex; gap: 1.75rem; flex-wrap: wrap; }
+    .pricing-stats .stat { text-align: center; }
+    .pricing-stats .stat-label { display: block; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.25rem; }
+    .pricing-stats .stat-value { font-family: var(--font-ui); font-weight: 700; font-size: 1.05rem; }
+    .pricing-stats.on-dark { justify-content: center; margin-bottom: 1.75rem; }
+    .pricing-stats.on-dark .stat-label { color: rgba(255,255,255,0.4); }
+    .pricing-stats.on-dark .stat-value { color: #fff; }
+    .pricing-stats.on-dark .stat-value.accent { color: var(--gold-light); }
+    .pricing-stats.on-dark .stat-value s { color: rgba(255,255,255,0.35); font-weight: 500; font-size: 0.85rem; }
+    .pricing-stats.on-light { justify-content: flex-start; }
+    .pricing-stats.on-light .stat-label { color: var(--muted); }
+    .pricing-stats.on-light .stat-value { color: var(--navy); }
+    .pricing-stats.on-light .stat-value s { color: var(--muted); font-weight: 500; font-size: 0.85rem; }
+
     #screen-photo {
       background: var(--stone-100);
       align-items: center; justify-content: center;
@@ -317,7 +296,12 @@
     #photo-preview { width: 100%; height: 100%; object-fit: cover; display: none; }
     #photo-preview.visible { display: block; }
 
-    .photo-caption { font-size: 0.68rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.55; }
+    .photo-caption { font-size: 0.68rem; color: var(--muted); margin-bottom: 0.4rem; line-height: 1.55; }
+    .photo-privacy-note {
+      display: flex; align-items: flex-start; gap: 0.4rem; text-align: left;
+      font-size: 0.68rem; color: var(--muted); line-height: 1.55; margin-bottom: 1.5rem;
+    }
+    .photo-privacy-note svg { flex-shrink: 0; margin-top: 0.15rem; color: var(--muted); }
 
     #photo-input { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
     .photo-upload-label {
@@ -343,9 +327,6 @@
     .photo-skip:hover { color: var(--ink); }
     .photo-skip:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
 
-    /* ============================================================
-       SCREEN 2  --  PROMPTS
-       ============================================================ */
     #screen-prompts { background: var(--stone-100); }
 
     .prompts-topbar {
@@ -376,19 +357,17 @@
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
 
-    /* Progress */
     .prog-wrap { padding: 1.1rem 1.5rem 0; max-width: 640px; width: 100%; margin: 0 auto; }
     .prog-track { height: 3px; background: var(--stone-300); border-radius: 2px; overflow: hidden; margin-bottom: 0.4rem; }
     .prog-fill { height: 100%; background: linear-gradient(90deg, var(--navy), var(--purple)); border-radius: 2px; transition: width 0.38s ease; }
     .prog-label { font-size: 0.62rem; font-weight: 600; color: var(--muted); letter-spacing: 0.09em; text-transform: uppercase; }
 
-    /* Prompt card */
     .prompt-card { display: none; flex: 1; flex-direction: column; padding: 1.5rem; max-width: 640px; width: 100%; margin: 0 auto; }
     .prompt-card.active { display: flex; }
 
     .prompt-cat {
       font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--gold-mid); margin-bottom: 0.45rem;
+      text-transform: uppercase; color: var(--gold-text); margin-bottom: 0.45rem;
     }
     .prompt-card label {
       font-family: var(--font-ui); font-size: clamp(1rem, 2.8vw, 1.15rem);
@@ -425,7 +404,6 @@
     .prompt-textarea:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,115,120,0.1), var(--shadow-sm); }
     .prompt-textarea::placeholder { color: var(--muted); }
 
-    /* Lao Tzu pause */
     .laotzu-panel {
       display: none; flex: 1;
       background: var(--navy);
@@ -448,9 +426,6 @@
     .laotzu-attr { font-size: 0.68rem; color: rgba(255,255,255,0.35); margin-top: 0.7rem; letter-spacing: 0.07em; position: relative; }
     .laotzu-tap { margin-top: 2.5rem; font-size: 0.64rem; color: rgba(255,255,255,0.2); letter-spacing: 0.07em; position: relative; }
 
-    /* ============================================================
-       SCREEN 3  --  LOADING
-       ============================================================ */
     #screen-loading {
       background: var(--hero); flex: 1;
       align-items: center; justify-content: center;
@@ -474,9 +449,6 @@
     .loading-ring img { width: 100%; height: 100%; object-fit: cover; display: none; }
     .loading-text { font-family: var(--font-serif); font-size: 1rem; font-style: italic; color: rgba(255,255,255,0.6); }
 
-    /* ============================================================
-       SCREEN 4  --  RESPONSE
-       ============================================================ */
     #screen-response { background: var(--stone-100); }
 
     .resp-topbar {
@@ -500,7 +472,6 @@
     .resp-sender-info small { display: block; font-size: 0.62rem; color: var(--muted); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 0.15rem; }
     .resp-sender-info strong { font-size: 0.88rem; font-weight: 600; color: var(--navy); }
 
-    /* Response  --  gold left accent now, not purple. Gold = warmth, this is the reward moment */
     .response-card {
       background: var(--white);
       border: 1px solid var(--stone-300);
@@ -520,7 +491,6 @@
       padding: 1.1rem 1.4rem; font-size: 0.875rem; color: #7f1d1d; line-height: 1.6;
     }
 
-    /* Bridge  --  gold-pale, feels warm and open not institutional */
     .resp-bridge {
       background: var(--gold-pale);
       border: 1px solid var(--gold-border);
@@ -530,9 +500,6 @@
     }
     .resp-bridge p { font-size: 0.88rem; color: var(--ink-mid); line-height: 1.75; margin-bottom: 1.1rem; }
 
-    /* ============================================================
-       FOOTER
-       ============================================================ */
     .site-footer {
       background: var(--navy-dark); padding: 0.9rem 1.5rem;
       text-align: center; flex-shrink: 0;
@@ -559,31 +526,18 @@
     }
     .proto-body:last-child { margin-bottom: 0.75rem; }
 
-    /* Prompt quote block */
-    .prompt-quote {
-      background: rgba(0,44,119,0.05);
-      border-left: 3px solid var(--gold);
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      padding: 0.75rem 1rem;
-      margin-bottom: 1.1rem;
+    .prompt-quote-image {
+      width: 100%; margin: 1.1rem 0 1.4rem;
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow-sm);
     }
-    .prompt-quote p {
-      font-family: var(--font-serif);
-      font-size: clamp(0.82rem, 2vw, 0.92rem);
-      font-style: italic;
-      color: var(--navy);
-      line-height: 1.6;
-      margin-bottom: 0.25rem;
+    .prompt-quote-image img { display: block; width: 100%; height: auto; }
+    .banner-image {
+      width: 100%; border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow-sm);
     }
-    .prompt-quote footer {
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.07em;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
+    .banner-image img { display: block; width: 100%; height: auto; }
 
-    /* Response screen — summary card */
     .reflection-summary {
       background: var(--white);
       border: 1px solid var(--stone-300);
@@ -620,7 +574,7 @@
     .summary-answer:last-child { border-bottom: none; padding-bottom: 0; }
     .summary-answer .s-cat {
       font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--gold-mid); margin-bottom: 0.35rem;
+      text-transform: uppercase; color: var(--gold-text); margin-bottom: 0.35rem;
     }
     .summary-answer .s-q {
       font-size: 0.72rem; font-weight: 600; color: var(--navy);
@@ -631,7 +585,6 @@
       font-size: 0.88rem; color: var(--ink); line-height: 1.7;
     }
 
-    /* AI response card — now sits below summary */
     .ai-response-card {
       background: var(--white);
       border: 1px solid var(--stone-300);
@@ -646,11 +599,10 @@
     }
     .ai-label-row {
       font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--gold-mid);
+      text-transform: uppercase; color: var(--gold-text);
       margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem;
     }
 
-    /* Download card button */
     .btn-download {
       display: inline-flex; align-items: center; gap: 0.45rem;
       background: var(--stone-100); border: 1.5px solid var(--stone-300);
@@ -662,7 +614,6 @@
     }
     .btn-download:hover { background: var(--gold-pale); border-color: var(--gold); }
 
-    /* Course taster bridge */
     .course-bridge {
       background: linear-gradient(135deg, var(--navy) 0%, #003da0 100%);
       border-radius: var(--radius);
@@ -692,26 +643,18 @@
       font-size: 0.9rem; padding: 0.85rem 1.75rem; width: auto;
     }
 
-    /* ============================================================
-       SCREEN 4b  --  COURSE TASTER
-       6 short "nugget" cards, same active-toggle pattern as
-       .prompt-card. Reuses .prompts-topbar, .prog-wrap/.prog-track,
-       .prompt-cat, .check-row-entry and .laotzu-panel wherever the
-       visual job is identical  --  new rules only where it isn't.
-       ============================================================ */
     #screen-taster { background: var(--stone-100); }
 
     .taster-card { display: none; flex: 1; flex-direction: column; padding: 1.5rem; max-width: 640px; width: 100%; margin: 0 auto; overflow-y: auto; }
+    .taster-card > p { margin-bottom: 1rem; line-height: 1.65; }
     .taster-card.active { display: flex; }
 
-    /* Card 1  --  the real hero graphic, full and uncropped (it already carries the quote) */
     .taster-hero-image {
       width: 100%; border-radius: var(--radius); overflow: hidden;
       box-shadow: var(--shadow-md); margin-bottom: 1.25rem; background: var(--navy);
     }
     .taster-hero-image img { display: block; width: 100%; height: auto; }
 
-    /* Card 2  --  video */
     .taster-video-frame {
       position: relative; width: 100%; aspect-ratio: 16/9;
       border-radius: var(--radius); overflow: hidden;
@@ -719,6 +662,24 @@
       margin: 0.9rem 0 1.1rem;
     }
     .taster-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    /* Card 2 -- welcome video companion: photo, nameplate, short bio */
+    .faculty-intro { margin-bottom: 1.1rem; }
+    .faculty-photo-frame { position: relative; width: 148px; margin: 0 auto 1.6rem; }
+    .faculty-photo-frame img {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block;
+      border-radius: 50% 50% 10px 10px; border: 3px solid var(--white);
+      box-shadow: var(--shadow-md); background: var(--stone-200);
+    }
+    .faculty-nameplate {
+      position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--navy); color: #fff; font-family: var(--font-ui); font-weight: 700;
+      font-size: 0.65rem; letter-spacing: 0.03em; text-transform: uppercase;
+      padding: 0.4rem 0.9rem; border-radius: var(--radius-full); white-space: nowrap;
+      box-shadow: var(--shadow-sm);
+    }
+    .faculty-bio { font-size: 0.84rem; color: var(--ink-mid); line-height: 1.65; text-align: left; }
+
     .taster-learn-more {
       display: inline-flex; align-items: center; gap: 0.4rem;
       font-family: var(--font-ui); font-size: 0.82rem; font-weight: 600;
@@ -727,24 +688,21 @@
     .taster-learn-more:hover { text-decoration: underline; }
     .taster-learn-more:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
 
-    /* Nav row inside each taster card */
     .taster-nav { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: auto; padding-top: 1.25rem; }
     .taster-back-link {
-      background: none; border: none; color: var(--muted);
-      font-family: var(--font-ui); font-size: 0.82rem; font-weight: 500;
-      cursor: pointer; padding: 0.6rem 0.4rem; min-height: 44px;
-      text-decoration: underline; text-underline-offset: 3px;
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--white); border: 1.5px solid var(--stone-300); color: var(--ink-mid);
+      font-family: var(--font-ui); font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; padding: 0.6rem 1rem; min-height: 44px;
+      border-radius: 999px; box-shadow: var(--shadow-sm);
+      transition: border-color var(--transition), color var(--transition), background var(--transition);
     }
-    .taster-back-link:hover { color: var(--ink); }
-    .taster-back-link:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
+    .taster-back-link:hover { border-color: var(--teal); color: var(--teal); }
+    .taster-back-link:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
     .taster-nav:first-child { justify-content: flex-end; margin-top: 0.5rem; }
 
-    /* Card 5 reuses .laotzu-panel's immersive padding  --  .taster-card's own
-       padding rule has equal specificity and comes later in the cascade,
-       so it needs this one override to actually win. */
-    #taster-card-5.laotzu-panel { padding: 3.5rem 2rem; align-items: center; }
+    #taster-card-6.laotzu-panel { padding: 3.5rem 2rem; align-items: center; }
 
-    /* Card 3  --  benefits image that "comes alive" from white to colour as it scrolls into view */
     .reveal-image {
       position: relative; width: 100%; margin-top: 1.1rem;
       border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md);
@@ -752,59 +710,96 @@
     .reveal-image img { display: block; width: 100%; height: auto; }
     .reveal-image .reveal-colour {
       position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-      opacity: 0; transition: opacity 0.9s ease;
+      opacity: 0; transition: opacity 1.4s ease;
     }
     .reveal-image.is-visible .reveal-colour { opacity: 1; }
 
-    /* Card 4  --  one slider per trait question */
-    .rate-list { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1.35rem; }
-    .rate-item { }
-    .rate-q { font-size: 0.9rem; font-weight: 600; color: var(--ink); margin-bottom: 0.7rem; line-height: 1.45; }
-    .rate-slider {
-      width: 100%; height: 36px; margin: 0; display: block;
-      -webkit-appearance: none; appearance: none; background: transparent;
+    /* Card 4 -- discrete 1-7 rating scale, replacing the old continuous sliders */
+    .rating-scale-key {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.4rem;
+      margin: 1rem 0 1.35rem;
     }
-    .rate-slider::-webkit-slider-runnable-track {
-      height: 6px; border-radius: 999px;
-      background: linear-gradient(to right, var(--navy) 0%, var(--navy) var(--fill, 50%), var(--stone-300) var(--fill, 50%), var(--stone-300) 100%);
+    .rating-scale-key .key-item {
+      border: 1.5px solid var(--stone-300); border-radius: var(--radius-sm);
+      padding: 0.5rem 0.35rem; text-align: center; background: var(--white);
     }
-    .rate-slider::-moz-range-track {
-      height: 6px; border-radius: 999px; border: none;
-      background: linear-gradient(to right, var(--navy) 0%, var(--navy) var(--fill, 50%), var(--stone-300) var(--fill, 50%), var(--stone-300) 100%);
+    .rating-scale-key .key-item strong { display: block; color: var(--navy); font-size: 1rem; margin-bottom: 0.15rem; }
+    .rating-scale-key .key-item span { display: block; font-size: 0.62rem; color: var(--muted); line-height: 1.25; }
+
+    .rating-table { display: flex; flex-direction: column; gap: 0.9rem; }
+    .rating-row {
+      background: var(--white); border: 1px solid var(--stone-300); border-left: 4px solid var(--teal);
+      border-radius: var(--radius-sm); padding: 0.9rem 1rem; box-shadow: var(--shadow-sm);
     }
-    .rate-slider { border-radius: 999px; }
-    .rate-slider::-webkit-slider-thumb {
-      -webkit-appearance: none; margin-top: -11px; cursor: pointer;
-      width: 28px; height: 28px; border-radius: 50%;
-      background: var(--navy); border: 3px solid #fff; box-shadow: var(--shadow-sm);
+    .rating-row .rate-q { font-size: 0.86rem; font-weight: 600; color: var(--ink); margin-bottom: 0.7rem; line-height: 1.4; }
+    .rating-options { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0.4rem; }
+    .rating-options label {
+      position: relative; display: flex; align-items: center; justify-content: center;
+      min-height: 40px; border: 1.5px solid var(--stone-300); border-radius: var(--radius-sm);
+      color: var(--teal); font-weight: 700; font-size: 0.85rem; cursor: pointer; background: var(--white);
+      transition: all var(--transition);
     }
-    .rate-slider::-moz-range-thumb {
-      cursor: pointer; width: 28px; height: 28px; border-radius: 50%;
-      background: var(--navy); border: 3px solid #fff; box-shadow: var(--shadow-sm);
+    .rating-options label:hover { background: rgba(0,115,120,0.06); border-color: var(--teal); }
+    .rating-options input { position: absolute; opacity: 0; pointer-events: none; }
+    .rating-options input:focus-visible + span {
+      outline: 3px solid var(--teal); outline-offset: 2px; border-radius: 6px;
     }
-    .rate-slider:focus-visible::-webkit-slider-thumb { outline: 3px solid var(--teal); outline-offset: 2px; }
-    .rate-slider:focus-visible::-moz-range-thumb { outline: 3px solid var(--teal); outline-offset: 2px; }
-    .rate-scale-labels {
-      display: flex; justify-content: space-between;
-      font-size: 0.68rem; color: var(--muted); margin-top: 0.3rem;
+    .rating-options input:checked + span {
+      background: var(--teal); color: #fff; width: 100%; height: 100%; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    @media (max-width: 420px) {
+      .rating-options { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .rating-scale-key { grid-template-columns: repeat(4, 1fr); }
     }
 
-    /* Card 5  --  reflect icon */
-    .taster-reflect-icon { width: 150px; height: auto; margin-bottom: 1.5rem; }
+    /* Card 5 -- Your Personal Mastery Snapshot (subscale results + PDF download) */
+    .snapshot-results { display: flex; flex-direction: column; gap: 0.9rem; margin: 1.1rem 0 1.4rem; }
+    .snapshot-card {
+      background: var(--white); border: 1px solid var(--stone-300); border-left: 4px solid var(--navy);
+      border-radius: var(--radius-sm); padding: 1rem 1.1rem; box-shadow: var(--shadow-sm);
+    }
+    .snapshot-card .sc-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-text); margin-bottom: 0.35rem; }
+    .snapshot-card .sc-score { font-family: var(--font-ui); font-weight: 800; font-size: 1.5rem; color: var(--navy); margin-bottom: 0.35rem; }
+    .snapshot-card .sc-band { display: inline-block; font-size: 0.72rem; font-weight: 600; color: var(--teal); background: rgba(0,115,120,0.08); padding: 0.15rem 0.6rem; border-radius: var(--radius-full); margin-bottom: 0.5rem; }
+    .snapshot-card .sc-text { font-size: 0.82rem; color: var(--ink-mid); line-height: 1.6; }
+    .snapshot-note { font-size: 0.8rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.1rem; }
+    .btn-snapshot-download {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      width: 100%; background: var(--gold); color: var(--ink);
+      font-family: var(--font-ui); font-size: 0.92rem; font-weight: 700;
+      padding: 0.9rem 1.5rem; border: none; border-radius: var(--radius-sm);
+      cursor: pointer; min-height: 48px; transition: all var(--transition);
+    }
+    .btn-snapshot-download:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(228,160,36,0.35); }
+    .btn-snapshot-download:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* Card 6  --  conclusion image */
+    .taster-reflect-icon { width: 230px; height: auto; margin-bottom: 1.5rem; }
+
     .taster-conclude-image {
       width: 100%; height: auto; border-radius: var(--radius);
       box-shadow: var(--shadow-md); margin-top: 0.5rem;
     }
 
-    /* Card 6  --  conclusion */
     .taster-conclude h2 { font-family: var(--font-ui); font-size: 1.2rem; color: var(--navy); margin-bottom: 0.75rem; }
     .taster-conclude p { font-size: 0.92rem; color: var(--ink-mid); line-height: 1.75; margin-bottom: 1rem; }
 
-    /* Canvas (hidden — for downloadable image generation) */
+    /* Card 7 -- Pay-It-Forward steps, sits inside a .course-bridge panel for visual weight */
+    .pif-steps { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem; }
+    .pif-step { display: flex; gap: 0.85rem; align-items: flex-start; }
+    .pif-num {
+      flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; font-family: var(--font-ui); font-weight: 700; font-size: 0.8rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pif-step-reward .pif-num { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+    .pif-step-text { display: flex; flex-direction: column; gap: 0.1rem; padding-top: 0.15rem; }
+    .pif-step-text strong { font-size: 0.85rem; color: #fff; font-weight: 600; }
+    .pif-step-text span { font-size: 0.78rem; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
     #reflection-canvas { display: none; }
-       ============================================================ */
+
     .entry-fields { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.25rem; }
     .field-group { display: flex; flex-direction: column; gap: 0.3rem; text-align: left; }
     .field-label { font-size: 0.82rem; font-weight: 600; color: var(--ink); letter-spacing: 0.01em; }
@@ -839,9 +834,6 @@
     }
     .check-row-entry label { font-size: 0.8rem; color: var(--ink); line-height: 1.55; cursor: pointer; }
 
-    /* ============================================================
-       SCREEN 5  --  APPLICATION FORM
-       ============================================================ */
     #screen-apply { background: var(--stone-100); }
 
     .apply-topbar {
@@ -869,74 +861,15 @@
     .apply-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
     @media (max-width: 440px) { .apply-grid { grid-template-columns: 1fr; } }
 
-    .commit-list { display: flex; flex-direction: column; gap: 0.75rem; }
-    .commit-item {
-      display: flex; align-items: flex-start; gap: 0.75rem;
-      padding: 0.9rem 1rem; border-radius: var(--radius-sm);
-      border: 1.5px solid var(--stone-300); background: var(--stone-100);
-      cursor: pointer; transition: border-color var(--transition), background var(--transition);
+    .recap-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.85rem; }
+    .recap-list li {
+      display: flex; align-items: flex-start; gap: 0.65rem;
+      font-size: 0.84rem; color: var(--ink-mid); line-height: 1.55;
     }
-    .commit-item:has(input:checked) {
-      border-color: var(--teal); background: rgba(0,115,120,0.04);
-    }
-    .commit-item input[type="checkbox"] {
-      width: 20px; height: 20px; min-width: 20px; margin-top: 0.1rem;
-      accent-color: var(--teal); cursor: pointer;
-    }
-    .commit-item label {
-      font-size: 0.84rem; color: var(--ink-mid); line-height: 1.55; cursor: pointer; flex: 1;
-    }
-    .commit-item label strong { color: var(--navy); }
+    .recap-list li svg { flex-shrink: 0; margin-top: 0.15rem; color: var(--teal); }
+    .recap-list li span { flex: 1; min-width: 0; text-align: left; }
+    .recap-list li strong { color: var(--navy); }
 
-    /* Screen 6 — Confirmation */
-    #screen-confirm { background: var(--stone-100); }
-    .confirm-body {
-      max-width: 560px; width: 100%; margin: 0 auto;
-      padding: 2rem 1.5rem; display: flex; flex-direction: column;
-      align-items: center; text-align: center; gap: 1.25rem;
-    }
-    .confirm-icon {
-      width: 72px; height: 72px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--teal), var(--navy));
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 8px 24px rgba(0,115,120,0.25);
-    }
-    .confirm-icon svg { color: #fff; }
-    .confirm-heading { font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 800; color: var(--navy); line-height: 1.3; }
-    .confirm-sub { font-size: 0.9rem; color: var(--muted); line-height: 1.7; max-width: 40ch; }
-    .timeline-card {
-      background: var(--white); border-radius: var(--radius);
-      box-shadow: var(--shadow-sm); border: 1px solid var(--stone-300);
-      padding: 1.25rem 1.5rem; width: 100%; text-align: left;
-    }
-    .timeline-card h3 { font-size: 0.8rem; font-weight: 700; color: var(--navy); margin-bottom: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; }
-    .timeline-item { display: flex; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--stone-200); font-size: 0.82rem; color: var(--ink-mid); }
-    .timeline-item:last-child { border-bottom: none; }
-    .timeline-item .t-date { font-weight: 700; color: var(--navy); min-width: 90px; flex-shrink: 0; }
-    .share-card {
-      background: var(--gold-pale); border: 1px solid var(--gold-border);
-      border-top: 3px solid var(--gold); border-radius: var(--radius);
-      padding: 1.25rem 1.5rem; width: 100%; text-align: left;
-    }
-    .share-card p { font-size: 0.84rem; color: var(--ink-mid); line-height: 1.65; margin-bottom: 0.75rem; }
-    .share-btns { display: flex; gap: 0.65rem; flex-wrap: wrap; }
-    .btn-share {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      padding: 0.65rem 1.1rem; border-radius: var(--radius-sm);
-      font-family: var(--font-ui); font-size: 0.8rem; font-weight: 600;
-      border: none; cursor: pointer; min-height: 42px; transition: all var(--transition);
-    }
-    .btn-wa { background: #25D366; color: #fff; }
-    .btn-wa:hover { background: #1ebe5d; }
-    .btn-copy { background: var(--stone-200); color: var(--ink); }
-    .btn-copy:hover { background: var(--stone-300); }
-
-    /* Loading apply screen */
-    #screen-loading-apply {
-      background: var(--hero); flex: 1;
-      align-items: center; justify-content: center;
-      text-align: center; padding: 4rem 1.5rem; gap: 1.5rem;
-    }
 
     @media (max-width: 500px) {
       .prompt-card, .resp-body { padding: 1.1rem 0.9rem; }
@@ -947,7 +880,6 @@
       .entry-inner { padding-top: 0.5rem; }
     }
 
-    /* Back button */
     .btn-back {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
       background: var(--white); border: 1.5px solid var(--stone-300); color: var(--ink-mid);
@@ -960,10 +892,8 @@
     .btn-back:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
     .btn-back svg { flex-shrink: 0; }
 
-    /* Icon-only variant  --  used inline in topbars, next to the avatar */
     .btn-back-icon { padding: 0; width: 44px; }
 
-    /* Light variant  --  for back buttons sitting on navy/photo backgrounds */
     .btn-back-light {
       background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); color: #fff;
       box-shadow: none;
@@ -971,7 +901,6 @@
     .btn-back-light:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.65); color: #fff; }
     .btn-back-light:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 
-    /* Back row sits above the photo card and prompt cards */
     .back-row {
       width: 100%; max-width: 640px; margin: 0 auto;
       padding: 0.75rem 1.5rem 0;
@@ -981,20 +910,17 @@
       padding: 0.75rem 1.5rem 0;
     }
 
-    /* Desktop: constrain layout to comfortable reading width */
     @media (min-width: 900px) {
       #screen-prompts, #screen-response, #screen-taster {
         background: var(--stone-100);
       }
 
-      /* Centred content column on desktop */
       .desktop-col {
         max-width: 780px;
         width: 100%;
         margin: 0 auto;
       }
 
-      /* Topbars get a centred inner wrapper on desktop */
       .prompts-topbar, .resp-topbar {
         padding: 0.75rem calc((100% - 780px) / 2);
       }
@@ -1023,12 +949,10 @@
         padding-right: 0;
       }
 
-      /* Entry screen: text stays nicely centred, max width tighter */
       .entry-inner {
         max-width: 600px;
       }
 
-      /* Response topbar padding matches */
       .resp-topbar {
         justify-content: flex-start;
       }
@@ -1140,7 +1064,7 @@
         </blockquote>
         <blockquote class="testimonial-slide" id="testimonial-2">
           <p class="entry-quote">
-            &#8220;Probably the most beneficial talk on financial stress and mental health that I have ever attended. Dr Mags is a fantastic speaker &mdash; inspiring, insightful, and practical.&#8221;
+            &#8220;Probably the most beneficial talk on financial stress and mental health that I have ever attended. Dr Mags is a fantastic speaker: inspiring, insightful, and practical.&#8221;
           </p>
           <hr class="entry-rule" aria-hidden="true" />
           <footer>
@@ -1149,7 +1073,7 @@
         </blockquote>
         <blockquote class="testimonial-slide" id="testimonial-3">
           <p class="entry-quote">
-            &#8220;Standing ovation from all 350 guests&#8230; phenomenal human being and outstanding storyteller&#8230; message that hits home &mdash; sometimes really hard.&#8221;
+            &#8220;Standing ovation from all 350 guests&#8230; phenomenal human being and outstanding storyteller&#8230; message that hits home, sometimes really hard.&#8221;
           </p>
           <hr class="entry-rule" aria-hidden="true" />
           <footer>
@@ -1183,7 +1107,14 @@
     </div>
     <div class="about-inner">
       <p class="about-eyebrow" id="about-heading">Personal Mastery: Leading from Within</p>
-      <p class="about-offer">Complete this short experience and submit your application to stand a chance of being selected for a free seat on our October <em>Personal Mastery: Leading from Within</em> course, offered by GIBS Digital Education in honour of World Mental Health Day. GIBS is donating <strong>100 seats</strong> to help applicants invest in their own growth and leadership.</p>
+      <p class="about-offer">Complete this short experience and apply for a <strong>sponsored learning contribution</strong> toward the <em>Personal Mastery: Leading from Within</em> course, offered by GIBS Digital Education ahead of Mental Health Awareness Month.</p>
+
+      <p class="about-offer-price">Limited time offer: <strong>R4,432</strong></p>
+
+      <p class="about-offer" style="font-size:0.86rem;">Course access runs from <strong>12 October to 10 November 2026</strong>, giving you one month to complete it. Payment grants access, and is required before the course can start.</p>
+
+      <p class="about-offer" style="font-size:0.86rem;">And when you complete the course and earn your certificate, your journey does not end there. You will unlock the chance to pay it forward, nominating someone else for the same experience, at no cost to them.</p>
+
       <hr class="about-rule" aria-hidden="true" />
       <p class="entry-tagline">
         Before you begin, take a few minutes to pause and reflect on your personal journey. This short reflection invites you to look at where you have been, where you want to go, and what it may take to lead yourself with greater purpose.
@@ -1205,7 +1136,7 @@
     </div>
     <div class="photo-card" style="max-width:480px;">
       <h1 id="photo-heading">Before we begin</h1>
-      <p>Add a photo of yourself — not a professional headshot, just you. Then tell us your name so we can make this experience personal.</p>
+      <p>Add a photo of yourself: not a professional headshot, just you. Then tell us your name so we can make this experience personal.</p>
 
       <!-- Photo upload -->
       <div class="photo-frame-wrap" role="img" aria-label="Photo upload area. Photo stays on your device." style="margin-bottom:0.5rem;">
@@ -1217,7 +1148,11 @@
           <img id="photo-preview" src="" alt="Your uploaded photo" />
         </div>
       </div>
-      <p class="photo-caption" id="photo-caption">Your photo stays on your device only. Never uploaded to any server.</p>
+      <p class="photo-caption" id="photo-caption">Add a photo so the reflection can speak to you by name.</p>
+      <p class="photo-privacy-note">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        This photo is used only within this experience. It stays on your device, is never uploaded or seen by anyone else, and is only ever shared if you choose to screenshot and share it yourself.
+      </p>
       <input type="file" id="photo-input" accept="image/*" aria-label="Choose a photo from your device or camera" />
       <label for="photo-input" class="photo-upload-label" id="photo-upload-label" tabindex="0" style="margin-bottom:1.5rem;">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
@@ -1227,7 +1162,7 @@
       <!-- Divider -->
       <hr style="border:none;border-top:1px solid var(--stone-300);margin:0 0 1.5rem;" aria-hidden="true" />
 
-      <!-- Name + email fields -->
+      <!-- Name fields -->
       <div class="entry-fields">
         <div class="field-group">
           <label class="field-label" for="entry-firstname">First name <span style="color:#c0392b;" aria-hidden="true">*</span></label>
@@ -1239,32 +1174,9 @@
           <input class="field-input" type="text" id="entry-surname" name="surname" autocomplete="family-name" placeholder="e.g. Dlamini" required aria-required="true" aria-describedby="err-surname" />
           <span class="field-err" id="err-surname" role="alert"></span>
         </div>
-        <div class="field-group">
-          <label class="field-label" for="entry-email">Email address <span style="color:#c0392b;" aria-hidden="true">*</span></label>
-          <input class="field-input" type="email" id="entry-email" name="email" autocomplete="email" placeholder="you@example.com" required aria-required="true" aria-describedby="err-email entry-email-hint" />
-          <span class="field-hint" id="entry-email-hint">Used only if your application is successful.</span>
-          <span class="field-err" id="err-email" role="alert"></span>
-        </div>
       </div>
 
-      <!-- POPIA consent -->
-      <div class="popia-block" role="region" aria-labelledby="popia-lbl-entry">
-        <p class="popia-lbl" id="popia-lbl-entry">Privacy Notice (POPIA)</p>
-        <p class="popia-text">Your personal information will be collected and used by GIBS Digital Education solely to administer this campaign experience and, if your application is successful, to contact you about course access. Your information will not be sold or shared with third parties outside this process.</p>
-      </div>
-
-      <div class="check-row-entry">
-        <input type="checkbox" id="consent-popia-entry" aria-required="true" aria-describedby="err-popia-entry" />
-        <label for="consent-popia-entry">I consent to the collection and use of my personal information as described above, in accordance with the <strong>Protection of Personal Information Act (POPIA)</strong>. <span style="color:#c0392b;" aria-hidden="true">*</span></label>
-      </div>
-      <span class="field-err" id="err-popia-entry" role="alert" style="margin-left:2rem;display:block;margin-bottom:0.75rem;"></span>
-
-      <div class="check-row-entry" style="margin-bottom:1.5rem;">
-        <input type="checkbox" id="consent-marketing-entry" />
-        <label for="consent-marketing-entry"><strong>Optional:</strong> I'd like to hear from GIBS about upcoming programmes and opportunities. This will not affect your participation.</label>
-      </div>
-
-      <button class="btn btn-gold" id="btn-start-story" type="button" style="width:100%;">
+      <button class="btn btn-gold" id="btn-start-story" type="button" style="width:100%;margin-top:1.5rem;">
         Start my story
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
@@ -1296,43 +1208,44 @@
     </div>
 
     <div class="prompt-card active" id="prompt-card-1" role="group" aria-labelledby="p-label-1">
-      <blockquote class="prompt-quote">
-        <p>&#8220;No man is free who is not master of himself.&#8221;</p>
-        <footer>— Epictetus</footer>
-      </blockquote>
       <p class="prompt-cat">Your Story</p>
-      <label for="textarea-1" id="p-label-1">Look at you in that photo. What has it taken for you to get here? What are two or three moments — the hard ones, the quiet ones — that have shaped you into who you are right now?</label>
+      <label for="textarea-1" id="p-label-1">Look at you in that photo. What has it taken for you to get here? What are two or three moments (the hard ones, the quiet ones) that have shaped you into who you are right now?</label>
       <div class="mic-row" id="mic-row-1"></div>
       <textarea class="prompt-textarea" id="textarea-1" rows="6" placeholder="Write the first thing that comes to mind. There is no wrong answer." aria-required="true"></textarea>
+      <div class="prompt-quote-image">
+        <img src="/assets/personal-mastery-quote-1.png" alt="Quote: No man is free who is not master of himself. Epictetus." />
+      </div>
       <button class="btn btn-navy" id="btn-next-1" type="button" disabled>Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
     </div>
 
     <div class="laotzu-panel" id="laotzu-panel" role="region" aria-label="Reflection moment. Tap to continue.">
       <div class="laotzu-rule" aria-hidden="true"></div>
       <blockquote>
-        <p class="laotzu-quote">&#8220;You have power over your mind — not outside events.<br />Realise this, and you will find strength.&#8221;</p>
+        <p class="laotzu-quote">&#8220;You have power over your mind, not outside events.<br />Realise this, and you will find strength.&#8221;</p>
         <footer class="laotzu-attr">Marcus Aurelius</footer>
       </blockquote>
       <p class="laotzu-tap" aria-hidden="true">Tap anywhere to continue</p>
     </div>
 
     <div class="prompt-card" id="prompt-card-2" role="group" aria-labelledby="p-label-2">
-      <blockquote class="prompt-quote">
-        <p>&#8220;It is not how you compare to others that is important, but rather how you compare to who you were yesterday.&#8221;</p>
-        <footer>— Daisaku Ikeda</footer>
-      </blockquote>
       <p class="prompt-cat">Your Vision</p>
-      <label for="textarea-2" id="p-label-2">If you gave yourself full permission — if you approached your own life like a work of art — what would you create? What is your future dream for you?</label>
+      <label for="textarea-2" id="p-label-2">If you gave yourself full permission (if you approached your own life like a work of art), what would you create? What is your future dream for you?</label>
       <div class="mic-row" id="mic-row-2"></div>
       <textarea class="prompt-textarea" id="textarea-2" rows="6" placeholder="Trust your first response. Speak from what you feel, not what sounds right." aria-required="true"></textarea>
+      <div class="prompt-quote-image">
+        <img src="/assets/personal-mastery-quote-2.png" alt="Quote: It is not how you compare to others that is important, but rather how you compare to who you were yesterday. Daisaku Ikeda." />
+      </div>
       <button class="btn btn-navy" id="btn-next-2" type="button" disabled>Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
     </div>
 
     <div class="prompt-card" id="prompt-card-3" role="group" aria-labelledby="p-label-3">
       <p class="prompt-cat">Your Next Step</p>
-      <label for="textarea-3" id="p-label-3">What is the gap between where you are now and where you want to be? Be honest — share two or three things that could kickstart your path to becoming future you, starting today.</label>
+      <label for="textarea-3" id="p-label-3">What is the gap between where you are now and where you want to be? Be honest: share two or three things that could kickstart your path to becoming future you, starting today.</label>
       <div class="mic-row" id="mic-row-3"></div>
       <textarea class="prompt-textarea" id="textarea-3" rows="6" placeholder="Take your time. This is the most important question." aria-required="true"></textarea>
+      <div class="prompt-quote-image">
+        <img src="/assets/personal-mastery-quote-3.png" alt="Quote: Personal mastery is the discipline of continually clarifying and deepening our personal vision. Peter Senge." />
+      </div>
       <button class="btn btn-gold" id="btn-submit" type="button" disabled>See my reflection <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
     </div>
   </section>
@@ -1349,7 +1262,6 @@
     <p class="loading-text">The other you is listening&#8230;</p>
   </section>
 
-  <!-- SCREEN 4  --  RESPONSE -->
   <!-- SCREEN 4  --  RESPONSE -->
   <section class="screen" id="screen-response" aria-labelledby="resp-heading">
     <div class="resp-topbar">
@@ -1442,7 +1354,7 @@
     </footer>
   </section>
 
-  <!-- SCREEN 4b  --  COURSE TASTER (6 short nuggets, not a single scroll) -->
+  <!-- SCREEN 4b  --  COURSE TASTER (7 short nuggets, not a single scroll) -->
   <section class="screen" id="screen-taster" aria-labelledby="taster-label">
     <div class="prompts-topbar">
       <button class="btn-back btn-back-icon" id="btn-back-taster" type="button" aria-label="Back to your reflection" style="margin-right:0.25rem;flex-shrink:0;">
@@ -1457,18 +1369,18 @@
       </div>
     </div>
 
-    <div class="prog-wrap" role="progressbar" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1" aria-label="Taster step 1 of 6">
-      <div class="prog-track"><div class="prog-fill" id="prog-fill-taster" style="width:16.6%;"></div></div>
-      <p class="prog-label" id="prog-label-taster">Step 1 of 6</p>
+    <div class="prog-wrap" role="progressbar" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1" aria-label="Taster step 1 of 8">
+      <div class="prog-track"><div class="prog-fill" id="prog-fill-taster" style="width:12.5%;"></div></div>
+      <p class="prog-label" id="prog-label-taster">Step 1 of 8</p>
     </div>
 
     <!-- 1: HOOK -->
     <div class="taster-card active" id="taster-card-1" role="group" aria-labelledby="taster-h1">
       <div class="taster-hero-image">
-        <img src="/assets/personal-mastery-hero.jpg" alt="&quot;Personal mastery can be defined as the practice of being able to keep both a personal vision and a clear picture of reality before oneself.&quot; — Anderson et al., 2006; Cashman, 1998; Huber, 1998; Kouzes &amp; Posner, 2002, 2003a" />
+        <img src="/assets/personal-mastery-hero.jpg" alt="&quot;Personal mastery can be defined as the practice of being able to keep both a personal vision and a clear picture of reality before oneself.&quot; (Anderson et al., 2006; Cashman, 1998; Huber, 1998; Kouzes &amp; Posner, 2002, 2003a)" />
       </div>
       <h2 id="taster-h1" class="sr-only">Personal mastery</h2>
-      <p>It's a purposeful way of imagining, creating and achieving — one that lets you live by your own values while bringing your whole self to your work.</p>
+      <p>It's a purposeful way of imagining, creating and achieving; one that lets you live by your own values while bringing your whole self to your work.</p>
       <div class="taster-nav">
         <span></span>
         <button class="btn btn-navy" id="btn-taster-next-1" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -1477,14 +1389,23 @@
 
     <!-- 2: VIDEO -->
     <div class="taster-card" id="taster-card-2" role="group" aria-labelledby="taster-h2">
-      <p class="prompt-cat">Meet your faculty</p>
-      <h2 id="taster-h2" style="font-family:var(--font-ui);font-size:1.1rem;color:var(--navy);margin-bottom:0.6rem;">Dr Frank Magwegwe</h2>
-      <p>Here's a short video introducing Dr Frank Magwegwe, GIBS faculty and the force behind Personal Mastery: Lead from Within.</p>
+      <p class="prompt-cat">Welcome</p>
+      <h2 id="taster-h2" style="font-family:var(--font-ui);font-size:1.1rem;color:var(--navy);margin-bottom:0.6rem;">A welcome from Dr Frank Magwegwe</h2>
+      <p>Take a moment to hear a personal welcome to Personal Mastery: Leading from Within.</p>
       <div class="taster-video-frame">
-        <iframe src="https://player.vimeo.com/video/818408221?h=99b42a2d94&amp;title=0&amp;byline=0&amp;portrait=0"
-          title="Introducing Dr Frank Magwegwe, GIBS Personal Mastery: Lead from Within"
+        <iframe src="https://player.vimeo.com/video/1212424927?h=8252700820&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+          title="A welcome from Dr Frank Magwegwe, GIBS Personal Mastery: Lead from Within"
           allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
       </div>
+
+      <div class="faculty-intro">
+        <div class="faculty-photo-frame">
+          <img src="/assets/dr-frank-magwegwe-photo.png" alt="Dr Frank Magwegwe, GIBS faculty" />
+          <span class="faculty-nameplate">Dr Frank Magwegwe</span>
+        </div>
+        <p class="faculty-bio">Dr Frank Magwegwe, known as Dr Mags, brings 25 years of leadership experience across financial services, including senior roles at Momentum and Investment Solutions. At GIBS, he teaches finance, resilience and personal mastery, and speaks widely on wellbeing in the workplace.</p>
+      </div>
+
       <a class="taster-learn-more" href="https://frankmagwegwe.com/" target="_blank" rel="noopener noreferrer">
         Learn more about Dr Frank Magwegwe
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -1511,75 +1432,111 @@
       </div>
     </div>
 
-    <!-- 4: WHERE YOU ARE, WHERE YOU'RE HEADED -->
+    <!-- 4: RATING SCALE -->
     <div class="taster-card" id="taster-card-4" role="group" aria-labelledby="taster-h4">
       <p class="prompt-cat">A moment for you</p>
       <h2 id="taster-h4" style="font-family:var(--font-ui);font-size:1.1rem;color:var(--navy);margin-bottom:0.4rem;">Where do you see yourself?</h2>
-      <p>Personal mastery is not about being perfect. It is about becoming more aware of how you think, choose, respond, and grow. Slide to rate how much each statement feels true for you right now. Nothing here is recorded or scored.</p>
+      <p>Personal mastery is not about being perfect. It is about becoming more aware of how you think, choose, respond, and grow. Rate how true each statement feels for you right now.</p>
 
-      <div class="rate-list">
-        <div class="rate-item">
-          <p class="rate-q" id="rate-q-1">I have a strong sense of purpose or calling.</p>
-          <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-1" aria-labelledby="rate-q-1">
-          <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
-        </div>
-        <div class="rate-item">
-          <p class="rate-q" id="rate-q-2">I can use the gap between where I am and where I want to be as energy for progress.</p>
-          <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-2" aria-labelledby="rate-q-2">
-          <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
-        </div>
-        <div class="rate-item">
-          <p class="rate-q" id="rate-q-3">I am willing to look honestly at my current reality and notice where my assumptions may be holding me back.</p>
-          <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-3" aria-labelledby="rate-q-3">
-          <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
-        </div>
-        <div class="rate-item">
-          <p class="rate-q" id="rate-q-4">I see change as an opportunity to grow, learn, or create something new.</p>
-          <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-4" aria-labelledby="rate-q-4">
-          <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
-        </div>
-        <div class="rate-item">
-          <p class="rate-q" id="rate-q-5">I am deeply curious and open to learning more about myself, others, and the world around me.</p>
-          <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-5" aria-labelledby="rate-q-5">
-          <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
-        </div>
-        <div class="rate-item">
-          <p class="rate-q" id="rate-q-6">I value meaningful personal connections while still staying true to who I am.</p>
-          <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-6" aria-labelledby="rate-q-6">
-          <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
-        </div>
-        <div class="rate-item">
-          <p class="rate-q" id="rate-q-7">I see myself as part of a larger system, and I understand that my choices and actions can influence others.</p>
-          <input type="range" min="0" max="100" value="50" step="1" class="rate-slider" id="rate-7" aria-labelledby="rate-q-7">
-          <div class="rate-scale-labels"><span>Not me</span><span>Very much me</span></div>
-        </div>
+      <div class="rating-scale-key" aria-hidden="true">
+        <div class="key-item"><strong>1</strong><span>Not true</span></div>
+        <div class="key-item"><strong>2</strong></div>
+        <div class="key-item"><strong>3</strong></div>
+        <div class="key-item"><strong>4</strong><span>Unsure</span></div>
+        <div class="key-item"><strong>5</strong></div>
+        <div class="key-item"><strong>6</strong></div>
+        <div class="key-item"><strong>7</strong><span>Very true</span></div>
+      </div>
+
+      <div class="rating-table" id="rating-table" role="group" aria-label="Personal mastery self-rating statements">
+        <!-- 9 rows generated by JS: buildRatingRows() -->
       </div>
 
       <div class="taster-nav">
         <button class="taster-back-link" id="btn-taster-back-4" type="button">&larr; Back</button>
-        <button class="btn btn-navy" id="btn-taster-next-4" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="btn btn-navy" id="btn-taster-next-4" type="button" disabled>Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
     </div>
 
-    <!-- 5: REFLECT  --  reuses the laotzu-panel treatment: same reflective-pause moment -->
-    <div class="taster-card laotzu-panel" id="taster-card-5" role="group" aria-labelledby="taster-h5" style="border-radius:var(--radius);">
+    <!-- 5: YOUR PERSONAL MASTERY SNAPSHOT  --  subscale results + PDF download -->
+    <div class="taster-card" id="taster-card-5" role="group" aria-labelledby="taster-h5">
+      <p class="prompt-cat">Your results</p>
+      <h2 id="taster-h5" style="font-family:var(--font-ui);font-size:1.15rem;color:var(--navy);margin-bottom:0.5rem;">Your Personal Mastery Snapshot</h2>
+      <p class="snapshot-note">These scores are not a judgement, and there is no "good" or "bad" combination. They are a reflective snapshot across three areas of personal mastery, drawn directly from your own ratings, not an algorithm's assessment of you.</p>
+
+      <div class="snapshot-results" id="snapshot-results">
+        <!-- 3 subscale result cards generated by JS: renderSnapshot() -->
+      </div>
+
+      <button class="btn-snapshot-download" id="btn-download-report" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download my Personal Mastery Report (PDF)
+      </button>
+
+      <div class="taster-nav">
+        <button class="taster-back-link" id="btn-taster-back-5" type="button">&larr; Back</button>
+        <button class="btn btn-navy" id="btn-taster-next-5" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+
+    <!-- 6: REFLECT  --  reuses the laotzu-panel treatment: same reflective-pause moment -->
+    <div class="taster-card laotzu-panel" id="taster-card-6" role="group" aria-labelledby="taster-h6" style="border-radius:var(--radius);">
       <img class="taster-reflect-icon" src="/assets/personal-mastery-icon.png" alt="" aria-hidden="true" />
-      <p class="laotzu-quote" id="taster-h5">Start by becoming aware of yourself, your strengths and your weaknesses. Build on what makes you stronger, and let go of what holds you back.<br /><br />Focus on reality rather than wishful thinking. On the present and the future, rather than the past.</p>
+      <p class="laotzu-quote" id="taster-h6">Start by becoming aware of yourself, your strengths and your weaknesses. Build on what makes you stronger, and let go of what holds you back.<br /><br />Focus on reality rather than wishful thinking. On the present and the future, rather than the past.</p>
       <footer class="laotzu-attr">This is the beginning of your journey to personal mastery.</footer>
       <div class="taster-nav" style="width:100%;max-width:380px;">
-        <button class="taster-back-link" id="btn-taster-back-5" type="button" style="color:rgba(255,255,255,0.55);">&larr; Back</button>
-        <button class="btn btn-gold" id="btn-taster-next-5" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="taster-back-link" id="btn-taster-back-6" type="button">&larr; Back</button>
+        <button class="btn btn-gold" id="btn-taster-next-6" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
     </div>
 
-    <!-- 6: CONCLUSION -->
-    <div class="taster-card taster-conclude" id="taster-card-6" role="group" aria-labelledby="taster-h6">
-      <h2 id="taster-h6">The practice is simple. The impact can be powerful.</h2>
+    <!-- 7: CONCLUSION -->
+    <div class="taster-card taster-conclude" id="taster-card-7" role="group" aria-labelledby="taster-h7">
+      <h2 id="taster-h7">The practice is simple. The impact can be powerful.</h2>
       <p>Personal mastery is about learning to hold two things at once: a clear vision of what you want to create, and an honest view of where you are right now. The work begins in that space between vision and reality, and grows through purposeful action.</p>
       <p>Commit yourself to your own personal mastery.</p>
       <img class="taster-conclude-image" src="/assets/personal-mastery-own-your-mastery-image.png" alt="" aria-hidden="true" />
       <div class="taster-nav">
-        <button class="taster-back-link" id="btn-taster-back-6" type="button">&larr; Back</button>
+        <button class="taster-back-link" id="btn-taster-back-7" type="button">&larr; Back</button>
+        <button class="btn btn-navy" id="btn-taster-next-7" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+
+    <!-- 8: PAY IT FORWARD  --  the differentiator. Sits inside a .course-bridge
+         panel to give it the same visual weight as the Response-screen CTA,
+         reinforcing "this is a big deal" through a consistent visual language. -->
+    <div class="taster-card" id="taster-card-8" role="group" aria-labelledby="taster-h8">
+      <p class="prompt-cat">The Pay-It-Forward Promise</p>
+      <h2 id="taster-h8" style="font-family:var(--font-ui);font-size:1.15rem;color:var(--navy);margin-bottom:0.9rem;">Your growth doesn't stop with you.</h2>
+
+      <div class="course-bridge" style="margin-bottom:0;">
+        <p class="cb-eyebrow">What makes this different</p>
+        <p style="font-size:0.9rem;line-height:1.75;color:rgba(255,255,255,0.88);margin-bottom:1.4rem;">When you complete the course and earn your GIBS certificate, you will be invited to nominate one person you believe deserves the same experience. If they are approved, they receive it at no cost to them.</p>
+
+        <ol class="pif-steps" aria-label="How Pay-It-Forward works">
+          <li class="pif-step">
+            <span class="pif-num" aria-hidden="true">1</span>
+            <div class="pif-step-text"><strong>Complete the course</strong><span>Finish Personal Mastery within your access month.</span></div>
+          </li>
+          <li class="pif-step">
+            <span class="pif-num" aria-hidden="true">2</span>
+            <div class="pif-step-text"><strong>Earn your certificate</strong><span>Receive your GIBS Certificate of Completion and Digital Credential.</span></div>
+          </li>
+          <li class="pif-step">
+            <span class="pif-num" aria-hidden="true">3</span>
+            <div class="pif-step-text"><strong>Nominate someone</strong><span>Choose one person you believe would benefit from the same journey.</span></div>
+          </li>
+          <li class="pif-step pif-step-reward">
+            <span class="pif-num" aria-hidden="true">4</span>
+            <div class="pif-step-text"><strong>They apply, at no cost</strong><span>Subject to eligibility and approval, your nominee receives the course for free.</span></div>
+          </li>
+        </ol>
+      </div>
+
+      <p style="font-size:0.82rem;color:var(--muted);line-height:1.65;margin-top:1.1rem;">This is what makes Personal Mastery different. It is not just an opportunity for you, it is a chance to extend that same opportunity to someone else.</p>
+
+      <div class="taster-nav">
+        <button class="taster-back-link" id="btn-taster-back-8" type="button">&larr; Back</button>
         <button class="btn btn-gold" id="btn-taster-apply" type="button">Continue to application <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
     </div>
@@ -1589,140 +1546,57 @@
     </footer>
   </section>
 
-  <!-- SCREEN 5  --  APPLICATION FORM -->
+  <!-- SCREEN 5  --  TAKE ACTION -->
   <section class="screen" id="screen-apply" aria-labelledby="apply-heading">
     <div class="apply-topbar">
       <div>
-        <h2 id="apply-heading">One more step</h2>
-        <p>Complete your application for a sponsored seat. Takes about 2 minutes.</p>
+        <h2 id="apply-heading">Take Action</h2>
+        <p>Ready to move from intention to action? Here's what to know before you apply.</p>
       </div>
     </div>
 
     <div class="apply-body">
 
-      <!-- Personal details -->
+      <!-- What this involves (static recap, not a form) -->
       <div class="apply-card">
-        <h3>Your details</h3>
-        <div class="apply-grid">
-          <div class="field-group">
-            <label class="field-label" for="apply-firstname">First name <span style="color:#c0392b;" aria-hidden="true">*</span></label>
-            <input class="field-input" type="text" id="apply-firstname" autocomplete="given-name" aria-required="true" aria-describedby="err-apply-firstname" />
-            <span class="field-err" id="err-apply-firstname" role="alert"></span>
-          </div>
-          <div class="field-group">
-            <label class="field-label" for="apply-surname">Surname <span style="color:#c0392b;" aria-hidden="true">*</span></label>
-            <input class="field-input" type="text" id="apply-surname" autocomplete="family-name" aria-required="true" aria-describedby="err-apply-surname" />
-            <span class="field-err" id="err-apply-surname" role="alert"></span>
-          </div>
-          <div class="field-group">
-            <label class="field-label" for="apply-email">Email address <span style="color:#c0392b;" aria-hidden="true">*</span></label>
-            <input class="field-input" type="email" id="apply-email" autocomplete="email" aria-required="true" aria-describedby="err-apply-email" />
-            <span class="field-err" id="err-apply-email" role="alert"></span>
-          </div>
-          <div class="field-group">
-            <label class="field-label" for="apply-phone">Contact number <span style="color:#c0392b;" aria-hidden="true">*</span></label>
-            <input class="field-input" type="tel" id="apply-phone" autocomplete="tel" placeholder="e.g. +27 82 000 0000" aria-required="true" aria-describedby="err-apply-phone" />
-            <span class="field-err" id="err-apply-phone" role="alert"></span>
-          </div>
-        </div>
+        <h3>What this involves</h3>
+        <ul class="recap-list">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>You'll need to be <strong>18 years or older</strong> to apply.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>The course runs from <strong>12 October to 10 November 2026</strong>, giving you one month to complete it.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Plan to spend at least <strong>8 hours</strong> on the course content and assessments.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>You'll need a reliable internet connection and a suitable device (laptop or tablet).</span></li>
+        </ul>
       </div>
 
-      <!-- Commitment checkboxes -->
+      <!-- Your investment -->
       <div class="apply-card">
-        <h3>Your commitments</h3>
-        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Before you apply, please confirm that you will be able to participate fully. Sponsored seats are limited, so we want to make sure they are offered to applicants who are ready and able to complete the course.</p>
-        <div class="commit-list">
-
-          <div class="commit-item" onclick="this.querySelector('input').click()">
-            <input type="checkbox" id="commit-dates" aria-required="true" aria-describedby="err-commits" onclick="event.stopPropagation()" />
-            <label for="commit-dates" onclick="event.preventDefault()">
-              I commit to completing the course between <strong>1 October and 31 October 2026</strong>. I understand that access closes on 31 October and incomplete courses will not be certified.
-            </label>
-          </div>
-
-          <div class="commit-item" onclick="this.querySelector('input').click()">
-            <input type="checkbox" id="commit-hours" aria-required="true" onclick="event.stopPropagation()" />
-            <label for="commit-hours" onclick="event.preventDefault()">
-              I commit to spending at least <strong>8 hours</strong> during that month to complete the course content and assessments.
-            </label>
-          </div>
-
-          <div class="commit-item" onclick="this.querySelector('input').click()">
-            <input type="checkbox" id="commit-device" aria-required="true" onclick="event.stopPropagation()" />
-            <label for="commit-device" onclick="event.preventDefault()">
-              I confirm I have access to a <strong>reliable internet connection</strong> and a suitable device (laptop or tablet) to access the online learning platform.
-            </label>
-          </div>
-
-        </div>
-        <span class="field-err" id="err-commits" role="alert" style="display:block;margin-top:0.6rem;"></span>
+        <h3>Your investment</h3>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.65;margin-bottom:0.9rem;">Approved applicants receive a sponsored learning contribution toward the course fee.</p>
+        <p class="about-offer-price" style="color:var(--navy);text-align:left;margin-bottom:0.9rem;">Limited time offer: <strong style="color:var(--gold-text);">R4,432</strong></p>
+        <p style="font-size:0.76rem;color:var(--muted);line-height:1.6;">Payment grants access, and is required before the course can start. The sponsored contribution is non-transferable and cannot be exchanged for cash.</p>
       </div>
 
-      <!-- POPIA reminder -->
+      <!-- Pay-It-Forward recap -->
+      <div class="banner-image">
+        <img src="/assets/personal-mastery-payitforward.png" alt="Don't forget: Pay It Forward. When you complete the course and earn your GIBS certificate, you'll be invited to nominate one person for the same experience, at no cost to them. Your growth does not have to stop with you." />
+      </div>
+
+      <!-- Data note -->
       <div class="popia-block">
-        <p class="popia-lbl">Data use reminder</p>
-        <p class="popia-text">The information you provide will be used by GIBS Digital Education to process your application, contact you about the outcome, and administer course access if you are selected. We will not share your information with third parties outside this process. You consented to this when you began your story.</p>
+        <p class="popia-lbl">Before you apply</p>
+        <p class="popia-text">Applying will take you to the official GIBS application page to submit your details. Please review the privacy notice there before continuing.</p>
       </div>
 
-      <!-- Submit -->
-      <button class="btn btn-gold" id="btn-apply-submit" type="button" style="width:100%;font-size:1rem;padding:1rem 2rem;">
-        Submit my application
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <!-- Apply Now -->
+      <button class="btn btn-gold" id="btn-apply-now" type="button" style="width:100%;font-size:1rem;padding:1rem 2rem;">
+        Apply Now
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
       </button>
 
       <button class="btn-back" id="btn-back-apply" type="button" style="display:flex;margin:0.5rem auto 0;padding:0.75rem 1rem;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-        Back to my reflection
+        Back
       </button>
-
-    </div>
-  </section>
-
-  <!-- SCREEN 5b  --  APPLYING LOADING -->
-  <section class="screen" id="screen-loading-apply" aria-live="polite" aria-label="Submitting your application">
-    <div class="loading-ring" aria-hidden="true">
-      <img id="loading-apply-photo" src="" alt="" />
-      <svg id="loading-apply-svg" width="36" height="36" viewBox="0 0 48 48" fill="none" aria-hidden="true" style="color:rgba(255,255,255,0.2);">
-        <circle cx="24" cy="16" r="9" fill="currentColor"/>
-        <path d="M4 44c0-11 9-18 20-18s20 7 20 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-      </svg>
-    </div>
-    <p class="loading-text">Submitting your application&#8230;</p>
-  </section>
-
-  <!-- SCREEN 6  --  CONFIRMATION -->
-  <section class="screen" id="screen-confirm" aria-labelledby="confirm-heading">
-    <div class="confirm-body">
-
-      <div class="confirm-icon" aria-hidden="true">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-
-      <h2 class="confirm-heading" id="confirm-heading">Your application has been received</h2>
-      <p class="confirm-sub">Thank you for applying for a sponsored seat in the GIBS Personal Mastery: Leading from Within course. Your application has been received, and the GIBS Digital Education team will contact successful applicants directly.</p>
-
-      <div class="timeline-card" aria-label="What happens next">
-        <h3>What happens next</h3>
-        <div class="timeline-item"><span class="t-date">Now</span><span>Your application is with the GIBS team.</span></div>
-        <div class="timeline-item"><span class="t-date">16 Sept</span><span>Applications close. Eligible applicants are selected at random.</span></div>
-        <div class="timeline-item"><span class="t-date">Late Sept</span><span>Successful applicants contacted by email with course access instructions.</span></div>
-        <div class="timeline-item"><span class="t-date">1 Oct</span><span>Course access opens. You have the full month of October to complete it.</span></div>
-        <div class="timeline-item"><span class="t-date">On completion</span><span>Receive your GIBS Certificate of Completion and Digital Credential via Credly.</span></div>
-      </div>
-
-      <div class="share-card" role="region" aria-label="Share this experience">
-        <p><strong>Know someone who should be here?</strong><br />Share this experience with someone in your network who would benefit from it. The more people who discover Personal Mastery, the wider the ripple.</p>
-        <div class="share-btns">
-          <button class="btn-share btn-wa" id="btn-share-wa" type="button" aria-label="Share via WhatsApp">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.552 4.103 1.508 5.83L0 24l6.335-1.652C8.03 23.345 9.979 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.833 0-3.558-.487-5.053-1.336l-.362-.215-3.76.981.999-3.656-.235-.376A9.919 9.919 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-            Share via WhatsApp
-          </button>
-          <button class="btn-share btn-copy" id="btn-copy-link" type="button">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Copy link
-          </button>
-        </div>
-      </div>
 
     </div>
 
@@ -1731,6 +1605,7 @@
     </footer>
   </section>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
   'use strict';
 
@@ -1740,9 +1615,7 @@
     recognition: null,
     isRecording: false,
     firstName: '',
-    surname: '',
-    email: '',
-    phone: ''
+    surname: ''
   };
 
   // ── Utilities ────────────────────────────────────────────────────────
@@ -1808,16 +1681,6 @@
     if (rnh) rnh.textContent = state.firstName;
     // Apply screen
     document.querySelectorAll('.apply-name-slot').forEach(el => { el.textContent = state.firstName; });
-    // Confirm screen
-    const cn = document.getElementById('confirm-name');
-    if (cn) cn.textContent = state.firstName;
-    // Pre-fill apply form
-    const af = document.getElementById('apply-firstname');
-    const as = document.getElementById('apply-surname');
-    const ae = document.getElementById('apply-email');
-    if (af) af.value = state.firstName;
-    if (as) as.value = state.surname;
-    if (ae) ae.value = state.email;
   }
 
   // ── Screen 0 → Screen 1 ──────────────────────────────────────────────
@@ -1870,31 +1733,23 @@
   document.getElementById('btn-start-story').addEventListener('click', () => {
     const fn = document.getElementById('entry-firstname');
     const sn = document.getElementById('entry-surname');
-    const em = document.getElementById('entry-email');
-    const cp = document.getElementById('consent-popia-entry');
-    clearErrs('err-firstname','err-surname','err-email','err-popia-entry');
-    [fn, sn, em].forEach(el => setInvalid(el.id, false));
+    clearErrs('err-firstname','err-surname');
+    [fn, sn].forEach(el => setInvalid(el.id, false));
 
     let valid = true;
     if (!fn.value.trim()) { setErr('err-firstname','Please enter your first name.'); setInvalid('entry-firstname',true); valid = false; }
     if (!sn.value.trim()) { setErr('err-surname','Please enter your surname.'); setInvalid('entry-surname',true); valid = false; }
-    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim());
-    if (!emailOk) { setErr('err-email','Please enter a valid email address.'); setInvalid('entry-email',true); valid = false; }
-    if (!cp.checked) { setErr('err-popia-entry','You must consent to continue.'); valid = false; }
 
     if (!valid) {
       // Focus first error
       if (!fn.value.trim()) fn.focus();
-      else if (!sn.value.trim()) sn.focus();
-      else if (!emailOk) em.focus();
-      else cp.focus();
+      else sn.focus();
       return;
     }
 
     // Store to state
     state.firstName = fn.value.trim().split(' ')[0];
     state.surname = sn.value.trim();
-    state.email = em.value.trim();
 
     // Populate all name slots across screens
     populateNameSlots();
@@ -1936,7 +1791,7 @@
   function showLaoTzu() {
     const p = document.getElementById('laotzu-panel');
     p.classList.add('active');
-    announce('"You have power over your mind — not outside events. Realise this, and you will find strength." — Marcus Aurelius. Tap to continue.');
+    announce('"You have power over your mind, not outside events. Realise this, and you will find strength." Quote by Marcus Aurelius. Tap to continue.');
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let t = setTimeout(advanceToP2, reduced ? 0 : 4500);
     function once() { clearTimeout(t); p.removeEventListener('click', once); advanceToP2(); }
@@ -1949,7 +1804,14 @@
   }
 
   // ── Voice input ──────────────────────────────────────────────────────
+  // Guarded with voiceSetupDone: the mic-row elements live in the page
+  // permanently (screens are shown/hidden, never removed), so without
+  // this guard, revisiting the prompts screen would call setupVoice()
+  // again and append a second, third, etc. button into each row. This
+  // ensures exactly one mic button is ever created per prompt.
+  let voiceSetupDone = false;
   function setupVoice() {
+    if (voiceSetupDone) return;
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     const isLocal = ['localhost','127.0.0.1'].includes(location.hostname);
     if (!SR || isLocal) {
@@ -1957,6 +1819,7 @@
         const r = document.getElementById('mic-row-' + n);
         if (r) r.innerHTML = '<span class="mic-note">Voice input available on the live site.</span>';
       });
+      voiceSetupDone = true;
       return;
     }
     [1,2,3].forEach(n => {
@@ -1970,6 +1833,7 @@
       btn.addEventListener('click', () => toggleVoice(n, btn));
       row.appendChild(btn);
     });
+    voiceSetupDone = true;
   }
   function toggleVoice(n, btn) {
     if (state.isRecording) { if (state.recognition) state.recognition.stop(); return; }
@@ -1981,7 +1845,7 @@
       state.isRecording = true; state.recognition = rec;
       btn.classList.add('recording'); btn.setAttribute('aria-pressed','true');
       btn.setAttribute('aria-label','Stop voice input');
-      btn.querySelector('.mic-lbl').textContent = 'Recording — tap to stop';
+      btn.querySelector('.mic-lbl').textContent = 'Recording, tap to stop';
       announce('Voice input started. Speak now.');
     };
     rec.onresult = ev => {
@@ -2032,7 +1896,7 @@
     } catch (e) {
       clearTimeout(timeoutId);
       if (e.name === 'AbortError') {
-        showResponse(null, 'This is taking longer than expected. Your reflection wasn\u2019t lost \u2014 you can try sending it again.');
+        showResponse(null, 'This is taking longer than expected. Your reflection wasn\u2019t lost, you can try sending it again.');
       } else {
         showResponse(null, 'Could not connect. Please check your connection and try again.');
       }
@@ -2150,7 +2014,7 @@
       ctx.fillRect(60, yPos - 24, W - 120, 1);
     }
 
-    // Photo — if available, draw circle at bottom right
+    // Photo: if available, draw circle at bottom right
     if (state.photoDataUrl) {
       const img = new Image();
       img.onload = () => {
@@ -2192,14 +2056,16 @@
   // ── Response → Apply ─────────────────────────────────────────────────
   document.getElementById('btn-continue').addEventListener('click', goToTaster);
 
-  // ── Course taster stepper (6 nuggets) ────────────────────────────────
+  // ── Course taster stepper (8 nuggets) ────────────────────────────────
   const tasterTitles = [
     'Personal mastery',
     'Meet Dr Frank Magwegwe',
     'What changes for you',
     'Where do you see yourself?',
+    'Your Personal Mastery Snapshot',
     'Think for a moment',
-    'The practice is simple.'
+    'The practice is simple.',
+    'Pay it forward'
   ];
 
   function goToTaster() {
@@ -2212,8 +2078,8 @@
     document.querySelectorAll('.taster-card').forEach(el => el.classList.remove('active'));
   }
   function setTasterProgress(n) {
-    document.getElementById('prog-fill-taster').style.width = Math.round(n / 6 * 100) + '%';
-    document.getElementById('prog-label-taster').textContent = 'Step ' + n + ' of 6';
+    document.getElementById('prog-fill-taster').style.width = Math.round(n / 8 * 100) + '%';
+    document.getElementById('prog-label-taster').textContent = 'Step ' + n + ' of 8';
     const pw = document.getElementById('prog-fill-taster').closest('.prog-wrap');
     if (pw) pw.setAttribute('aria-valuenow', n);
   }
@@ -2222,171 +2088,333 @@
     document.getElementById('taster-card-' + n).classList.add('active');
     setTasterProgress(n);
     document.querySelector('#screen-taster .prompts-topbar')?.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    announce('Step ' + n + ' of 6: ' + tasterTitles[n - 1]);
+    announce('Step ' + n + ' of 8: ' + tasterTitles[n - 1]);
     if (n === 3) { triggerBenefitsReveal(); } else { resetBenefitsReveal(); }
+    if (n === 5) { renderSnapshot(); }
   }
-  for (let n = 1; n <= 5; n++) {
+  for (let n = 1; n <= 7; n++) {
     document.getElementById('btn-taster-next-' + n).addEventListener('click', () => goToTasterCard(n + 1));
   }
-  for (let n = 2; n <= 6; n++) {
+  for (let n = 2; n <= 8; n++) {
     document.getElementById('btn-taster-back-' + n).addEventListener('click', () => goToTasterCard(n - 1));
   }
   document.getElementById('btn-back-taster').addEventListener('click', () => showScreen('screen-response'));
   document.getElementById('btn-taster-apply').addEventListener('click', () => showScreen('screen-apply'));
 
-  // ── Taster card 3: benefits image tracks scroll position directly ──
-  // Colour when the image has been scrolled up into the top portion of
-  // the viewport, back to white if you scroll it back down — genuinely
-  // reversible, tied to scroll position rather than a one-off trigger.
-  let benefitsScrollActive = false;
-  let benefitsScrollTicking = false;
-
-  function updateBenefitsReveal() {
-    benefitsScrollTicking = false;
-    const target = document.getElementById('benefits-reveal');
-    if (!target) return;
-    const rect = target.getBoundingClientRect();
-    const viewportH = window.innerHeight || document.documentElement.clientHeight;
-    // Colour once the image's vertical centre has crossed above ~70% of
-    // the viewport height; reverts to white if scrolled back below that.
-    const elementMid = rect.top + rect.height / 2;
-    const shouldBeVisible = elementMid < viewportH * 0.7;
-    target.classList.toggle('is-visible', shouldBeVisible);
-  }
-
-  function onBenefitsScroll() {
-    if (benefitsScrollTicking) return;
-    benefitsScrollTicking = true;
-    requestAnimationFrame(updateBenefitsReveal);
-  }
+  // ── Taster card 3: benefits image auto-reveals from white to colour ──
+  // Two images stacked: a plain white-text base and a colour-text layer on
+  // top starting at opacity 0. 5 seconds after the card becomes active, the
+  // colour layer fades in over a 1.4s CSS transition. Resets (and re-arms)
+  // each time the learner leaves and returns to the card.
+  let benefitsRevealTimer = null;
 
   function resetBenefitsReveal() {
     const target = document.getElementById('benefits-reveal');
     if (target) target.classList.remove('is-visible');
-    if (benefitsScrollActive) {
-      document.removeEventListener('scroll', onBenefitsScroll, true);
-      window.removeEventListener('resize', onBenefitsScroll);
-      benefitsScrollActive = false;
-    }
+    if (benefitsRevealTimer) { clearTimeout(benefitsRevealTimer); benefitsRevealTimer = null; }
   }
 
   function triggerBenefitsReveal() {
     const target = document.getElementById('benefits-reveal');
     if (!target) return;
 
+    target.classList.remove('is-visible');
+    if (benefitsRevealTimer) clearTimeout(benefitsRevealTimer);
+
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) { target.classList.add('is-visible'); return; }
 
-    if (!benefitsScrollActive) {
-      // .taster-card has its own overflow-y: auto, so on many screens it
-      // scrolls internally rather than the window scrolling. A capturing
-      // listener on document catches scroll events from either — the
-      // window scrolling, or the card itself scrolling inside it.
-      document.addEventListener('scroll', onBenefitsScroll, { capture: true, passive: true });
-      window.addEventListener('resize', onBenefitsScroll, { passive: true });
-      benefitsScrollActive = true;
-    }
-    // Set the correct initial state immediately, in case the image is
-    // already within the trigger zone with nothing further to scroll.
-    updateBenefitsReveal();
+    benefitsRevealTimer = setTimeout(() => {
+      target.classList.add('is-visible');
+      benefitsRevealTimer = null;
+    }, 5000);
   }
 
-  // ── Taster card 4: one rating slider per trait, filled track shows progress ──
-  (function initRateSliders() {
-    const sliders = document.querySelectorAll('.rate-slider');
-    function paint(el) {
-      const pct = ((el.value - el.min) / (el.max - el.min)) * 100;
-      el.style.setProperty('--fill', pct + '%');
+  // ── Taster card 4: personal mastery self-rating scale ──────────────────
+  // 9 statements, 3 per subscale, 1-7 discrete rating each (matches the
+  // GIBS MIQ-style pattern). Subscales are drawn from the actual course
+  // modules: Self-Awareness, Purpose & Vision, Relationship Management.
+  const ratingStatements = [
+    { id: 'r1', subscale: 'awareness', text: 'I am aware of my own patterns, assumptions, and blind spots.' },
+    { id: 'r2', subscale: 'awareness', text: "I can honestly assess my current reality, even when it's uncomfortable." },
+    { id: 'r3', subscale: 'awareness', text: 'I understand how my beliefs and perceptions shape my decisions.' },
+    { id: 'r4', subscale: 'vision', text: 'I have a clear sense of purpose that guides my choices.' },
+    { id: 'r5', subscale: 'vision', text: 'I can hold a vision for my future while still being honest about where I am today.' },
+    { id: 'r6', subscale: 'vision', text: 'I use the gap between my current reality and my vision as motivation, not discouragement.' },
+    { id: 'r7', subscale: 'relationships', text: 'I build relationships based on trust, empathy, and honesty.' },
+    { id: 'r8', subscale: 'relationships', text: 'I stay true to who I am while remaining open to other perspectives.' },
+    { id: 'r9', subscale: 'relationships', text: 'I recognise that my choices and actions influence the people around me.' }
+  ];
+
+  const subscaleInfo = {
+    awareness: {
+      label: 'Self-Awareness',
+      bands: [
+        { max: 10, band: 'Emerging', text: 'Self-awareness is often the first thing that grows once you start paying attention to it. The Self-Awareness module in Personal Mastery is a natural next step.' },
+        { max: 16, band: 'Developing', text: "You're already noticing some of your own patterns and assumptions. The course builds on this with tools like the ladder of perception." },
+        { max: 21, band: 'Strong', text: "You have a solid grasp on your own patterns and current reality. Personal Mastery can help you put that awareness into more deliberate practice." }
+      ]
+    },
+    vision: {
+      label: 'Purpose & Vision',
+      bands: [
+        { max: 10, band: 'Emerging', text: "Purpose and vision can feel abstract until you have language and tools for them. The course's Purpose and Vision module works through exactly this." },
+        { max: 16, band: 'Developing', text: 'You have some sense of direction. The course introduces creative tension, using the gap between reality and vision as fuel rather than friction.' },
+        { max: 21, band: 'Strong', text: 'You hold a clear vision alongside an honest view of reality; that combination is what Senge calls creative tension, and it is a genuine strength.' }
+      ]
+    },
+    relationships: {
+      label: 'Relationship Management',
+      bands: [
+        { max: 10, band: 'Emerging', text: 'Relationship management is a learnable skill, not a fixed trait. The course covers communication, empathy, and trust-building in practical terms.' },
+        { max: 16, band: 'Developing', text: 'You have a foundation of trust and empathy to build on. The Relationship Management module adds tools for conflict and rapport-building.' },
+        { max: 21, band: 'Strong', text: 'You navigate relationships with both authenticity and openness, a strength the course helps you extend further into leadership contexts.' }
+      ]
     }
-    sliders.forEach(el => {
-      paint(el);
-      el.addEventListener('input', () => paint(el));
-    });
-  })();
+  };
 
-  // ── Application form validation + submit ─────────────────────────────
-  document.getElementById('btn-apply-submit').addEventListener('click', async () => {
-    const fn  = document.getElementById('apply-firstname');
-    const sn  = document.getElementById('apply-surname');
-    const em  = document.getElementById('apply-email');
-    const ph  = document.getElementById('apply-phone');
-    const c1  = document.getElementById('commit-dates');
-    const c2  = document.getElementById('commit-hours');
-    const c3  = document.getElementById('commit-device');
+  function buildRatingRows() {
+    const table = document.getElementById('rating-table');
+    if (!table) return;
+    table.innerHTML = '';
+    ratingStatements.forEach(stmt => {
+      const row = document.createElement('div');
+      row.className = 'rating-row';
 
-    clearErrs('err-apply-firstname','err-apply-surname','err-apply-email','err-apply-phone','err-commits');
-    [fn,sn,em,ph].forEach(el => setInvalid(el.id, false));
+      const q = document.createElement('p');
+      q.className = 'rate-q';
+      q.id = 'rate-q-' + stmt.id;
+      q.textContent = stmt.text;
+      row.appendChild(q);
 
-    let valid = true;
-    if (!fn.value.trim())  { setErr('err-apply-firstname','Required.'); setInvalid('apply-firstname',true); valid = false; }
-    if (!sn.value.trim())  { setErr('err-apply-surname','Required.'); setInvalid('apply-surname',true); valid = false; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) { setErr('err-apply-email','Please enter a valid email address.'); setInvalid('apply-email',true); valid = false; }
-    if (!ph.value.trim())  { setErr('err-apply-phone','Please enter a contact number.'); setInvalid('apply-phone',true); valid = false; }
-    if (!c1.checked || !c2.checked || !c3.checked) { setErr('err-commits','Please tick all three commitments to continue.'); valid = false; }
+      const options = document.createElement('div');
+      options.className = 'rating-options';
+      options.setAttribute('role', 'radiogroup');
+      options.setAttribute('aria-labelledby', 'rate-q-' + stmt.id);
 
-    if (!valid) { announce('Please correct the errors in the form before submitting.'); return; }
-
-    // Update state with any edits made in the apply form
-    state.firstName = fn.value.trim().split(' ')[0];
-    state.surname   = sn.value.trim();
-    state.email     = em.value.trim();
-    state.phone     = ph.value.trim();
-
-    // Update confirm screen name
-    const cn = document.getElementById('confirm-name');
-    if (cn) cn.textContent = state.firstName;
-
-    showScreen('screen-loading-apply');
-    announce('Submitting your application. Please wait.');
-
-    try {
-      const res = await fetch('/.netlify/functions/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          firstName: state.firstName,
-          surname:   state.surname,
-          email:     state.email,
-          phone:     state.phone,
-          commitDates:  c1.checked,
-          commitHours:  c2.checked,
-          commitDevice: c3.checked,
-          marketingOptIn: document.getElementById('consent-marketing-entry')?.checked || false
-        })
-      });
-      const data = await res.json();
-      if (!res.ok || data.error) {
-        showScreen('screen-apply');
-        setErr('err-commits', data.error || 'Submission failed. Please check your connection and try again.');
-        announce('Submission failed. Please try again.');
-      } else {
-        showScreen('screen-confirm');
-        announce('Application submitted successfully, ' + state.firstName + '. We\'ll be in touch.');
+      for (let v = 1; v <= 7; v++) {
+        const label = document.createElement('label');
+        const input = document.createElement('input');
+        const span = document.createElement('span');
+        input.type = 'radio';
+        input.name = 'rating-' + stmt.id;
+        input.value = v;
+        input.setAttribute('aria-label', stmt.text + ' rating ' + v + ' of 7');
+        span.textContent = v;
+        input.addEventListener('change', updateRatingCompletion);
+        label.appendChild(input);
+        label.appendChild(span);
+        options.appendChild(label);
       }
-    } catch(e) {
-      showScreen('screen-apply');
-      setErr('err-commits', 'Could not connect. Please check your connection and try again.');
-      announce('Could not connect. Please try again.');
-    }
-  });
-
-  // ── Share buttons ────────────────────────────────────────────────────
-  const CAMPAIGN_URL = 'https://gibs-personal-mastery.netlify.app';
-  const WA_MSG = encodeURIComponent('I just completed a reflection with GIBS Digital Education on Personal Mastery: Leading from Within. There are limited free sponsored seats available — worth exploring. ' + CAMPAIGN_URL + ' #GIBSPersonalMastery #LeadFromWithin');
-
-  document.getElementById('btn-share-wa').addEventListener('click', () => {
-    window.open('https://wa.me/?text=' + WA_MSG, '_blank', 'noopener,noreferrer');
-  });
-  document.getElementById('btn-copy-link').addEventListener('click', () => {
-    navigator.clipboard.writeText(CAMPAIGN_URL).then(() => {
-      const btn = document.getElementById('btn-copy-link');
-      const orig = btn.innerHTML;
-      btn.textContent = 'Copied!';
-      setTimeout(() => { btn.innerHTML = orig; }, 2000);
-      announce('Link copied to clipboard.');
-    }).catch(() => {
-      announce('Could not copy. Please copy this link manually: ' + CAMPAIGN_URL);
+      row.appendChild(options);
+      table.appendChild(row);
     });
+  }
+  function updateRatingCompletion() {
+    const allAnswered = ratingStatements.every(stmt =>
+      document.querySelector('input[name="rating-' + stmt.id + '"]:checked')
+    );
+    const nextBtn = document.getElementById('btn-taster-next-4');
+    if (nextBtn) nextBtn.disabled = !allAnswered;
+  }
+  function computeSubscaleScores() {
+    const totals = { awareness: 0, vision: 0, relationships: 0 };
+    ratingStatements.forEach(stmt => {
+      const checked = document.querySelector('input[name="rating-' + stmt.id + '"]:checked');
+      if (checked) totals[stmt.subscale] += Number(checked.value);
+    });
+    return totals;
+  }
+  function bandFor(subscaleKey, score) {
+    const bands = subscaleInfo[subscaleKey].bands;
+    for (const b of bands) { if (score <= b.max) return b; }
+    return bands[bands.length - 1];
+  }
+  function renderSnapshot() {
+    const totals = computeSubscaleScores();
+    state.subscaleScores = totals;
+    const container = document.getElementById('snapshot-results');
+    if (!container) return;
+    container.innerHTML = '';
+    ['awareness', 'vision', 'relationships'].forEach(key => {
+      const score = totals[key];
+      const info = subscaleInfo[key];
+      const band = bandFor(key, score);
+      const card = document.createElement('div');
+      card.className = 'snapshot-card';
+      card.innerHTML =
+        '<p class="sc-label">' + info.label + '</p>' +
+        '<p class="sc-score">' + score + ' / 21</p>' +
+        '<span class="sc-band">' + band.band + '</span>' +
+        '<p class="sc-text">' + band.text + '</p>';
+      container.appendChild(card);
+    });
+  }
+  buildRatingRows();
+
+  // ── Download My Personal Mastery Report (real PDF via jsPDF) ──────────
+  function cropPhotoToSquare(dataUrl) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const side = Math.min(img.width, img.height);
+        const sx = (img.width - side) / 2;
+        const sy = (img.height - side) / 2;
+        const canvas = document.createElement('canvas');
+        canvas.width = 200; canvas.height = 200;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, sx, sy, side, side, 0, 0, 200, 200);
+        resolve(canvas.toDataURL('image/png'));
+      };
+      img.onerror = () => resolve(null);
+      img.src = dataUrl;
+    });
+  }
+
+  async function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+    const pageW = doc.internal.pageSize.getWidth();
+    const margin = 48;
+    let y = 0;
+
+    const navy = [0, 44, 119];
+    const gold = [228, 160, 36];
+    const ink = [28, 28, 30];
+    const muted = [110, 110, 115];
+
+    // Banner
+    doc.setFillColor(navy[0], navy[1], navy[2]);
+    doc.rect(0, 0, pageW, 100, 'F');
+    doc.setTextColor(gold[0], gold[1], gold[2]);
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(9);
+    doc.text('PERSONAL MASTERY: LEADING FROM WITHIN', margin, 34);
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(20);
+    doc.text('Your Personal Mastery Report', margin, 60);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
+    doc.setTextColor(230, 230, 230);
+    const fullName = (state.firstName + ' ' + state.surname).trim() || 'You';
+    const today = new Date().toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' });
+    doc.text('Prepared for ' + fullName + '  \u00b7  ' + today, margin, 80);
+
+    // Photo, if the person uploaded one -- square-cropped so it isn't distorted
+    if (state.photoDataUrl) {
+      try {
+        const squareDataUrl = await cropPhotoToSquare(state.photoDataUrl);
+        if (squareDataUrl) {
+          const photoSize = 64;
+          const photoX = pageW - margin - photoSize;
+          const photoY = 18;
+          doc.addImage(squareDataUrl, 'PNG', photoX, photoY, photoSize, photoSize);
+          doc.setDrawColor(255, 255, 255);
+          doc.setLineWidth(2);
+          doc.rect(photoX, photoY, photoSize, photoSize);
+        }
+      } catch (e) {
+        // If the photo can't be processed for any reason, skip it rather than
+        // breaking the whole report -- the report is still useful without it.
+      }
+    }
+
+    y = 130;
+
+    function heading(text) {
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(13);
+      doc.setTextColor(navy[0], navy[1], navy[2]);
+      doc.text(text, margin, y);
+      y += 18;
+    }
+    function paragraph(text, opts) {
+      opts = opts || {};
+      doc.setFont(opts.italic ? 'times' : 'helvetica', opts.italic ? 'italic' : 'normal');
+      doc.setFontSize(opts.size || 10.5);
+      doc.setTextColor.apply(doc, opts.color || ink);
+      const lines = doc.splitTextToSize(text, pageW - margin * 2);
+      lines.forEach(line => {
+        if (y > 780) { doc.addPage(); y = 48; }
+        doc.text(line, margin, y);
+        y += (opts.size || 10.5) * 1.45;
+      });
+      y += 8;
+    }
+    function ensureSpace(needed) {
+      if (y + needed > 800) { doc.addPage(); y = 48; }
+    }
+
+    // Reflection Q&A
+    heading('Your reflection, in your own words');
+    const qa = [
+      ['Your Story', 'What has shaped you into who you are right now?', document.getElementById('textarea-1').value.trim()],
+      ['Your Vision', 'What would you create if you gave yourself full permission?', document.getElementById('textarea-2').value.trim()],
+      ['Your Next Step', 'What could kickstart your path to becoming future you?', document.getElementById('textarea-3').value.trim()]
+    ];
+    qa.forEach(([cat, q, a]) => {
+      ensureSpace(50);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(9.5);
+      doc.setTextColor(138, 95, 18);
+      doc.text(cat.toUpperCase() + ': ' + q, margin, y);
+      y += 14;
+      paragraph(a || '(not answered)', { italic: true });
+    });
+
+    // AI reflection note
+    const aiCard = document.querySelector('#response-slot .ai-response-card');
+    const aiText = aiCard ? aiCard.textContent.trim() : '';
+    if (aiText) {
+      ensureSpace(40);
+      heading('A note from the version of you who already knows');
+      paragraph(aiText, { italic: true });
+    }
+
+    // Personal Mastery Snapshot
+    ensureSpace(40);
+    heading('Your Personal Mastery Snapshot');
+    paragraph('These scores are not a judgement, and there is no "good" or "bad" combination. They are a reflective snapshot across three areas of personal mastery, drawn directly from your own ratings.', { size: 9.5, color: muted });
+
+    ['awareness', 'vision', 'relationships'].forEach(key => {
+      const score = state.subscaleScores ? state.subscaleScores[key] : null;
+      if (score === null || score === undefined) return;
+      const info = subscaleInfo[key];
+      const band = bandFor(key, score);
+      ensureSpace(60);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(11.5);
+      doc.setTextColor(navy[0], navy[1], navy[2]);
+      doc.text(info.label + ':  ' + score + ' / 21  (' + band.band + ')', margin, y);
+      y += 16;
+      paragraph(band.text, { size: 9.5 });
+    });
+
+    // Footer disclaimer
+    ensureSpace(50);
+    doc.setDrawColor(220, 220, 220);
+    doc.line(margin, y, pageW - margin, y);
+    y += 16;
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5);
+    doc.setTextColor(muted[0], muted[1], muted[2]);
+    doc.text('This report is a self-reflection tool intended to support your personal growth. It is not a psychological assessment or clinical evaluation.', margin, y, { maxWidth: pageW - margin * 2 });
+    y += 24;
+    doc.text('GIBS Personal Mastery: Leading from Within \u00b7 Gordon Institute of Business Science, University of Pretoria', margin, y);
+
+    doc.save('personal-mastery-report.pdf');
+  }
+
+  document.getElementById('btn-download-report').addEventListener('click', () => {
+    announce('Preparing your Personal Mastery report for download.');
+    generatePDF();
+  });
+
+
+  // ── Apply Now: links out to the official GIBS application page ────────
+  // TODO: replace with the live application page URL once Asogaran provides it.
+  const APPLICATION_FORM_URL = '';
+
+  document.getElementById('btn-apply-now').addEventListener('click', () => {
+    if (!APPLICATION_FORM_URL) {
+      announce('The application link is being finalised. Please check back shortly.');
+      return;
+    }
+    window.location.href = APPLICATION_FORM_URL;
   });
 
   // ── Back buttons ─────────────────────────────────────────────────────
@@ -2399,8 +2427,8 @@
   });
   document.getElementById('btn-back-apply').addEventListener('click', () => {
     hideTasterCards();
-    document.getElementById('taster-card-6').classList.add('active');
-    setTasterProgress(6);
+    document.getElementById('taster-card-8').classList.add('active');
+    setTasterProgress(8);
     showScreen('screen-taster');
   });
 
