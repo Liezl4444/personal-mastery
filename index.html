@@ -640,6 +640,7 @@
     #screen-taster { background: var(--stone-100); }
 
     .taster-card { display: none; flex: 1; flex-direction: column; padding: 1.5rem; max-width: 640px; width: 100%; margin: 0 auto; overflow-y: auto; }
+    .taster-card > p { margin-bottom: 1rem; line-height: 1.65; }
     .taster-card.active { display: flex; }
 
     .taster-hero-image {
@@ -657,10 +658,7 @@
     .taster-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
     /* Card 2 -- welcome video companion: photo, nameplate, short bio */
-    .faculty-intro {
-      display: flex; flex-direction: column; align-items: center; text-align: center;
-      margin-bottom: 1.1rem;
-    }
+    .faculty-intro { margin-bottom: 1.1rem; }
     .faculty-photo-frame { position: relative; width: 148px; margin: 0 auto 1.6rem; }
     .faculty-photo-frame img {
       width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block;
@@ -674,7 +672,7 @@
       padding: 0.4rem 0.9rem; border-radius: var(--radius-full); white-space: nowrap;
       box-shadow: var(--shadow-sm);
     }
-    .faculty-bio { font-size: 0.84rem; color: var(--ink-mid); line-height: 1.65; max-width: 46ch; }
+    .faculty-bio { font-size: 0.84rem; color: var(--ink-mid); line-height: 1.65; text-align: left; }
 
     .taster-learn-more {
       display: inline-flex; align-items: center; gap: 0.4rem;
@@ -686,13 +684,15 @@
 
     .taster-nav { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: auto; padding-top: 1.25rem; }
     .taster-back-link {
-      background: none; border: none; color: var(--muted);
-      font-family: var(--font-ui); font-size: 0.82rem; font-weight: 500;
-      cursor: pointer; padding: 0.6rem 0.4rem; min-height: 44px;
-      text-decoration: underline; text-underline-offset: 3px;
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--white); border: 1.5px solid var(--stone-300); color: var(--ink-mid);
+      font-family: var(--font-ui); font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; padding: 0.6rem 1rem; min-height: 44px;
+      border-radius: 999px; box-shadow: var(--shadow-sm);
+      transition: border-color var(--transition), color var(--transition), background var(--transition);
     }
-    .taster-back-link:hover { color: var(--ink); }
-    .taster-back-link:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
+    .taster-back-link:hover { border-color: var(--teal); color: var(--teal); }
+    .taster-back-link:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
     .taster-nav:first-child { justify-content: flex-end; margin-top: 0.5rem; }
 
     #taster-card-6.laotzu-panel { padding: 3.5rem 2rem; align-items: center; }
