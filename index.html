@@ -525,28 +525,12 @@
     }
     .proto-body:last-child { margin-bottom: 0.75rem; }
 
-    .prompt-quote {
-      background: rgba(0,44,119,0.05);
-      border-left: 3px solid var(--gold);
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      padding: 0.75rem 1rem;
-      margin-bottom: 1.1rem;
+    .prompt-quote-image {
+      width: 100%; margin: 1.1rem 0 1.4rem;
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow-sm);
     }
-    .prompt-quote p {
-      font-family: var(--font-serif);
-      font-size: clamp(0.82rem, 2vw, 0.92rem);
-      font-style: italic;
-      color: var(--navy);
-      line-height: 1.6;
-      margin-bottom: 0.25rem;
-    }
-    .prompt-quote footer {
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.07em;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
+    .prompt-quote-image img { display: block; width: 100%; height: auto; }
 
     .reflection-summary {
       background: var(--white);
@@ -1216,14 +1200,13 @@
     </div>
 
     <div class="prompt-card active" id="prompt-card-1" role="group" aria-labelledby="p-label-1">
-      <blockquote class="prompt-quote">
-        <p>&#8220;No man is free who is not master of himself.&#8221;</p>
-        <footer>Epictetus</footer>
-      </blockquote>
       <p class="prompt-cat">Your Story</p>
       <label for="textarea-1" id="p-label-1">Look at you in that photo. What has it taken for you to get here? What are two or three moments (the hard ones, the quiet ones) that have shaped you into who you are right now?</label>
       <div class="mic-row" id="mic-row-1"></div>
       <textarea class="prompt-textarea" id="textarea-1" rows="6" placeholder="Write the first thing that comes to mind. There is no wrong answer." aria-required="true"></textarea>
+      <div class="prompt-quote-image">
+        <img src="/assets/personal-mastery-quote-1.png" alt="Quote: No man is free who is not master of himself. Epictetus." />
+      </div>
       <button class="btn btn-navy" id="btn-next-1" type="button" disabled>Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
     </div>
 
@@ -1237,14 +1220,13 @@
     </div>
 
     <div class="prompt-card" id="prompt-card-2" role="group" aria-labelledby="p-label-2">
-      <blockquote class="prompt-quote">
-        <p>&#8220;It is not how you compare to others that is important, but rather how you compare to who you were yesterday.&#8221;</p>
-        <footer>Daisaku Ikeda</footer>
-      </blockquote>
       <p class="prompt-cat">Your Vision</p>
       <label for="textarea-2" id="p-label-2">If you gave yourself full permission (if you approached your own life like a work of art), what would you create? What is your future dream for you?</label>
       <div class="mic-row" id="mic-row-2"></div>
       <textarea class="prompt-textarea" id="textarea-2" rows="6" placeholder="Trust your first response. Speak from what you feel, not what sounds right." aria-required="true"></textarea>
+      <div class="prompt-quote-image">
+        <img src="/assets/personal-mastery-quote-2.png" alt="Quote: It is not how you compare to others that is important, but rather how you compare to who you were yesterday. Daisaku Ikeda." />
+      </div>
       <button class="btn btn-navy" id="btn-next-2" type="button" disabled>Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
     </div>
 
@@ -1253,6 +1235,9 @@
       <label for="textarea-3" id="p-label-3">What is the gap between where you are now and where you want to be? Be honest: share two or three things that could kickstart your path to becoming future you, starting today.</label>
       <div class="mic-row" id="mic-row-3"></div>
       <textarea class="prompt-textarea" id="textarea-3" rows="6" placeholder="Take your time. This is the most important question." aria-required="true"></textarea>
+      <div class="prompt-quote-image">
+        <img src="/assets/personal-mastery-quote-3.png" alt="Quote: Personal mastery is the discipline of continually clarifying and deepening our personal vision. Peter Senge." />
+      </div>
       <button class="btn btn-gold" id="btn-submit" type="button" disabled>See my reflection <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
     </div>
   </section>
