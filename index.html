@@ -18,6 +18,7 @@
       --teal:         #007378;
       --gold:         #E4A024;
       --gold-mid:     #c98d1a;
+      --gold-text:    #8a5f12;   /* WCAG AA-compliant gold for small text/labels on light backgrounds (5.7:1 on white); --gold-mid fails at 2.87:1 so is decorative-only */
       --gold-light:   #f0bc55;
       --gold-pale:    #fef6e4;
       --gold-border:  rgba(228,160,36,0.28);
@@ -366,7 +367,7 @@
 
     .prompt-cat {
       font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--gold-mid); margin-bottom: 0.45rem;
+      text-transform: uppercase; color: var(--gold-text); margin-bottom: 0.45rem;
     }
     .prompt-card label {
       font-family: var(--font-ui); font-size: clamp(1rem, 2.8vw, 1.15rem);
@@ -531,6 +532,11 @@
       box-shadow: var(--shadow-sm);
     }
     .prompt-quote-image img { display: block; width: 100%; height: auto; }
+    .banner-image {
+      width: 100%; border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .banner-image img { display: block; width: 100%; height: auto; }
 
     .reflection-summary {
       background: var(--white);
@@ -568,7 +574,7 @@
     .summary-answer:last-child { border-bottom: none; padding-bottom: 0; }
     .summary-answer .s-cat {
       font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--gold-mid); margin-bottom: 0.35rem;
+      text-transform: uppercase; color: var(--gold-text); margin-bottom: 0.35rem;
     }
     .summary-answer .s-q {
       font-size: 0.72rem; font-weight: 600; color: var(--navy);
@@ -593,7 +599,7 @@
     }
     .ai-label-row {
       font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--gold-mid);
+      text-transform: uppercase; color: var(--gold-text);
       margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem;
     }
 
@@ -752,7 +758,7 @@
       background: var(--white); border: 1px solid var(--stone-300); border-left: 4px solid var(--navy);
       border-radius: var(--radius-sm); padding: 1rem 1.1rem; box-shadow: var(--shadow-sm);
     }
-    .snapshot-card .sc-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-mid); margin-bottom: 0.35rem; }
+    .snapshot-card .sc-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-text); margin-bottom: 0.35rem; }
     .snapshot-card .sc-score { font-family: var(--font-ui); font-weight: 800; font-size: 1.5rem; color: var(--navy); margin-bottom: 0.35rem; }
     .snapshot-card .sc-band { display: inline-block; font-size: 0.72rem; font-weight: 600; color: var(--teal); background: rgba(0,115,120,0.08); padding: 0.15rem 0.6rem; border-radius: var(--radius-full); margin-bottom: 0.5rem; }
     .snapshot-card .sc-text { font-size: 0.82rem; color: var(--ink-mid); line-height: 1.6; }
@@ -767,7 +773,7 @@
     .btn-snapshot-download:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(228,160,36,0.35); }
     .btn-snapshot-download:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    .taster-reflect-icon { width: 150px; height: auto; margin-bottom: 1.5rem; }
+    .taster-reflect-icon { width: 230px; height: auto; margin-bottom: 1.5rem; }
 
     .taster-conclude-image {
       width: 100%; height: auto; border-radius: var(--radius);
@@ -860,6 +866,7 @@
       font-size: 0.84rem; color: var(--ink-mid); line-height: 1.55;
     }
     .recap-list li svg { flex-shrink: 0; margin-top: 0.15rem; color: var(--teal); }
+    .recap-list li span { flex: 1; min-width: 0; text-align: left; }
     .recap-list li strong { color: var(--navy); }
 
 
@@ -1476,7 +1483,7 @@
       <p class="laotzu-quote" id="taster-h6">Start by becoming aware of yourself, your strengths and your weaknesses. Build on what makes you stronger, and let go of what holds you back.<br /><br />Focus on reality rather than wishful thinking. On the present and the future, rather than the past.</p>
       <footer class="laotzu-attr">This is the beginning of your journey to personal mastery.</footer>
       <div class="taster-nav" style="width:100%;max-width:380px;">
-        <button class="taster-back-link" id="btn-taster-back-6" type="button" style="color:rgba(255,255,255,0.55);">&larr; Back</button>
+        <button class="taster-back-link" id="btn-taster-back-6" type="button">&larr; Back</button>
         <button class="btn btn-gold" id="btn-taster-next-6" type="button">Continue <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
     </div>
@@ -1552,10 +1559,10 @@
       <div class="apply-card">
         <h3>What this involves</h3>
         <ul class="recap-list">
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>You'll need to be <strong>18 years or older</strong> to apply.</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>The course runs from <strong>12 October to 10 November 2026</strong>, giving you one month to complete it.</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Plan to spend at least <strong>8 hours</strong> on the course content and assessments.</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>You'll need a reliable internet connection and a suitable device (laptop or tablet).</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>You'll need to be <strong>18 years or older</strong> to apply.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>The course runs from <strong>12 October to 10 November 2026</strong>, giving you one month to complete it.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Plan to spend at least <strong>8 hours</strong> on the course content and assessments.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>You'll need a reliable internet connection and a suitable device (laptop or tablet).</span></li>
         </ul>
       </div>
 
@@ -1563,14 +1570,13 @@
       <div class="apply-card">
         <h3>Your investment</h3>
         <p style="font-size:0.82rem;color:var(--muted);line-height:1.65;margin-bottom:0.9rem;">Approved applicants receive a sponsored learning contribution toward the course fee.</p>
-        <p class="about-offer-price" style="color:var(--navy);text-align:left;margin-bottom:0.9rem;">Limited time offer: <strong style="color:var(--gold-mid);">R4,432</strong></p>
+        <p class="about-offer-price" style="color:var(--navy);text-align:left;margin-bottom:0.9rem;">Limited time offer: <strong style="color:var(--gold-text);">R4,432</strong></p>
         <p style="font-size:0.76rem;color:var(--muted);line-height:1.6;">Payment grants access, and is required before the course can start. The sponsored contribution is non-transferable and cannot be exchanged for cash.</p>
       </div>
 
       <!-- Pay-It-Forward recap -->
-      <div class="apply-card" style="border-left:4px solid var(--gold);">
-        <h3>Don't forget: Pay It Forward</h3>
-        <p style="font-size:0.84rem;color:var(--ink-mid);line-height:1.65;">When you complete the course and earn your GIBS certificate, you'll be invited to nominate one person for the same experience, at no cost to them. Your growth does not have to stop with you.</p>
+      <div class="banner-image">
+        <img src="/assets/personal-mastery-payitforward.png" alt="Don't forget: Pay It Forward. When you complete the course and earn your GIBS certificate, you'll be invited to nominate one person for the same experience, at no cost to them. Your growth does not have to stop with you." />
       </div>
 
       <!-- Data note -->
@@ -1888,7 +1894,7 @@
     } catch (e) {
       clearTimeout(timeoutId);
       if (e.name === 'AbortError') {
-        showResponse(null, 'This is taking longer than expected. Your reflection wasn\u2019t lost \u2014 you can try sending it again.');
+        showResponse(null, 'This is taking longer than expected. Your reflection wasn\u2019t lost, you can try sending it again.');
       } else {
         showResponse(null, 'Could not connect. Please check your connection and try again.');
       }
@@ -2244,7 +2250,25 @@
   buildRatingRows();
 
   // ── Download My Personal Mastery Report (real PDF via jsPDF) ──────────
-  function generatePDF() {
+  function cropPhotoToSquare(dataUrl) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const side = Math.min(img.width, img.height);
+        const sx = (img.width - side) / 2;
+        const sy = (img.height - side) / 2;
+        const canvas = document.createElement('canvas');
+        canvas.width = 200; canvas.height = 200;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, sx, sy, side, side, 0, 0, 200, 200);
+        resolve(canvas.toDataURL('image/png'));
+      };
+      img.onerror = () => resolve(null);
+      img.src = dataUrl;
+    });
+  }
+
+  async function generatePDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ unit: 'pt', format: 'a4' });
     const pageW = doc.internal.pageSize.getWidth();
@@ -2270,6 +2294,26 @@
     const fullName = (state.firstName + ' ' + state.surname).trim() || 'You';
     const today = new Date().toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' });
     doc.text('Prepared for ' + fullName + '  \u00b7  ' + today, margin, 80);
+
+    // Photo, if the person uploaded one -- square-cropped so it isn't distorted
+    if (state.photoDataUrl) {
+      try {
+        const squareDataUrl = await cropPhotoToSquare(state.photoDataUrl);
+        if (squareDataUrl) {
+          const photoSize = 64;
+          const photoX = pageW - margin - photoSize;
+          const photoY = 18;
+          doc.addImage(squareDataUrl, 'PNG', photoX, photoY, photoSize, photoSize);
+          doc.setDrawColor(255, 255, 255);
+          doc.setLineWidth(2);
+          doc.rect(photoX, photoY, photoSize, photoSize);
+        }
+      } catch (e) {
+        // If the photo can't be processed for any reason, skip it rather than
+        // breaking the whole report -- the report is still useful without it.
+      }
+    }
+
     y = 130;
 
     function heading(text) {
@@ -2305,8 +2349,8 @@
     qa.forEach(([cat, q, a]) => {
       ensureSpace(50);
       doc.setFont('helvetica', 'bold'); doc.setFontSize(9.5);
-      doc.setTextColor(200, 140, 20);
-      doc.text(cat.toUpperCase() + ' \u2014 ' + q, margin, y);
+      doc.setTextColor(138, 95, 18);
+      doc.text(cat.toUpperCase() + ': ' + q, margin, y);
       y += 14;
       paragraph(a || '(not answered)', { italic: true });
     });
@@ -2333,7 +2377,7 @@
       ensureSpace(60);
       doc.setFont('helvetica', 'bold'); doc.setFontSize(11.5);
       doc.setTextColor(navy[0], navy[1], navy[2]);
-      doc.text(info.label + '  \u2014  ' + score + ' / 21  (' + band.band + ')', margin, y);
+      doc.text(info.label + ':  ' + score + ' / 21  (' + band.band + ')', margin, y);
       y += 16;
       paragraph(band.text, { size: 9.5 });
     });
