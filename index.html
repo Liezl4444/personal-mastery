@@ -1633,6 +1633,9 @@
     </div>
 
     <div class="apply-body">
+      <div style="text-align:center;">
+        <button class="map-return-link" id="btn-apply-to-reflect" type="button" style="color:var(--teal);">Prefer to reflect first? Explore Reflect and Experience</button>
+      </div>
 
       <!-- What this involves (static recap, not a form) -->
       <div class="apply-card">
@@ -1692,7 +1695,8 @@
     recognition: null,
     isRecording: false,
     firstName: '',
-    surname: ''
+    surname: '',
+    applyOrigin: null
   };
 
   // ── Utilities ────────────────────────────────────────────────────────
@@ -1766,10 +1770,18 @@
   document.getElementById('btn-about-begin').addEventListener('click', () => showScreen('screen-map'));
   document.getElementById('btn-back-map').addEventListener('click', () => showScreen('screen-about'));
   document.getElementById('path-reflect').addEventListener('click', () => showScreen('screen-photo'));
-  document.getElementById('path-action').addEventListener('click', () => showScreen('screen-apply'));
+  document.getElementById('path-action').addEventListener('click', () => {
+    state.applyOrigin = 'screen-map';
+    showScreen('screen-apply');
+  });
+  document.getElementById('btn-apply-to-reflect').addEventListener('click', () => showScreen('screen-photo'));
 
   // ── Persistent Take Action shortcut (visible in the header on every screen) ──
-  document.getElementById('btn-header-hub').addEventListener('click', () => showScreen('screen-apply'));
+  document.getElementById('btn-header-hub').addEventListener('click', () => {
+    const current = document.querySelector('.screen.active');
+    if (current && current.id !== 'screen-apply') state.applyOrigin = current.id;
+    showScreen('screen-apply');
+  });
 
   // ── Entry screen: testimonial slider ────────────────────────────────
   (function initTestimonials() {
@@ -2188,7 +2200,10 @@
     document.getElementById('btn-taster-back-' + n).addEventListener('click', () => goToTasterCard(n - 1));
   }
   document.getElementById('btn-back-taster').addEventListener('click', () => showScreen('screen-response'));
-  document.getElementById('btn-taster-apply').addEventListener('click', () => showScreen('screen-apply'));
+  document.getElementById('btn-taster-apply').addEventListener('click', () => {
+    state.applyOrigin = 'screen-taster';
+    showScreen('screen-apply');
+  });
 
   // ── Taster card 3: benefits image auto-reveals from white to colour ──
   // Two images stacked: a plain white-text base and a colour-text layer on
@@ -2514,10 +2529,20 @@
     showScreen('screen-prompts');
   });
   document.getElementById('btn-back-apply').addEventListener('click', () => {
-    hideTasterCards();
-    document.getElementById('taster-card-8').classList.add('active');
-    setTasterProgress(8);
-    showScreen('screen-taster');
+    const origin = state.applyOrigin;
+    if (origin === 'screen-taster' || !origin) {
+      // Natural completion of the taster (or unknown origin -- safest default
+      // is where most people reach Take Action from).
+      hideTasterCards();
+      document.getElementById('taster-card-8').classList.add('active');
+      setTasterProgress(8);
+      showScreen('screen-taster');
+    } else {
+      // Arrived from the map hub, or from the persistent header shortcut
+      // while somewhere else entirely -- return to exactly that screen
+      // rather than assuming they came from the taster.
+      showScreen(origin);
+    }
   });
 
   </script>
