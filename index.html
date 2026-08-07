@@ -224,6 +224,10 @@
       flex: 1;
       min-height: calc(100vh - 80px);
     }
+    #screen-map::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(0, 20, 64, 0.6); z-index: 1;
+    }
     .about-inner {
       max-width: 560px; width: 100%;
       position: relative; z-index: 2;
@@ -262,9 +266,9 @@
     .path-cards { display: flex; flex-direction: column; gap: 1.1rem; width: 100%; margin-bottom: 1rem; }
     .path-card {
       display: flex; flex-direction: column; gap: 0.8rem;
-      width: 100%; text-align: left; background: rgba(255,255,255,0.08);
-      border: 1.5px solid rgba(255,255,255,0.25); border-radius: var(--radius);
-      padding: 1.4rem 1.4rem 1.2rem;
+      width: 100%; text-align: left; background: var(--navy-dark);
+      border: 1.5px solid rgba(255,255,255,0.15); border-radius: var(--radius);
+      padding: 1.4rem 1.4rem 1.2rem; box-shadow: var(--shadow-md);
     }
     .path-card-title { font-family: var(--font-ui); font-weight: 700; font-size: 1.1rem; color: #fff; }
     .path-card-desc { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.75); }
@@ -942,6 +946,7 @@
     .back-row-centered {
       width: 100%; display: flex; justify-content: flex-start;
       padding: 0.75rem 1.5rem 0;
+      position: relative; z-index: 2;
     }
 
     @media (min-width: 900px) {
