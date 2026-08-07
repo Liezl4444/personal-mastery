@@ -104,7 +104,11 @@
       border-radius: var(--radius-full); padding: 0.26rem 0.85rem;
       font-size: 0.65rem; font-weight: 600; color: var(--gold-light);
       letter-spacing: 0.06em; white-space: nowrap; flex-shrink: 0;
+      font-family: var(--font-ui); cursor: pointer; min-height: 32px;
+      transition: all var(--transition);
     }
+    .header-badge:hover { background: rgba(228,160,36,0.24); border-color: var(--gold); }
+    .header-badge:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
     @media (max-width: 500px) {
       .site-header { padding: 0 1rem; }
       .header-prog, .header-divider { display: none; }
@@ -211,6 +215,15 @@
       flex: 1;
       min-height: calc(100vh - 80px);
     }
+    #screen-map {
+      background: url('/assets/pm-background.png') center/cover no-repeat;
+      align-items: center; justify-content: flex-start;
+      padding: 1.5rem 1.5rem 4rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+      flex: 1;
+      min-height: calc(100vh - 80px);
+    }
     .about-inner {
       max-width: 560px; width: 100%;
       position: relative; z-index: 2;
@@ -236,6 +249,35 @@
       font-size: 0.94rem; font-weight: 400; color: rgba(255,255,255,0.85);
       line-height: 1.8; margin-bottom: 2.5rem;
     }
+
+    /* Return-to-map link, used at the end of each section */
+    .map-return-link {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: none; border: none; font-family: var(--font-ui);
+      font-size: 0.8rem; font-weight: 600; cursor: pointer; min-height: 44px;
+      padding: 0.5rem 0; text-decoration: underline; text-underline-offset: 3px;
+    }
+
+    /* Map hub -- two path cards, each with framing copy above its own button */
+    .path-cards { display: flex; flex-direction: column; gap: 1.1rem; width: 100%; margin-bottom: 1rem; }
+    .path-card {
+      display: flex; flex-direction: column; gap: 0.8rem;
+      width: 100%; text-align: left; background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.25); border-radius: var(--radius);
+      padding: 1.4rem 1.4rem 1.2rem;
+    }
+    .path-card-title { font-family: var(--font-ui); font-weight: 700; font-size: 1.1rem; color: #fff; }
+    .path-card-desc { font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.75); }
+    .path-card-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+      width: 100%; min-height: 44px; padding: 0.75rem 1.2rem;
+      background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.35);
+      border-radius: var(--radius-sm); color: #fff; font-family: var(--font-ui);
+      font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all var(--transition);
+    }
+    .path-card-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+    .path-card-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+    .path-cards-conclusion { font-size: 0.86rem; line-height: 1.7; color: rgba(255,255,255,0.65); }
 
     .about-offer-price {
       font-family: var(--font-ui); font-weight: 700; font-size: 1.2rem;
@@ -663,21 +705,13 @@
     }
     .taster-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-    /* Card 2 -- welcome video companion: photo, nameplate, short bio */
+    /* Card 2 -- welcome video companion: photo (name is baked into the graphic), short bio */
     .faculty-intro { margin-bottom: 1.1rem; }
-    .faculty-photo-frame { position: relative; width: 148px; margin: 0 auto 1.6rem; }
-    .faculty-photo-frame img {
-      width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block;
-      border-radius: 50% 50% 10px 10px; border: 3px solid var(--white);
-      box-shadow: var(--shadow-md); background: var(--stone-200);
+    .faculty-photo-frame {
+      width: 100%; max-width: 280px; margin: 0 auto 1.1rem;
+      border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md);
     }
-    .faculty-nameplate {
-      position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%);
-      background: var(--navy); color: #fff; font-family: var(--font-ui); font-weight: 700;
-      font-size: 0.65rem; letter-spacing: 0.03em; text-transform: uppercase;
-      padding: 0.4rem 0.9rem; border-radius: var(--radius-full); white-space: nowrap;
-      box-shadow: var(--shadow-sm);
-    }
+    .faculty-photo-frame img { display: block; width: 100%; height: auto; }
     .faculty-bio { font-size: 0.84rem; color: var(--ink-mid); line-height: 1.65; text-align: left; }
 
     .taster-learn-more {
@@ -876,7 +910,7 @@
       .prog-wrap { padding: 0.9rem 0.9rem 0; }
       .prompts-topbar, .resp-topbar { padding: 0.7rem 0.9rem; }
       .photo-card { padding: 1.75rem 1.1rem; }
-      #screen-entry, #screen-about { padding: 1.5rem 1.25rem 6rem; }
+      #screen-entry, #screen-about, #screen-map { padding: 1.5rem 1.25rem 6rem; }
       .entry-inner { padding-top: 0.5rem; }
     }
 
@@ -1039,7 +1073,7 @@
       <div class="header-divider" aria-hidden="true"></div>
       <span class="header-prog">Personal Mastery: Leading from Within</span>
     </div>
-    <span class="header-badge">My Story</span>
+    <button class="header-badge" id="btn-header-hub" type="button">Take Action</button>
   </header>
 
   <!-- SCREEN 0  --  ENTRY (hook only) -->
@@ -1123,6 +1157,41 @@
         Begin My Story
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
+    </div>
+  </section>
+
+  <!-- SCREEN 0c  --  CHOOSE YOUR STARTING POINT (hub) -->
+  <section class="screen" id="screen-map" aria-labelledby="map-heading">
+    <div class="back-row-centered">
+      <button class="btn-back btn-back-light" id="btn-back-map" type="button" aria-label="Back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        Back
+      </button>
+    </div>
+    <div class="about-inner">
+      <p class="about-eyebrow" id="map-heading">Choose Your Path</p>
+      <p class="entry-tagline">Personal mastery begins with a choice. Start by exploring where you are now, or take the next step and commit to your development.</p>
+
+      <div class="path-cards">
+        <div class="path-card">
+          <p class="path-card-title">Reflect and Experience</p>
+          <p class="path-card-desc">Take a moment to reflect on where you are right now, then experience a short taster of Personal Mastery: Leading from Within, facilitated by Dr Mags.</p>
+          <button class="path-card-btn" id="path-reflect" type="button">
+            Begin
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div class="path-card">
+          <p class="path-card-title">Take Action</p>
+          <p class="path-card-desc">Ready to move from intention to action? Sign up for the full experience. Once you complete the course and earn your GIBS certificate, you'll also have the opportunity to nominate one person to take part in the same experience, at no cost to them.</p>
+          <button class="path-card-btn" id="path-action" type="button">
+            Apply Now
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <p class="path-cards-conclusion">Whether you're ready to pause and explore or step forward and commit, choose the experience that feels right for you.</p>
     </div>
   </section>
 
@@ -1344,6 +1413,10 @@
         </button>
       </div>
 
+      <div style="display:flex;gap:1.25rem;flex-wrap:wrap;justify-content:center;">
+        <button class="map-return-link" id="btn-response-to-apply" type="button" style="color:var(--teal);">Skip to Take Action</button>
+      </div>
+
     </div>
 
     <!-- Hidden canvas for downloadable image -->
@@ -1400,8 +1473,7 @@
 
       <div class="faculty-intro">
         <div class="faculty-photo-frame">
-          <img src="/assets/dr-frank-magwegwe-photo.png" alt="Dr Frank Magwegwe, GIBS faculty" />
-          <span class="faculty-nameplate">Dr Frank Magwegwe</span>
+          <img src="/assets/dr-frank-photo-v2.png" alt="Dr Frank Magwegwe, GIBS faculty" />
         </div>
         <p class="faculty-bio">Dr Frank Magwegwe, known as Dr Mags, brings 25 years of leadership experience across financial services, including senior roles at Momentum and Investment Solutions. At GIBS, he teaches finance, resilience and personal mastery, and speaks widely on wellbeing in the workplace.</p>
       </div>
@@ -1578,7 +1650,7 @@
 
       <!-- Pay-It-Forward recap -->
       <div class="banner-image">
-        <img src="/assets/personal-mastery-payitforward.png" alt="Don't forget: Pay It Forward. When you complete the course and earn your GIBS certificate, you'll be invited to nominate one person for the same experience, at no cost to them. Your growth does not have to stop with you." />
+        <img src="/assets/personal-mastery-pay-it-forward2.png" alt="Don't forget: Pay It Forward. When you complete the course and earn your GIBS certificate, you'll be invited to nominate one person for the same experience, at no cost to them. Your growth does not have to stop with you." />
       </div>
 
       <!-- Data note -->
@@ -1686,7 +1758,13 @@
   // ── Screen 0 → Screen 1 ──────────────────────────────────────────────
   document.getElementById('btn-begin').addEventListener('click', () => showScreen('screen-about'));
   document.getElementById('btn-back-about').addEventListener('click', () => showScreen('screen-entry'));
-  document.getElementById('btn-about-begin').addEventListener('click', () => showScreen('screen-photo'));
+  document.getElementById('btn-about-begin').addEventListener('click', () => showScreen('screen-map'));
+  document.getElementById('btn-back-map').addEventListener('click', () => showScreen('screen-about'));
+  document.getElementById('path-reflect').addEventListener('click', () => showScreen('screen-photo'));
+  document.getElementById('path-action').addEventListener('click', () => showScreen('screen-apply'));
+
+  // ── Persistent Take Action shortcut (visible in the header on every screen) ──
+  document.getElementById('btn-header-hub').addEventListener('click', () => showScreen('screen-apply'));
 
   // ── Entry screen: testimonial slider ────────────────────────────────
   (function initTestimonials() {
@@ -1849,8 +1927,13 @@
       announce('Voice input started. Speak now.');
     };
     rec.onresult = ev => {
+      // Rebuild from index 0 every time (not ev.resultIndex): the browser's
+      // resultIndex only points at what's new since the last event, and
+      // relying on it here was silently dropping everything said before a
+      // pause. Iterating the full results list each time is what keeps
+      // every finalized phrase in the transcript, pause or no pause.
       let fin = '', int = '';
-      for (let i = ev.resultIndex; i < ev.results.length; i++) {
+      for (let i = 0; i < ev.results.length; i++) {
         const t = ev.results[i][0].transcript;
         ev.results[i].isFinal ? (fin += t + ' ') : (int += t);
       }
@@ -2055,6 +2138,7 @@
 
   // ── Response → Apply ─────────────────────────────────────────────────
   document.getElementById('btn-continue').addEventListener('click', goToTaster);
+  document.getElementById('btn-response-to-apply').addEventListener('click', () => showScreen('screen-apply'));
 
   // ── Course taster stepper (8 nuggets) ────────────────────────────────
   const tasterTitles = [
@@ -2406,8 +2490,7 @@
 
 
   // ── Apply Now: links out to the official GIBS application page ────────
-  // TODO: replace with the live application page URL once Asogaran provides it.
-  const APPLICATION_FORM_URL = '';
+  const APPLICATION_FORM_URL = 'https://www.gibs.co.za/programmes/personal-mastery--leading-from-within';
 
   document.getElementById('btn-apply-now').addEventListener('click', () => {
     if (!APPLICATION_FORM_URL) {
